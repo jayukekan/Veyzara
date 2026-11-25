@@ -132,6 +132,12 @@
     "riyan_cart_offer_code": "Prepaid 5",
     "riyan_cart_recommendation_collection": "dress",
     "riyan_cart_drawer_width": 480,
+    "mid": "19034rau76vi",
+    "envType": "production",
+    "fbpixel": "8244012538953002",
+    "goEnable": true,
+    "goBuynowEnable": true,
+    "enableIntlFlow": true,
     "sections": {
       "main-password-header": {
         "type": "main-password-header",

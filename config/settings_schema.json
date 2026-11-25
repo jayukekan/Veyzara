@@ -1648,5 +1648,138 @@
         "unit": "px"
       }
     ]
+  },
+  {
+    "name": "GoKwik",
+    "settings": [
+      {
+        "type": "text",
+        "id": "mid",
+        "label": "Merchant ID"
+      },
+      {
+        "type": "header",
+        "content": "Environment"
+      },
+      {
+        "type": "select",
+        "id": "envType",
+        "label": "Environment",
+        "options": [
+          { "value": "qa", "label": "QA" },
+          { "value": "sandbox", "label": "Sandbox" },
+          { "value": "production", "label": "Production" }
+        ],
+        "default": "production"
+      },
+      {
+        "type": "checkbox",
+        "id": "hideFlow",
+        "label": "Hide GoKwik buttons without disabling the flow",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Data tracking"
+      },
+      {
+        "type": "text",
+        "id": "ga4Gokwik",
+        "label": "Google Analytics ID (GA4)"
+      },
+      {
+        "type": "text",
+        "id": "fbpixel",
+        "label": "Facebook Pixel ID"
+      },
+      {
+        "type": "text",
+        "id": "snapPixel",
+        "label": "Snapchat Pixel ID"
+      },
+      {
+        "type": "header",
+        "content": "Checkout button"
+      },
+      {
+        "type": "checkbox",
+        "id": "goEnable",
+        "label": "Enable GoKwik checkout",
+        "default": false
+      },
+      {
+        "type": "color",
+        "id": "priClr",
+        "label": "Checkout background",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "secClr",
+        "label": "Checkout text",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "text",
+        "id": "main-titile",
+        "label": "Checkout button text",
+        "default": "Checkout"
+      },
+      {
+        "type": "header",
+        "content": "Buy Now button"
+      },
+      {
+        "type": "checkbox",
+        "id": "goBuynowEnable",
+        "label": "Enable GoKwik Buy Now",
+        "default": false
+      },
+      {
+        "type": "color",
+        "id": "btnBClr",
+        "label": "Buy Now background",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "btnTextClr",
+        "label": "Buy Now text",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "text",
+        "id": "buyNowText",
+        "label": "Buy Now button text",
+        "default": "Buy It Now"
+      },
+      {
+        "type": "header",
+        "content": "Other settings"
+      },
+      {
+        "type": "text",
+        "id": "sub-titile",
+        "label": "Button subtext"
+      },
+      {
+        "type": "checkbox",
+        "id": "enableLogo",
+        "label": "Show payment logos",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enableIntlFlow",
+        "label": "Use native Shopify checkout outside India",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enableBannertext",
+        "label": "Show subtext as a banner",
+        "default": false
+      }
+    ]
   }
 ]
