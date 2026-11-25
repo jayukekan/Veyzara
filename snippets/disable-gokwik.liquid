@@ -1,0 +1,96 @@
+{% comment %}
+  Keeps the storefront on native Shopify checkout when the installed GoKwik/KwikEngage
+  integration attempts to inject its legacy theme code again.
+{% endcomment %}
+
+<style>
+  .gokwik-checkout,
+  .gokwik-buy-now,
+  [id^='gokwik-buy-now'],
+  [class*='gokwik' i],
+  [class*='kwikengage' i],
+  [id*='gokwik' i],
+  [id*='kwikengage' i],
+  iframe[src*='gokwik' i],
+  iframe[src*='kwikengage' i] {
+    display: none !important;
+  }
+</style>
+
+<script>
+  (() => {
+    const blockedPattern = /gokwik|kwikengage/i;
+    const blockedSelector = [
+      '.gokwik-checkout',
+      '.gokwik-buy-now',
+      '[id^="gokwik-buy-now"]',
+      '[class*="gokwik" i]',
+      '[class*="kwikengage" i]',
+      '[id*="gokwik" i]',
+      '[id*="kwikengage" i]',
+      'iframe[src*="gokwik" i]',
+      'iframe[src*="kwikengage" i]'
+    ].join(',');
+
+    const removeExternalAsset = (element) => {
+      if (!(element instanceof Element)) return;
+
+      if (element.matches('script[src], link[href], iframe[src]')) {
+        const source = element.getAttribute('src') || element.getAttribute('href') || '';
+        if (blockedPattern.test(source)) element.remove();
+      }
+
+      element.querySelectorAll?.('script[src], link[href], iframe[src]').forEach((asset) => {
+        const source = asset.getAttribute('src') || asset.getAttribute('href') || '';
+        if (blockedPattern.test(source)) asset.remove();
+      });
+    };
+
+    const restoreShopifyCheckout = () => {
+      document.querySelectorAll('.shopifycheckoutbtn').forEach((button) => {
+        button.hidden = false;
+        button.style.removeProperty('display');
+      });
+    };
+
+    const cleanPage = (root = document) => {
+      removeExternalAsset(root.documentElement || root);
+      root.querySelectorAll?.(blockedSelector).forEach((element) => element.remove());
+      restoreShopifyCheckout();
+    };
+
+    try {
+      Object.defineProperty(window, 'merchantInfo', {
+        configurable: false,
+        get: () => undefined,
+        set: () => undefined
+      });
+    } catch (error) {
+      window.merchantInfo = undefined;
+    }
+
+    window.addEventListener(
+      'gokwikLoaded',
+      (event) => {
+        event.stopImmediatePropagation();
+        cleanPage();
+      },
+      true
+    );
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (!(node instanceof Element)) return;
+          removeExternalAsset(node);
+          if (node.matches(blockedSelector)) node.remove();
+          node.querySelectorAll?.(blockedSelector).forEach((element) => element.remove());
+        });
+      });
+      restoreShopifyCheckout();
+    });
+
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+    document.addEventListener('DOMContentLoaded', () => cleanPage(), { once: true });
+  })();
+</script>
