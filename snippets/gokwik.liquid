@@ -1,0 +1,206 @@
+{% doc %}
+Loads and configures the GoKwik merchant integration once per storefront page.
+{% enddoc %}
+
+{% liquid
+  if settings.envType == 'production'
+    assign gokwik_host = 'pdp'
+  elsif settings.envType == 'sandbox'
+    assign gokwik_host = 'sandbox.pdp'
+  endif
+%}
+
+{% if settings.goEnable or settings.goBuynowEnable %}
+  <link rel="dns-prefetch" href="https://pdp.gokwik.co">
+  <link rel="dns-prefetch" href="https://api.gokwik.co">
+  <script>
+    window.gaTag = { ga4: {{ settings.ga4Gokwik | json }} };
+    window.merchantInfo = {
+      mid: {{ settings.mid | json }},
+      environment: {{ settings.envType | json }},
+      type: 'merchantInfo',
+      storeId: {{ shop.id | json }},
+      fbpixel: {{ settings.fbpixel | json }},
+      snapchatPixels: {{ settings.snapPixel | json }}
+    };
+    var productFormSelector = '';
+    var cart = {{ cart | json }};
+    var templateName = {{ template.name | json }};
+  </script>
+  {% if gokwik_host != blank %}
+    <script src="https://{{ gokwik_host }}.gokwik.co/merchant-integration/build/merchant.integration.js?v4" defer></script>
+  {% endif %}
+  <script>
+    (() => {
+      let gokwikReady = false;
+      let detectedCountry = '';
+
+      const nativeCheckoutButtons = () => document.querySelectorAll('.shopifycheckoutbtn');
+      const gokwikCheckoutButtons = () => document.querySelectorAll('.gokwik-checkout button');
+      const gokwikBuyNowButtons = () => document.querySelectorAll('.gokwik-buy-now, [id^="gokwik-buy-now"]');
+
+      const syncInternationalFlow = () => {
+        if (!{{ settings.enableIntlFlow | json }}) return;
+        const useGokwik = detectedCountry === 'India' && gokwikReady;
+        nativeCheckoutButtons().forEach((button) => { button.style.display = useGokwik ? 'none' : ''; });
+        document.querySelectorAll('.gokwik-checkout, .gokwik-buy-now, [id^="gokwik-buy-now"]').forEach((control) => {
+          control.style.display = useGokwik ? '' : 'none';
+        });
+      };
+
+      const syncControls = () => {
+        gokwikCheckoutButtons().forEach((button) => {
+          button.disabled = !gokwikReady;
+          button.classList.toggle('disabled', !gokwikReady);
+        });
+        gokwikBuyNowButtons().forEach((button) => {
+          const productForm = button.closest('form[action*="/cart/add"], product-form')?.querySelector('form[action*="/cart/add"]') || button.closest('form[action*="/cart/add"]');
+          const addButton = productForm?.querySelector('button[name="add"], button[type="submit"]');
+          const unavailable = !addButton || addButton.disabled || addButton.getAttribute('aria-disabled') === 'true';
+          button.disabled = !gokwikReady || unavailable;
+          button.classList.toggle('disabled', button.disabled);
+        });
+        syncInternationalFlow();
+      };
+
+      window.addEventListener('gokwikLoaded', () => {
+        gokwikReady = true;
+        syncControls();
+      });
+
+      document.addEventListener('DOMContentLoaded', () => {
+        syncControls();
+        if ({{ settings.enableIntlFlow | json }}) {
+          fetch('/browsing_context_suggestions.json')
+            .then((response) => response.json())
+            .then((response) => {
+              detectedCountry = response?.detected_values?.country_name || '';
+              syncInternationalFlow();
+            })
+            .catch(() => syncInternationalFlow());
+        }
+        document.addEventListener('change', () => setTimeout(syncControls, 0));
+        document.addEventListener('variant:change', syncControls);
+        document.addEventListener('product:variant-change', syncControls);
+        new MutationObserver((records) => {
+          const requiresSync = records.some((record) => {
+            if (record.type === 'childList') return true;
+            return !record.target.matches('.gokwik-checkout button, .gokwik-buy-now, [id^="gokwik-buy-now"]');
+          });
+          if (requiresSync) syncControls();
+        }).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['disabled', 'aria-disabled'] });
+      });
+    })();
+  </script>
+
+  {% if settings.ga4Gokwik != blank %}
+    <script>
+      (() => {
+        const script = document.createElement('script');
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(window.gaTag.ga4);
+        script.defer = true;
+        document.head.appendChild(script);
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+        window.gtag('js', new Date());
+        window.gtag('config', window.gaTag.ga4, { groups: 'GA4' });
+      })();
+    </script>
+  {% endif %}
+{% endif %}
+
+<style>
+  .gokwik-checkout {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .gokwik-checkout button,
+  .gokwik-buy-now {
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-height: 4.8rem;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    border: 0;
+  }
+  .gokwik-checkout button {
+    background: {{ settings.priClr }};
+    color: {{ settings.secClr }};
+  }
+  .gokwik-buy-now {
+    margin-top: 1rem;
+    background: {{ settings.btnBClr }};
+    color: {{ settings.btnTextClr }};
+  }
+  .gokwik-checkout .btn-text,
+  .gokwik-buy-now .btn-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.2;
+  }
+  .gokwik-checkout .btn-text > span:last-child,
+  .gokwik-buy-now .btn-text > span:last-child {
+    padding-top: 0.2rem;
+    font-size: 1rem;
+    text-transform: none;
+  }
+  .gokwik-checkout .pay-opt-icon,
+  .gokwik-buy-now .pay-opt-icon {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .gokwik-checkout .pay-opt-icon img,
+  .gokwik-buy-now .pay-opt-icon img {
+    width: auto;
+    max-height: 1.8rem;
+  }
+  .gokwik-checkout button.disabled,
+  .gokwik-buy-now.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  .btn-loader {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: inherit;
+  }
+  .disabled .btn-loader {
+    display: flex;
+  }
+  .cir-loader {
+    width: 3.5rem;
+    height: 3.5rem;
+    border: 0.5rem solid rgba(255, 255, 255, 0.2);
+    border-left-color: #fff;
+    border-radius: 50%;
+    animation: gokwik-spin 1.1s linear infinite;
+  }
+  {% if settings.enableBannertext %}
+    .gokwik-checkout .btn-text > span:last-child,
+    .gokwik-buy-now .btn-text > span:last-child {
+      position: absolute;
+      top: -0.8rem;
+      left: 0.6rem;
+      z-index: 1;
+      padding: 0.1rem 1rem;
+      border-radius: 0.3rem;
+      background: #53ff73;
+      color: #000;
+      font-weight: 800;
+      letter-spacing: 0.1rem;
+    }
+  {% endif %}
+  @keyframes gokwik-spin {
+    to { transform: rotate(360deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cir-loader { animation: none; }
+  }
+</style>

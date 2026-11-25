@@ -1,0 +1,1622 @@
+{% liquid
+  assign sid = section.id
+%}
+
+<section
+  id="lis-{{ sid }}"
+  class="lis-section"
+  style="
+    --lis-bg: {{ section.settings.section_bg }};
+    --lis-card: {{ section.settings.card_bg }};
+    --lis-accent: {{ section.settings.accent }};
+    --lis-heading: {{ section.settings.heading_color }};
+    --lis-body: {{ section.settings.body_color }};
+    --lis-border: {{ section.settings.border_color }};
+  "
+>
+  <div class="lis-page">
+    <div
+      class="
+        lis-card
+        {% if section.settings.image_position == 'left' %}
+          lis-card--image-left
+        {% endif %}
+      "
+    >
+      <!--
+        ======================
+             CONTENT
+        =======================
+      -->
+      <div class="lis-content">
+        {% if section.settings.eyebrow != blank %}
+          <div class="lis-eyebrow">
+            <span class="lis-eyebrow__line"></span>
+            <span class="lis-eyebrow__text">
+              {{ section.settings.eyebrow }}
+            </span>
+          </div>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <h2 class="lis-heading">
+            {{ section.settings.heading }}
+          </h2>
+        {% endif %}
+
+        {% if section.settings.subheading != blank %}
+          <div class="lis-subheading">
+            {{ section.settings.subheading }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.description != blank %}
+          <div class="lis-description">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.show_points %}
+          <div class="lis-points">
+            {% if section.settings.point_1 != blank %}
+              <div class="lis-point">
+                <span class="lis-point__icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M6 12.5L10 16.5L18.5 8"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+
+                <span>
+                  {{ section.settings.point_1 }}
+                </span>
+              </div>
+            {% endif %}
+
+            {% if section.settings.point_2 != blank %}
+              <div class="lis-point">
+                <span class="lis-point__icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M6 12.5L10 16.5L18.5 8"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+
+                <span>
+                  {{ section.settings.point_2 }}
+                </span>
+              </div>
+            {% endif %}
+
+            {% if section.settings.point_3 != blank %}
+              <div class="lis-point">
+                <span class="lis-point__icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M6 12.5L10 16.5L18.5 8"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+
+                <span>
+                  {{ section.settings.point_3 }}
+                </span>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if section.settings.button_label != blank %}
+          <div class="lis-actions">
+            <a
+              href="{{ section.settings.button_link | default: '#' }}"
+              class="lis-button"
+            >
+              <span>
+                {{ section.settings.button_label }}
+              </span>
+
+              <span class="lis-button__arrow">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M5 12H19"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M14 7L19 12L14 17"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+            </a>
+          </div>
+        {% endif %}
+      </div>
+
+      <!--
+        ======================
+             IMAGE
+        =======================
+      -->
+      <div class="lis-media">
+        <div class="lis-image-shell">
+          {% if section.settings.image != blank %}
+            {{
+              section.settings.image
+              | image_url: width: 1600
+              | image_tag: loading: 'lazy', widths: '400, 600, 800, 1000, 1200, 1600', class: 'lis-image'
+            }}
+          {% else %}
+            {{ 'image' | placeholder_svg_tag: 'lis-placeholder' }}
+          {% endif %}
+
+          <!-- SOFT OVERLAY -->
+          <span class="lis-image-overlay"></span>
+
+          {% if section.settings.image_label != blank %}
+            <div class="lis-image-label">
+              <span class="lis-image-label__dot"></span>
+
+              <span>
+                {{ section.settings.image_label }}
+              </span>
+            </div>
+          {% endif %}
+
+          {% if section.settings.show_number %}
+            <div class="lis-editorial-number">
+              {{ section.settings.editorial_number }}
+            </div>
+          {% endif %}
+        </div>
+
+        {% if section.settings.caption != blank %}
+          <div class="lis-caption">
+            <span class="lis-caption__line"></span>
+            <span>{{ section.settings.caption }}</span>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #lis-{{ sid }} {
+    width: 100%;
+    overflow: hidden;
+    font-family: var(--font-body-family);
+
+    padding:
+      {{ section.settings.padding_top }}px
+      20px
+      {{ section.settings.padding_bottom }}px;
+
+    background:
+      var(--lis-bg);
+  }
+
+  #lis-{{ sid }} * {
+    box-sizing: border-box;
+  }
+
+  /* =============================
+     PAGE WIDTH
+  ============================= */
+
+  #lis-{{ sid }} .lis-page {
+    width: 100%;
+
+    max-width:
+      {{ section.settings.max_width }}px;
+
+    margin: 0 auto;
+  }
+
+
+  /* =============================
+     MAIN CARD
+  ============================= */
+
+  #lis-{{ sid }} .lis-card {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+      minmax(0, .88fr)
+      minmax(460px, 1.12fr);
+
+    align-items: center;
+
+    gap:
+      {{ section.settings.column_gap }}px;
+
+    padding:
+      {{ section.settings.card_padding }}px;
+
+    overflow: hidden;
+
+    border:
+      1px solid
+      var(--lis-border);
+
+    border-radius:
+      {{ section.settings.card_radius }}px;
+
+    background:
+      var(--lis-card);
+
+    box-shadow:
+      0 20px 60px
+      rgba(33, 18, 20, .045);
+  }
+
+
+  #lis-{{ sid }} .lis-card::before {
+    content: '';
+
+    position: absolute;
+
+    width: 230px;
+    height: 230px;
+
+    border-radius: 50%;
+
+    left: -130px;
+    bottom: -140px;
+
+    border:
+      1px solid
+      rgba(89,28,39,.08);
+
+    pointer-events: none;
+  }
+
+
+  #lis-{{ sid }} .lis-card::after {
+    content: '';
+
+    position: absolute;
+
+    width: 90px;
+    height: 1px;
+
+    top: 27px;
+    left: 32px;
+
+    background:
+      var(--lis-accent);
+
+    opacity: .18;
+
+    pointer-events: none;
+  }
+
+
+  /* =============================
+     IMAGE LEFT
+  ============================= */
+
+  #lis-{{ sid }}
+  .lis-card--image-left {
+    grid-template-columns:
+      minmax(460px, 1.12fr)
+      minmax(0, .88fr);
+  }
+
+
+  #lis-{{ sid }}
+  .lis-card--image-left
+  .lis-content {
+    order: 2;
+  }
+
+
+  #lis-{{ sid }}
+  .lis-card--image-left
+  .lis-media {
+    order: 1;
+  }
+
+
+  /* =============================
+     CONTENT
+  ============================= */
+
+  #lis-{{ sid }} .lis-content {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 540px;
+
+    padding:
+      12px
+      10px
+      12px
+      8px;
+  }
+
+
+  /* =============================
+     EYEBROW
+  ============================= */
+
+  #lis-{{ sid }} .lis-eyebrow {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 16px;
+
+    color:
+      var(--lis-accent);
+  }
+
+
+  #lis-{{ sid }}
+  .lis-eyebrow__line {
+    display: block;
+
+    width: 32px;
+    height: 1px;
+
+    flex: 0 0 32px;
+
+    background:
+      var(--lis-accent);
+  }
+
+
+  #lis-{{ sid }}
+  .lis-eyebrow__text {
+    font-size: 10px;
+
+    line-height: 1;
+
+    font-weight: 600;
+
+    letter-spacing: .21em;
+
+    text-transform: uppercase;
+  }
+
+
+  /* =============================
+     HEADING
+  ============================= */
+
+  #lis-{{ sid }} .lis-heading {
+    margin:
+      0
+      0
+      12px;
+
+    color:
+      var(--lis-heading);
+
+    font-family: var(--font-heading-family);
+
+    font-size:
+      {{ section.settings.heading_size }}px;
+
+    font-weight:
+      {{ section.settings.heading_weight }};
+
+    line-height: 1.02;
+
+    letter-spacing: -.035em;
+  }
+
+
+  /* =============================
+     SUBHEADING
+  ============================= */
+
+  #lis-{{ sid }} .lis-subheading {
+    max-width: 460px;
+
+    margin-bottom: 15px;
+
+    color:
+      var(--lis-accent);
+
+    font-family: var(--font-heading-family);
+
+    font-size:
+      {{ section.settings.subheading_size }}px;
+
+    font-style: italic;
+
+    line-height: 1.45;
+  }
+
+
+  /* =============================
+     DESCRIPTION
+  ============================= */
+
+  #lis-{{ sid }} .lis-description {
+    max-width: 500px;
+
+    color:
+      var(--lis-body);
+
+    font-size:
+      {{ section.settings.description_size }}px;
+
+    line-height: 1.7;
+
+    letter-spacing: .01em;
+  }
+
+
+  #lis-{{ sid }}
+  .lis-description p {
+    margin:
+      0
+      0
+      9px;
+  }
+
+
+  #lis-{{ sid }}
+  .lis-description p:last-child {
+    margin-bottom: 0;
+  }
+
+
+  /* =============================
+     POINTS
+  ============================= */
+
+  #lis-{{ sid }} .lis-points {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap:
+      10px
+      19px;
+
+    margin-top: 21px;
+  }
+
+
+  #lis-{{ sid }} .lis-point {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color:
+      var(--lis-heading);
+
+    font-size: 9px;
+
+    line-height: 1.2;
+
+    font-weight: 600;
+
+    letter-spacing: .095em;
+
+    text-transform: uppercase;
+  }
+
+
+  #lis-{{ sid }}
+  .lis-point__icon {
+    width: 19px;
+    height: 19px;
+
+    flex:
+      0
+      0
+      19px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border:
+      1px solid
+      rgba(89,28,39,.28);
+
+    border-radius: 50%;
+
+    color:
+      var(--lis-accent);
+  }
+
+
+  #lis-{{ sid }}
+  .lis-point__icon svg {
+    width: 11px;
+    height: 11px;
+  }
+
+
+  /* =============================
+     BUTTON
+  ============================= */
+
+  #lis-{{ sid }} .lis-actions {
+    margin-top: 27px;
+  }
+
+
+  #lis-{{ sid }} .lis-button {
+    position: relative;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    min-height: 48px;
+
+    padding:
+      0
+      17px
+      0
+      23px;
+
+    overflow: hidden;
+
+    border:
+      1px solid
+      var(--lis-accent);
+
+    border-radius:
+      {{ section.settings.button_radius }}px;
+
+    background:
+      transparent;
+
+    color:
+      var(--lis-accent);
+
+    text-decoration: none;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    line-height: 1;
+
+    letter-spacing: .17em;
+
+    text-transform: uppercase;
+
+    transition:
+      color .35s ease,
+      background .35s ease,
+      transform .35s ease,
+      box-shadow .35s ease;
+  }
+
+
+  #lis-{{ sid }}
+  .lis-button:hover {
+    color: #fff;
+
+    background:
+      var(--lis-accent);
+
+    transform:
+      translateY(-2px);
+
+    box-shadow:
+      0 13px 28px
+      rgba(89,28,39,.17);
+  }
+
+
+  #lis-{{ sid }}
+  .lis-button__arrow {
+    width: 27px;
+    height: 27px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border:
+      1px solid
+      currentColor;
+
+    border-radius: 50%;
+  }
+
+
+  #lis-{{ sid }}
+  .lis-button__arrow svg {
+    width: 13px;
+    height: 13px;
+
+    transition:
+      transform .3s ease;
+  }
+
+
+  #lis-{{ sid }}
+  .lis-button:hover
+  .lis-button__arrow svg {
+    transform:
+      translateX(2px);
+  }
+
+
+  /* =============================
+     IMAGE
+  ============================= */
+
+  #lis-{{ sid }} .lis-media {
+    position: relative;
+
+    min-width: 0;
+  }
+
+
+  #lis-{{ sid }}
+  .lis-image-shell {
+    position: relative;
+
+    height:
+      {{ section.settings.image_height }}px;
+
+    overflow: hidden;
+
+    border-radius:
+      {{ section.settings.image_radius }}px;
+
+    background:
+      #eee8e6;
+  }
+
+
+  #lis-{{ sid }} .lis-image,
+  #lis-{{ sid }} .lis-placeholder {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit:
+      {{ section.settings.image_fit }};
+
+    object-position:
+      {{ section.settings.image_focus }};
+
+    transition:
+      transform .9s
+      cubic-bezier(.22,.61,.36,1);
+  }
+
+
+  #lis-{{ sid }}
+  .lis-image-shell:hover
+  .lis-image {
+    transform:
+      scale(1.035);
+  }
+
+
+  #lis-{{ sid }}
+  .lis-image-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+      linear-gradient(
+        90deg,
+        rgba(25,12,16,.08),
+        transparent 34%,
+        transparent 72%,
+        rgba(25,12,16,.04)
+      );
+  }
+
+
+  /* =============================
+     IMAGE LABEL
+  ============================= */
+
+  #lis-{{ sid }} .lis-image-label {
+    position: absolute;
+
+    left: 18px;
+    bottom: 17px;
+
+    z-index: 3;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding:
+      9px
+      12px;
+
+    border:
+      1px solid
+      rgba(255,255,255,.38);
+
+    border-radius: 999px;
+
+    background:
+      rgba(255,255,255,.82);
+
+    backdrop-filter:
+      blur(10px);
+
+    -webkit-backdrop-filter:
+      blur(10px);
+
+    color:
+      var(--lis-accent);
+
+    font-size: 8px;
+
+    line-height: 1;
+
+    font-weight: 700;
+
+    letter-spacing: .13em;
+
+    text-transform: uppercase;
+  }
+
+
+  #lis-{{ sid }}
+  .lis-image-label__dot {
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background:
+      var(--lis-accent);
+  }
+
+
+  /* =============================
+     EDITORIAL NUMBER
+  ============================= */
+
+  #lis-{{ sid }}
+  .lis-editorial-number {
+    position: absolute;
+
+    top: 14px;
+    right: 17px;
+
+    z-index: 3;
+
+    font-family: var(--font-heading-family);
+
+    font-size: 11px;
+
+    line-height: 1;
+
+    font-style: italic;
+
+    color:
+      rgba(255,255,255,.92);
+
+    text-shadow:
+      0 2px 10px
+      rgba(0,0,0,.2);
+  }
+
+
+  /* =============================
+     IMAGE CAPTION
+  ============================= */
+
+  #lis-{{ sid }} .lis-caption {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 9px;
+
+    margin-top: 10px;
+
+    color:
+      var(--lis-body);
+
+    font-size: 8px;
+
+    font-weight: 600;
+
+    line-height: 1;
+
+    letter-spacing: .16em;
+
+    text-transform: uppercase;
+  }
+
+
+  #lis-{{ sid }}
+  .lis-caption__line {
+    width: 26px;
+    height: 1px;
+
+    background:
+      var(--lis-accent);
+
+    opacity: .4;
+  }
+
+
+  /* =============================
+     TABLET
+  ============================= */
+
+  @media screen and (max-width: 989px) {
+
+    #lis-{{ sid }} .lis-card,
+    #lis-{{ sid }}
+    .lis-card--image-left {
+
+      grid-template-columns:
+        1fr;
+
+      gap: 29px;
+
+      padding: 30px;
+    }
+
+
+    #lis-{{ sid }}
+    .lis-card--image-left
+    .lis-content,
+    #lis-{{ sid }}
+    .lis-card--image-left
+    .lis-media {
+
+      order: initial;
+    }
+
+
+    #lis-{{ sid }} .lis-content {
+      max-width: 620px;
+    }
+
+
+    #lis-{{ sid }}
+    .lis-image-shell {
+      height: 410px;
+    }
+
+  }
+
+
+  /* =============================
+     MOBILE
+  ============================= */
+
+  @media screen and (max-width: 749px) {
+
+    #lis-{{ sid }} {
+      padding:
+        {{ section.settings.mobile_padding_top }}px
+        12px
+        {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+
+    #lis-{{ sid }} .lis-card {
+      gap: 23px;
+
+      padding:
+        {{ section.settings.mobile_card_padding }}px;
+
+      border-radius:
+        {{ section.settings.mobile_card_radius }}px;
+    }
+
+
+    #lis-{{ sid }}
+    .lis-card::after {
+      display: none;
+    }
+
+
+    #lis-{{ sid }} .lis-content {
+      padding: 3px 2px;
+    }
+
+
+    #lis-{{ sid }} .lis-eyebrow {
+      margin-bottom: 12px;
+
+      gap: 9px;
+    }
+
+
+    #lis-{{ sid }}
+    .lis-eyebrow__line {
+      width: 23px;
+
+      flex-basis: 23px;
+    }
+
+
+    #lis-{{ sid }}
+    .lis-eyebrow__text {
+      font-size: 8px;
+
+      letter-spacing: .18em;
+    }
+
+
+    #lis-{{ sid }} .lis-heading {
+      margin-bottom: 10px;
+      /* font-size:{{ section.settings.mobile_heading_size }}px; */
+      font-size:25px;
+      line-height: 1.06;
+    }
+
+
+    #lis-{{ sid }} .lis-subheading {
+      margin-bottom: 12px;
+
+      font-size:
+        {{ section.settings.mobile_subheading_size }}px;
+    }
+
+
+    #lis-{{ sid }} .lis-description {
+      font-size:
+        {{ section.settings.mobile_description_size }}px;
+
+      line-height: 1.65;
+    }
+
+
+    #lis-{{ sid }} .lis-points {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap:
+        10px
+        8px;
+
+      margin-top: 18px;
+    }
+
+
+    #lis-{{ sid }} .lis-point {
+      font-size: 8px;
+
+      letter-spacing: .06em;
+    }
+
+
+    #lis-{{ sid }}
+    .lis-point:last-child {
+      grid-column:
+        span 2;
+    }
+
+
+    #lis-{{ sid }} .lis-actions {
+      margin-top: 22px;
+    }
+
+
+    #lis-{{ sid }} .lis-button {
+      min-height: 46px;
+
+      padding:
+        0
+        14px
+        0
+        20px;
+
+      font-size: 9px;
+    }
+
+
+    #lis-{{ sid }}
+    .lis-image-shell {
+      height:
+        {{ section.settings.mobile_image_height }}px;
+
+      border-radius:
+        {{ section.settings.mobile_image_radius }}px;
+    }
+
+
+    #lis-{{ sid }} .lis-image-label {
+      left: 12px;
+      bottom: 12px;
+
+      padding:
+        7px
+        9px;
+
+      font-size: 7px;
+    }
+
+
+    #lis-{{ sid }} .lis-caption {
+      justify-content:
+        flex-start;
+    }
+
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Luxury Image Story",
+  "tag": "section",
+  "class": "section-luxury-image-story",
+
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "MADE FOR MODERN WOMEN"
+    },
+
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Effortless by Design"
+    },
+
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Style that feels as beautiful as it looks."
+    },
+
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Thoughtfully designed silhouettes, beautiful fabrics and effortless comfort come together in pieces made for every moment of your day.</p>"
+    },
+
+    {
+      "type": "header",
+      "content": "Highlights"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_points",
+      "label": "Show highlights",
+      "default": true
+    },
+
+    {
+      "type": "text",
+      "id": "point_1",
+      "label": "Highlight 1",
+      "default": "Premium Fabrics"
+    },
+
+    {
+      "type": "text",
+      "id": "point_2",
+      "label": "Highlight 2",
+      "default": "Flattering Fits"
+    },
+
+    {
+      "type": "text",
+      "id": "point_3",
+      "label": "Highlight 3",
+      "default": "Timeless Style"
+    },
+
+    {
+      "type": "header",
+      "content": "Button"
+    },
+
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button text",
+      "default": "Discover Our Story"
+    },
+
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+
+    {
+      "type": "header",
+      "content": "Image"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Fashion image"
+    },
+
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "default": "right",
+      "options": [
+        {
+          "value": "right",
+          "label": "Right"
+        },
+        {
+          "value": "left",
+          "label": "Left"
+        }
+      ]
+    },
+
+    {
+      "type": "text",
+      "id": "image_label",
+      "label": "Image badge",
+      "default": "THE NEW EDIT"
+    },
+
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Image caption",
+      "default": "Designed with intention"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_number",
+      "label": "Show editorial number",
+      "default": true
+    },
+
+    {
+      "type": "text",
+      "id": "editorial_number",
+      "label": "Editorial number",
+      "default": "01 / 03"
+    },
+
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image fit",
+      "default": "cover",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Cover"
+        },
+        {
+          "value": "contain",
+          "label": "Contain"
+        }
+      ]
+    },
+
+    {
+      "type": "select",
+      "id": "image_focus",
+      "label": "Image focus",
+      "default": "center center",
+      "options": [
+        {
+          "value": "center center",
+          "label": "Center"
+        },
+        {
+          "value": "center top",
+          "label": "Top"
+        },
+        {
+          "value": "center bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "left center",
+          "label": "Left"
+        },
+        {
+          "value": "right center",
+          "label": "Right"
+        }
+      ]
+    },
+
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+
+    {
+      "type": "color",
+      "id": "accent",
+      "label": "Brand accent",
+      "default": "#591C27"
+    },
+
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Outer background",
+      "default": "#F8F5F3"
+    },
+
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card background",
+      "default": "#FFFCFA"
+    },
+
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#231B1D"
+    },
+
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body color",
+      "default": "#6D6264"
+    },
+
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#E8DEDC"
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop typography"
+    },
+
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 34,
+      "max": 70,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading weight",
+      "default": "500",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi bold"
+        }
+      ]
+    },
+
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 17
+    },
+
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop layout"
+    },
+
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum width",
+      "min": 1100,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "default": 1350
+    },
+
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Column gap",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "min": 20,
+      "max": 70,
+      "step": 5,
+      "unit": "px",
+      "default": 35
+    },
+
+    {
+      "type": "range",
+      "id": "image_height",
+      "label": "Image height",
+      "min": 320,
+      "max": 620,
+      "step": 20,
+      "unit": "px",
+      "default": 420
+    },
+
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Image radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 45
+    },
+
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 45
+    },
+
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Heading size",
+      "min": 26,
+      "max": 46,
+      "step": 2,
+      "unit": "px",
+      "default": 34
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_subheading_size",
+      "label": "Subheading size",
+      "min": 13,
+      "max": 21,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_description_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 17,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_image_height",
+      "label": "Image height",
+      "min": 220,
+      "max": 420,
+      "step": 20,
+      "unit": "px",
+      "default": 300
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_card_padding",
+      "label": "Card padding",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_card_radius",
+      "label": "Card radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_image_radius",
+      "label": "Image radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Top spacing",
+      "min": 10,
+      "max": 70,
+      "step": 5,
+      "unit": "px",
+      "default": 25
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Bottom spacing",
+      "min": 10,
+      "max": 70,
+      "step": 5,
+      "unit": "px",
+      "default": 25
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Luxury Image Story"
+    }
+  ]
+}
+{% endschema %}

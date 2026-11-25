@@ -1,0 +1,224 @@
+{% liquid
+  assign sid = 'ry-compare-' | append: section.id
+%}
+<section id="{{ sid }}" class="ry-compare" style="--rc-bg:{{ section.settings.background }};--rc-text:{{ section.settings.text_color }};--rc-muted:{{ section.settings.muted_color }};--rc-accent:{{ section.settings.accent_color }};--rc-line:{{ section.settings.border_color }};--rc-radius:{{ section.settings.corner_radius }}px;--rc-max:{{ section.settings.section_width }}px;--rc-top:{{ section.settings.padding_top }}px;--rc-bottom:{{ section.settings.padding_bottom }}px;--rc-divider:50%;">
+  <div class="ry-compare__container">
+    <div class="ry-compare__layout">
+      <div class="ry-compare__aside">
+        {% if section.settings.eyebrow != blank %}<div class="ry-compare__eyebrow"><span class="ry-compare__eyebrow-rule"></span>{{ section.settings.eyebrow | escape }}</div>{% endif %}
+        {% if section.settings.heading != blank %}<h2 class="ry-compare__heading">{{ section.settings.heading | escape }}</h2>{% endif %}
+        {% if section.settings.description != blank %}<p class="ry-compare__description">{{ section.settings.description | escape }}</p>{% endif %}
+        <div class="ry-compare__rule"></div>
+        <div class="ry-compare__products">
+          {% for block in section.blocks limit: 2 %}
+            {% liquid
+              assign product = block.settings.product
+              assign card_title = block.settings.title
+              if card_title == blank and product != blank
+                assign card_title = product.title
+              endif
+              assign thumb = block.settings.thumbnail
+              if thumb == blank and product != blank
+                assign thumb = product.featured_image
+              endif
+              assign card_link = block.settings.link
+              if card_link == blank and product != blank
+                assign card_link = product.url
+              endif
+            %}
+            <article class="ry-compare__product" {{ block.shopify_attributes }}>
+              {% if card_link != blank %}<a class="ry-compare__product-image" href="{{ card_link }}" aria-label="View {{ card_title | default: 'product' | escape }}">{% else %}<div class="ry-compare__product-image">{% endif %}
+                {% if thumb != blank %}
+                  {{ thumb | image_url: width: 240 | image_tag: loading: 'lazy', widths: '100, 160, 240', sizes: '88px', class: 'ry-compare__thumbnail' }}
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag: 'ry-compare__placeholder' }}
+                {% endif %}
+              {% if card_link != blank %}</a>{% else %}</div>{% endif %}
+              <div class="ry-compare__product-info">
+                {% if block.settings.tagline != blank %}<div class="ry-compare__product-tag">{{ block.settings.tagline | escape }}</div>{% endif %}
+                {% if card_title != blank %}<h3 class="ry-compare__product-title">{{ card_title | escape }}</h3>{% endif %}
+                {% if section.settings.show_price and product != blank %}
+                  <div class="ry-compare__price">{{ product.price | money }}{% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s>{% endif %}</div>
+                {% endif %}
+              </div>
+              {% if card_link != blank %}
+                <a class="ry-compare__product-arrow" href="{{ card_link }}" aria-label="Shop {{ card_title | default: 'product' | escape }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+              {% else %}
+                <span class="ry-compare__product-arrow ry-compare__product-arrow--inactive" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+              {% endif %}
+            </article>
+          {% endfor %}
+        </div>
+        {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+          <a class="ry-compare__view-all" href="{{ section.settings.button_link }}">{{ section.settings.button_label | escape }} <span aria-hidden="true">↗</span></a>
+        {% endif %}
+      </div>
+      <div class="ry-compare__visual">
+        {% liquid
+          assign before_block = section.blocks[0]
+          assign after_block = section.blocks[1]
+          assign before_image = blank
+          assign after_image = blank
+          if before_block != blank
+            assign before_image = before_block.settings.large_image
+            if before_image == blank and before_block.settings.product != blank
+              assign before_image = before_block.settings.product.featured_image
+            endif
+          endif
+          if after_block != blank
+            assign after_image = after_block.settings.large_image
+            if after_image == blank and after_block.settings.product != blank
+              assign after_image = after_block.settings.product.featured_image
+            endif
+          endif
+        %}
+        <div class="ry-compare__slider" data-compare-slider style="--rc-divider:50%;">
+          <div class="ry-compare__layer ry-compare__layer--after">
+            {% if after_image != blank %}
+              {{ after_image | image_url: width: 1800 | image_tag: loading: 'lazy', widths: '550, 750, 990, 1200, 1500, 1800', sizes: '(min-width: 990px) 65vw, 100vw', class: 'ry-compare__hero-image' }}
+            {% else %}
+              {{ 'product-2' | placeholder_svg_tag: 'ry-compare__hero-placeholder' }}
+            {% endif %}
+          </div>
+          <div class="ry-compare__layer ry-compare__layer--before">
+            {% if before_image != blank %}
+              {{ before_image | image_url: width: 1800 | image_tag: loading: 'lazy', widths: '550, 750, 990, 1200, 1500, 1800', sizes: '(min-width: 990px) 65vw, 100vw', class: 'ry-compare__hero-image' }}
+            {% else %}
+              {{ 'product-1' | placeholder_svg_tag: 'ry-compare__hero-placeholder' }}
+            {% endif %}
+          </div>
+          <div class="ry-compare__gradient" aria-hidden="true"></div>
+          <div class="ry-compare__caption ry-compare__caption--before">{{ before_block.settings.image_label | default: 'Look One' | escape }}</div>
+          <div class="ry-compare__caption ry-compare__caption--after">{{ after_block.settings.image_label | default: 'Look Two' | escape }}</div>
+          <div class="ry-compare__divider" aria-hidden="true"><span class="ry-compare__handle"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="m15 13-6 7 6 7m10-14 6 7-6 7"/></svg></span></div>
+          <input class="ry-compare__range" type="range" min="0" max="100" step="1" value="50" aria-label="Compare fashion looks. Move left or right to reveal either image." data-compare-range>
+        </div>
+        {% if section.settings.show_hint %}<p class="ry-compare__hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m8 12-5 0m0 0 3-3m-3 3 3 3m10-3h5m0 0-3-3m3 3-3 3"/></svg> Drag to discover both looks</p>{% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+#{{ sid }}{background:var(--rc-bg);color:var(--rc-text);padding:var(--rc-top) 0 var(--rc-bottom);overflow:hidden}
+#{{ sid }} *,#{{ sid }} *:before,#{{ sid }} *:after{box-sizing:border-box}
+#{{ sid }} .ry-compare__container{width:min(var(--rc-max),calc(100% - 48px));margin:0 auto}
+#{{ sid }} .ry-compare__layout{display:grid;grid-template-columns:minmax(290px,34%) minmax(0,1fr);gap:clamp(26px,4vw,70px);align-items:center}
+#{{ sid }} .ry-compare__eyebrow{display:flex;align-items:center;gap:10px;font-size:10px;font-weight:600;letter-spacing:.19em;text-transform:uppercase;color:var(--rc-accent);margin-bottom:16px}
+#{{ sid }} .ry-compare__eyebrow-rule{display:block;width:23px;height:1px;background:currentColor}
+#{{ sid }} .ry-compare__heading{font-family:var(--font-heading-family,Georgia,serif);font-size:{{ section.settings.heading_size }}px;font-weight:var(--font-heading-weight,400);line-height:1.09;letter-spacing:-.035em;margin:0;color:var(--rc-text)}
+#{{ sid }} .ry-compare__description{font-size:13px;color:var(--rc-muted);line-height:1.7;max-width:420px;margin:15px 0 0}
+#{{ sid }} .ry-compare__rule{height:1px;background:var(--rc-line);margin:27px 0}
+#{{ sid }} .ry-compare__products{display:grid;gap:13px}
+#{{ sid }} .ry-compare__product{display:flex;align-items:center;gap:13px;min-width:0;padding:11px;border:1px solid var(--rc-line);border-radius:12px;background:#fff;transition:box-shadow .3s,border-color .3s,transform .3s}
+#{{ sid }} .ry-compare__product:hover{border-color:var(--rc-accent);transform:translateY(-2px);box-shadow:0 12px 26px rgba(40,20,26,.065)}
+#{{ sid }} .ry-compare__product-image{width:83px;height:91px;flex:0 0 83px;display:block;background:#f2edeb;overflow:hidden;border-radius:8px}
+#{{ sid }} .ry-compare__thumbnail,#{{ sid }} .ry-compare__placeholder{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+#{{ sid }} .ry-compare__product:hover .ry-compare__thumbnail{transform:scale(1.07)}
+#{{ sid }} .ry-compare__product-info{min-width:0;flex:1}
+#{{ sid }} .ry-compare__product-tag{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--rc-muted);margin-bottom:4px}
+#{{ sid }} .ry-compare__product-title{font-family:var(--font-heading-family,Georgia,serif);font-size:clamp(16px,1.45vw,21px);font-weight:400;line-height:1.25;color:var(--rc-text);margin:0 0 8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#{{ sid }} .ry-compare__price{font-size:13px;font-weight:650;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+#{{ sid }} .ry-compare__price s{color:var(--rc-muted);font-size:11px;font-weight:400}
+#{{ sid }} .ry-compare__product-arrow{width:33px;height:33px;flex:0 0 33px;display:grid;place-items:center;border-radius:50%;background:var(--rc-accent);color:#fff;text-decoration:none;transition:transform .25s,background .25s}
+#{{ sid }} .ry-compare__product-arrow:hover{transform:rotate(-35deg)}
+#{{ sid }} .ry-compare__product-arrow svg{width:17px;height:17px}
+#{{ sid }} .ry-compare__product-arrow--inactive{opacity:.4}
+#{{ sid }} .ry-compare__view-all{display:inline-flex;gap:20px;align-items:center;margin-top:23px;font-size:11px;text-transform:uppercase;letter-spacing:.14em;text-decoration:none;color:var(--rc-accent);border-bottom:1px solid currentColor;padding:0 0 8px}
+#{{ sid }} .ry-compare__visual{min-width:0}
+#{{ sid }} .ry-compare__slider{position:relative;height:{{ section.settings.desktop_image_height }}px;width:100%;overflow:hidden;border-radius:var(--rc-radius);background:#e9e5e3;isolation:isolate;touch-action:pan-y;user-select:none}
+#{{ sid }} .ry-compare__layer{position:absolute;inset:0}
+#{{ sid }} .ry-compare__layer--before{clip-path:inset(0 calc(100% - var(--rc-divider)) 0 0);z-index:1}
+#{{ sid }} .ry-compare__hero-image,#{{ sid }} .ry-compare__hero-placeholder{display:block;width:100%;height:100%;object-fit:{{ section.settings.image_fit }};object-position:center center}
+#{{ sid }} .ry-compare__gradient{position:absolute;inset:0;z-index:2;background:linear-gradient(0deg,rgba(0,0,0,.25),transparent 30%);pointer-events:none}
+#{{ sid }} .ry-compare__caption{position:absolute;bottom:22px;z-index:3;max-width:calc(50% - 40px);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:10px 18px;border-radius:30px;background:rgba(40,32,33,.49);color:#fff;font-size:12px;line-height:1.2;letter-spacing:.03em;backdrop-filter:blur(10px);pointer-events:none}
+#{{ sid }} .ry-compare__caption--before{left:22px}
+#{{ sid }} .ry-compare__caption--after{right:22px}
+#{{ sid }} .ry-compare__divider{position:absolute;top:0;bottom:0;left:var(--rc-divider);width:2px;background:rgba(255,255,255,.97);box-shadow:0 0 0 1px rgba(0,0,0,.12);z-index:4;transform:translateX(-50%);pointer-events:none}
+#{{ sid }} .ry-compare__handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:58px;height:72px;border-radius:35px;background:#fff;display:grid;place-items:center;color:var(--rc-accent);box-shadow:0 8px 30px rgba(0,0,0,.16)}
+#{{ sid }} .ry-compare__handle svg{width:32px;height:32px}
+#{{ sid }} .ry-compare__range{position:absolute;inset:0;z-index:5;display:block;appearance:none;-webkit-appearance:none;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;touch-action:pan-y}
+#{{ sid }} .ry-compare__range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:30px;height:50px}
+#{{ sid }} .ry-compare__range::-moz-range-thumb{width:30px;height:50px;border:none}
+#{{ sid }} .ry-compare__slider:focus-within{outline:2px solid var(--rc-accent);outline-offset:3px}
+#{{ sid }} .ry-compare__hint{display:flex;align-items:center;justify-content:center;gap:8px;margin:12px 0 0;color:var(--rc-muted);font-size:11px;letter-spacing:.04em}
+#{{ sid }} .ry-compare__hint svg{width:19px;height:19px}
+@media(max-width:989px){#{{ sid }} .ry-compare__layout{grid-template-columns:1fr;gap:24px}#{{ sid }} .ry-compare__aside{max-width:none}#{{ sid }} .ry-compare__products{grid-template-columns:repeat(2,minmax(0,1fr))}#{{ sid }} .ry-compare__rule{margin:19px 0}#{{ sid }} .ry-compare__slider{height:{{ section.settings.tablet_image_height }}px}}
+@media(max-width:749px){#{{ sid }}{padding:{{ section.settings.mobile_padding_top }}px 0 {{ section.settings.mobile_padding_bottom }}px}#{{ sid }} .ry-compare__container{width:calc(100% - 28px)}#{{ sid }} .ry-compare__heading{font-size:clamp(29px,8vw,40px)}#{{ sid }} .ry-compare__eyebrow{font-size:9px;margin-bottom:11px}#{{ sid }} .ry-compare__description{font-size:12px;margin-top:10px}#{{ sid }} .ry-compare__products{grid-template-columns:1fr;gap:9px}#{{ sid }} .ry-compare__product{padding:8px;gap:10px}#{{ sid }} .ry-compare__product-image{width:69px;height:74px;flex-basis:69px}#{{ sid }} .ry-compare__product-title{font-size:17px;margin-bottom:5px}#{{ sid }} .ry-compare__price{font-size:12px}#{{ sid }} .ry-compare__product-arrow{width:31px;height:31px;flex-basis:31px}#{{ sid }} .ry-compare__slider{height:{{ section.settings.mobile_image_height }}px;border-radius:{{ section.settings.mobile_corner_radius }}px}#{{ sid }} .ry-compare__caption{bottom:14px;padding:8px 10px;font-size:10px;max-width:calc(50% - 20px)}#{{ sid }} .ry-compare__caption--before{left:10px}#{{ sid }} .ry-compare__caption--after{right:10px}#{{ sid }} .ry-compare__handle{width:48px;height:60px}#{{ sid }} .ry-compare__handle svg{width:25px;height:25px}#{{ sid }} .ry-compare__view-all{margin-top:15px}#{{ sid }} .ry-compare__layout{gap:20px}}
+@media(max-width:749px){#{{ sid }} .ry-compare__heading{font-size:{{ section.settings.mobile_heading_size }}px}}
+@media(prefers-reduced-motion:reduce){#{{ sid }} *,#{{ sid }} *:before,#{{ sid }} *:after{transition:none!important}}
+</style>
+<script>
+(function(){
+  function initialize(root){
+    if(!root)return;
+    var slider=root.querySelector('[data-compare-slider]');
+    if(!slider||slider.dataset.initialized==='true')return;
+    slider.dataset.initialized='true';
+    var range=slider.querySelector('[data-compare-range]');
+    if(!range)return;
+    function update(){slider.style.setProperty('--rc-divider',range.value+'%');}
+    range.addEventListener('input',update);
+    update();
+  }
+  initialize(document.getElementById({{ sid | json }}));
+  document.addEventListener('shopify:section:load',function(event){
+    var root=event.target.querySelector('#{{ sid }}');
+    if(event.target.id==='{{ sid }}')root=event.target;
+    initialize(root);
+  });
+})();
+</script>
+{% schema %}
+{
+  "name": "Riyan Fashion Compare",
+  "tag": "section",
+  "class": "section-riyan-fashion-compare",
+  "max_blocks": 2,
+  "settings": [
+    {"type":"header","content":"Heading & content"},
+    {"type":"text","id":"eyebrow","label":"Small heading","default":"THE STYLE EDIT"},
+    {"type":"text","id":"heading","label":"Heading","default":"Two Looks. One Signature Style."},
+    {"type":"range","id":"heading_size","label":"Desktop heading size","min":24,"max":80,"step":1,"unit":"px","default":56},
+    {"type":"range","id":"mobile_heading_size","label":"Mobile heading size","min":20,"max":56,"step":1,"unit":"px","default":40},
+    {"type":"textarea","id":"description","label":"Description","default":"Explore the details and find the look that feels like you."},
+    {"type":"checkbox","id":"show_price","label":"Show product prices","default":true},
+    {"type":"text","id":"button_label","label":"Optional button text","default":"Explore the collection"},
+    {"type":"url","id":"button_link","label":"Optional button link"},
+    {"type":"checkbox","id":"show_hint","label":"Show drag instruction","default":true},
+    {"type":"header","content":"Width & image layout"},
+    {"type":"range","id":"section_width","label":"Maximum section width","min":900,"max":1800,"step":20,"unit":"px","default":1380},
+    {"type":"range","id":"desktop_image_height","label":"Desktop image height","min":350,"max":750,"step":10,"unit":"px","default":530},
+    {"type":"range","id":"tablet_image_height","label":"Tablet image height","min":320,"max":680,"step":10,"unit":"px","default":470},
+    {"type":"range","id":"mobile_image_height","label":"Mobile image height","min":280,"max":620,"step":10,"unit":"px","default":390},
+    {"type":"select","id":"image_fit","label":"Image display","options":[{"value":"cover","label":"Fill frame"},{"value":"contain","label":"Show full image"}],"default":"cover"},
+    {"type":"range","id":"corner_radius","label":"Desktop image corners","min":0,"max":36,"step":2,"unit":"px","default":16},
+    {"type":"range","id":"mobile_corner_radius","label":"Mobile image corners","min":0,"max":30,"step":2,"unit":"px","default":12},
+    {"type":"header","content":"Colors"},
+    {"type":"color","id":"background","label":"Background","default":"#FFFCFA"},
+    {"type":"color","id":"text_color","label":"Heading and text","default":"#292027"},
+    {"type":"color","id":"muted_color","label":"Muted text","default":"#88777B"},
+    {"type":"color","id":"accent_color","label":"Burgundy accent","default":"#591C27"},
+    {"type":"color","id":"border_color","label":"Card borders","default":"#E9DFDF"},
+    {"type":"header","content":"Section spacing"},
+    {"type":"range","id":"padding_top","label":"Desktop top spacing","min":0,"max":120,"step":4,"unit":"px","default":48},
+    {"type":"range","id":"padding_bottom","label":"Desktop bottom spacing","min":0,"max":120,"step":4,"unit":"px","default":48},
+    {"type":"range","id":"mobile_padding_top","label":"Mobile top spacing","min":0,"max":80,"step":4,"unit":"px","default":28},
+    {"type":"range","id":"mobile_padding_bottom","label":"Mobile bottom spacing","min":0,"max":80,"step":4,"unit":"px","default":28}
+  ],
+  "blocks": [
+    {"type":"compare_look","name":"Comparison look","settings":[
+      {"type":"product","id":"product","label":"Select product"},
+      {"type":"image_picker","id":"large_image","label":"Large comparison image","info":"Optional. Uses selected product image when empty. Best results with two photos framed similarly."},
+      {"type":"image_picker","id":"thumbnail","label":"Product thumbnail override"},
+      {"type":"text","id":"tagline","label":"Small product label","default":"CURATED LOOK"},
+      {"type":"text","id":"title","label":"Custom product title","info":"Leave blank to use selected product name."},
+      {"type":"text","id":"image_label","label":"Label on large image","default":"Signature Look"},
+      {"type":"url","id":"link","label":"Custom product URL","info":"Optional. Uses selected product link by default."}
+    ]}
+  ],
+  "presets": [{"name":"Riyan Fashion Compare","blocks":[
+    {"type":"compare_look","settings":{"tagline":"LOOK 01","image_label":"Everyday Elegance"}},
+    {"type":"compare_look","settings":{"tagline":"LOOK 02","image_label":"Occasion Ready"}}
+  ]}]
+}
+{% endschema %}

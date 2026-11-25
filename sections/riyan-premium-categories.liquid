@@ -1,0 +1,702 @@
+{% liquid
+  assign sid = 'riyan-cat-' | append: section.id
+%}
+<section id="{{ sid }}" class="riyan-cat" style="
+  --rc-bg: {{ section.settings.section_bg }};
+  --rc-card: {{ section.settings.card_bg }};
+  --rc-heading: {{ section.settings.heading_color }};
+  --rc-text: {{ section.settings.text_color }};
+  --rc-accent: {{ section.settings.accent_color }};
+  --rc-border: {{ section.settings.border_color }};
+  --rc-ratio: {{ section.settings.image_ratio }};
+  --rc-radius: {{ section.settings.card_radius }}px;
+  --rc-cols: {{ section.settings.desktop_columns }};
+  --rc-gap: {{ section.settings.desktop_gap }}px;
+  --rc-mobile-gap: {{ section.settings.mobile_gap }}px;
+  --rc-page-width: {{ section.settings.page_width }}px;
+  --rc-top: {{ section.settings.padding_top }}px;
+  --rc-bottom: {{ section.settings.padding_bottom }}px;
+  --rc-mobile-top: {{ section.settings.mobile_padding_top }}px;
+  --rc-mobile-bottom: {{ section.settings.mobile_padding_bottom }}px;
+">
+  <div class="riyan-cat__container">
+    {% if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.subheading != blank %}
+      <header class="riyan-cat__header">
+        <div class="riyan-cat__heading-group">
+          {% if section.settings.eyebrow != blank %}
+            <p class="riyan-cat__eyebrow"><span></span>{{ section.settings.eyebrow | escape }}<span></span></p>
+          {% endif %}
+          {% if section.settings.heading != blank %}
+            <h2 class="riyan-cat__heading">{{ section.settings.heading | escape }}</h2>
+          {% endif %}
+          {% if section.settings.subheading != blank %}
+            <p class="riyan-cat__description">{{ section.settings.subheading | escape }}</p>
+          {% endif %}
+        </div>
+        {% if section.settings.view_all_label != blank and section.settings.view_all_link != blank %}
+          <a href="{{ section.settings.view_all_link }}" class="riyan-cat__all riyan-cat__all--desktop">
+            {{ section.settings.view_all_label | escape }} <span aria-hidden="true">↗</span>
+          </a>
+        {% endif %}
+      </header>
+    {% endif %}
+
+    <div class="riyan-cat__grid {% if section.settings.mobile_layout == 'slider' %}riyan-cat__grid--slider{% endif %}">
+      {% for block in section.blocks %}
+        {% liquid
+          assign cat_title = block.settings.title
+          assign cat_image = block.settings.image
+          assign cat_url = block.settings.link
+          if block.settings.collection != blank
+            if cat_title == blank
+              assign cat_title = block.settings.collection.title
+            endif
+            if cat_image == blank
+              assign cat_image = block.settings.collection.featured_image
+            endif
+            if cat_url == blank
+              assign cat_url = block.settings.collection.url
+            endif
+          endif
+          if cat_title == blank
+            assign cat_title = 'Explore collection'
+          endif
+        %}
+        <article class="riyan-cat__item" {{ block.shopify_attributes }}>
+          {% if cat_url != blank %}
+            <a class="riyan-cat__card" href="{{ cat_url }}" aria-label="Shop {{ cat_title | escape }}">
+          {% else %}
+            <div class="riyan-cat__card">
+          {% endif %}
+              <div class="riyan-cat__photo">
+                {% if cat_image != blank %}
+                  {% liquid
+                    assign img_loading = 'lazy'
+                    if forloop.index <= 2
+                      assign img_loading = 'eager'
+                    endif
+                  %}
+                  {{ cat_image | image_url: width: 1200 | image_tag: class: 'riyan-cat__image', loading: img_loading, widths: '180, 240, 320, 420, 540, 720, 900, 1200', sizes: '(max-width: 749px) 46vw, (max-width: 989px) 31vw, 24vw', alt: cat_title }}
+                {% else %}
+                  {{ 'collection-1' | placeholder_svg_tag: 'riyan-cat__placeholder' }}
+                {% endif %}
+                {% if block.settings.show_overlay %}<div class="riyan-cat__gradient"></div>{% endif %}
+                {% if block.settings.badge != blank %}
+                  <span class="riyan-cat__badge">{{ block.settings.badge | escape }}</span>
+                {% endif %}
+                <span class="riyan-cat__image-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+              </div>
+              <div class="riyan-cat__details">
+                <div class="riyan-cat__details-inner">
+                  {% if section.settings.show_icon %}
+                    <span class="riyan-cat__emblem" aria-hidden="true">
+                      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round">
+                        {% case block.settings.category_icon %}
+                          {% when 'hanger' %}<path d="M13 10a3 3 0 1 1 4 2.83V16l11 8H4l12-8"/>
+                          {% when 'crown' %}<path d="M4 11l6 6 6-9 6 9 6-6-3 14H7L4 11Z"/><path d="M9 28h14"/>
+                          {% when 'heart' %}<path d="M16 26S5 19.3 5 12.5a6.5 6.5 0 0 1 11-4.3 6.5 6.5 0 0 1 11 4.3C27 19.3 16 26 16 26Z"/>
+                          {% when 'sparkle' %}<path d="M16 3l2.9 10.1L29 16l-10.1 2.9L16 29l-2.9-10.1L3 16l10.1-2.9L16 3Z"/>
+                          {% when 'bow' %}<path d="M16 14C9 7 3 9 3 14s6 7 13 2c7 5 13 3 13-2s-6-7-13 0Z"/><circle cx="16" cy="15" r="2.5"/><path d="M14 18l-4 10M18 18l4 10"/>
+                          {% when 'leaf' %}<path d="M25 5C12 5 7 12 8 20c8 2 16-4 17-15Z"/><path d="M6 27c4-8 9-12 16-16"/>
+                          {% else %}<path d="M16 27c-2-5-2-9 0-14 2 5 2 9 0 14ZM16 17C10 10 9 6 16 3c7 3 6 7 0 14ZM15 22C7 22 3 19 3 14c7-1 11 2 12 8ZM17 22c8 0 12-3 12-8-7-1-11 2-12 8Z"/>
+                        {% endcase %}
+                      </svg>
+                    </span>
+                  {% endif %}
+                  <h3 class="riyan-cat__name">{{ cat_title | escape }}</h3>
+                  {% if block.settings.subtitle != blank %}
+                    <p class="riyan-cat__subtitle">{{ block.settings.subtitle | escape }}</p>
+                  {% endif %}
+                  {% if section.settings.show_shop_link %}
+                    <span class="riyan-cat__explore">{{ section.settings.shop_text | escape }} <span aria-hidden="true">→</span></span>
+                  {% endif %}
+                </div>
+              </div>
+          {% if cat_url != blank %}</a>{% else %}</div>{% endif %}
+        </article>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.view_all_label != blank and section.settings.view_all_link != blank %}
+      <div class="riyan-cat__mobile-all">
+        <a href="{{ section.settings.view_all_link }}" class="riyan-cat__all">{{ section.settings.view_all_label | escape }} <span aria-hidden="true">↗</span></a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  #{{ sid }}{position:relative;background:var(--rc-bg);padding:var(--rc-top) 0 var(--rc-bottom);overflow:hidden}
+  #{{ sid }} *,#{{ sid }} *::before,#{{ sid }} *::after{box-sizing:border-box}
+  #{{ sid }} .riyan-cat__container{width:min(calc(100% - 64px),var(--rc-page-width));margin-inline:auto;position:relative;z-index:1}
+  #{{ sid }} .riyan-cat__header{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:29px}
+  #{{ sid }} .riyan-cat__heading-group{max-width:700px}
+  #{{ sid }} .riyan-cat__eyebrow{display:flex;gap:12px;align-items:center;margin:0 0 12px;color:var(--rc-accent);font-size:10px;font-weight:650;letter-spacing:.22em;text-transform:uppercase}
+  #{{ sid }} .riyan-cat__eyebrow span{height:1px;width:26px;background:currentColor;opacity:.6}
+  #{{ sid }} .riyan-cat__heading{color:var(--rc-heading);margin:0;font-size:{{ section.settings.heading_size }}px;font-family:var(--font-heading-family);font-style:var(--font-heading-style);font-weight:var(--font-heading-weight);letter-spacing:-.035em;line-height:1.15}
+  #{{ sid }} .riyan-cat__description{color:var(--rc-text);font-size:13px;line-height:1.6;margin:9px 0 0;opacity:.78}
+  #{{ sid }} .riyan-cat__all{display:inline-flex;align-items:center;justify-content:center;gap:16px;min-height:42px;padding:10px 18px;border:1px solid var(--rc-accent);color:var(--rc-accent);text-decoration:none;font-size:10px;letter-spacing:.13em;text-transform:uppercase;font-weight:650;white-space:nowrap;transition:background .25s,color .25s}
+  #{{ sid }} .riyan-cat__all:hover{background:var(--rc-accent);color:white}
+  #{{ sid }} .riyan-cat__all span{font-size:17px;line-height:1}
+  #{{ sid }} .riyan-cat__grid{display:grid;grid-template-columns:repeat(var(--rc-cols),minmax(0,1fr));gap:var(--rc-gap)}
+  #{{ sid }} .riyan-cat__item{min-width:0}
+  #{{ sid }} .riyan-cat__card{display:block;min-width:0;background:var(--rc-card);border:1px solid var(--rc-border);border-radius:var(--rc-radius) var(--rc-radius) 12px 12px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 4px 20px rgba(64,24,28,.035);transition:box-shadow .35s,transform .35s,border-color .35s}
+  #{{ sid }} a.riyan-cat__card:hover{transform:translateY(-5px);border-color:var(--rc-accent);box-shadow:0 16px 38px rgba(64,24,28,.11)}
+  #{{ sid }} a.riyan-cat__card:focus-visible{outline:3px solid var(--rc-accent);outline-offset:3px}
+  #{{ sid }} .riyan-cat__photo{position:relative;aspect-ratio:var(--rc-ratio);overflow:hidden;background:#f1e9e4}
+  #{{ sid }} .riyan-cat__image,#{{ sid }} .riyan-cat__placeholder{display:block;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .65s cubic-bezier(.2,.7,.2,1)}
+  #{{ sid }} a.riyan-cat__card:hover .riyan-cat__image{transform:scale(1.055)}
+  #{{ sid }} .riyan-cat__gradient{position:absolute;inset:0;background:linear-gradient(0deg,rgba(29,12,16,.15),transparent 38%);pointer-events:none}
+  #{{ sid }} .riyan-cat__badge{position:absolute;z-index:2;left:12px;top:12px;padding:7px 10px;border-radius:2px;background:var(--rc-accent);color:#fff;font-size:9px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;line-height:1.2}
+  #{{ sid }} .riyan-cat__image-arrow{position:absolute;right:12px;bottom:12px;width:33px;height:33px;display:grid;place-items:center;background:rgba(255,255,255,.95);border-radius:50%;color:var(--rc-accent);line-height:1;transition:transform .3s,background .3s,color .3s}
+  #{{ sid }} .riyan-cat__image-arrow svg{width:17px;height:17px}
+  #{{ sid }} a.riyan-cat__card:hover .riyan-cat__image-arrow{transform:translateX(3px);background:var(--rc-accent);color:#fff}
+  #{{ sid }} .riyan-cat__details{padding:17px 10px 20px;text-align:center;min-height:96px;display:flex;align-items:center;justify-content:center}
+  #{{ sid }} .riyan-cat__details-inner{min-width:0;width:100%}
+  #{{ sid }} .riyan-cat__emblem{position:relative;z-index:2;width:42px;height:42px;margin:-37px auto 12px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--rc-border);background:var(--rc-card);color:var(--rc-accent);box-shadow:0 4px 16px rgba(89,28,39,.08);transition:background .3s,color .3s,transform .3s}
+  #{{ sid }} .riyan-cat__emblem svg{width:23px;height:23px;display:block}
+  #{{ sid }} a.riyan-cat__card:hover .riyan-cat__emblem{transform:translateY(-3px);background:var(--rc-accent);color:#fff}
+  #{{ sid }} .riyan-cat__name{margin:0;color:var(--rc-heading);font-family:var(--font-heading-family);font-size:clamp(12px,1.15vw,17px);line-height:1.3;font-weight:var(--font-heading-weight);letter-spacing:.02em;text-transform:uppercase;overflow-wrap:break-word}
+  #{{ sid }} .riyan-cat__subtitle{color:var(--rc-text);font-size:11px;line-height:1.4;margin:5px 0 0;opacity:.7}
+  #{{ sid }} .riyan-cat__explore{display:inline-flex;gap:8px;align-items:center;color:var(--rc-accent);font-size:9px;font-weight:650;letter-spacing:.12em;text-transform:uppercase;margin-top:10px}
+  #{{ sid }} .riyan-cat__mobile-all{display:none}
+  {% if section.settings.show_decorative_lines %}
+  #{{ sid }}::before{content:"";position:absolute;border:1px solid rgba(89,28,39,.055);border-radius:50%;width:280px;height:280px;top:-210px;right:-100px;pointer-events:none}
+  {% endif %}
+  @media(max-width:989px){
+    #{{ sid }} .riyan-cat__grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  }
+  @media(max-width:749px){
+    #{{ sid }}{padding:var(--rc-mobile-top) 0 var(--rc-mobile-bottom)}
+    #{{ sid }} .riyan-cat__container{width:calc(100% - 28px)}
+    #{{ sid }} .riyan-cat__header{display:block;text-align:center;margin-bottom:21px}
+    #{{ sid }} .riyan-cat__eyebrow{justify-content:center;font-size:8px;gap:9px;margin-bottom:9px;letter-spacing:.18em}
+    #{{ sid }} .riyan-cat__eyebrow span{width:19px}
+    #{{ sid }} .riyan-cat__heading{font-size:{{ section.settings.mobile_heading_size }}px}
+    #{{ sid }} .riyan-cat__description{font-size:11px;margin-top:8px}
+    #{{ sid }} .riyan-cat__all--desktop{display:none}
+    #{{ sid }} .riyan-cat__mobile-all{display:flex;justify-content:center;margin-top:23px}
+    #{{ sid }} .riyan-cat__grid{grid-template-columns:repeat({{ section.settings.mobile_columns }},minmax(0,1fr));gap:var(--rc-mobile-gap)}
+    #{{ sid }} .riyan-cat__grid--slider{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 0 12px}
+    #{{ sid }} .riyan-cat__grid--slider::-webkit-scrollbar{display:none}
+    #{{ sid }} .riyan-cat__grid--slider .riyan-cat__item{flex:0 0 {{ section.settings.mobile_card_width }}%;scroll-snap-align:start}
+    #{{ sid }} .riyan-cat__card{border-radius:min(var(--rc-radius),55px) min(var(--rc-radius),55px) 10px 10px}
+    #{{ sid }} .riyan-cat__details{padding:10px 5px 14px;min-height:86px}
+    #{{ sid }} .riyan-cat__name{font-size:clamp(10px,2.85vw,13px);line-height:1.25;letter-spacing:0}
+    #{{ sid }} .riyan-cat__subtitle{font-size:9px;line-height:1.3;margin-top:4px}
+    #{{ sid }} .riyan-cat__emblem{width:34px;height:34px;margin:-27px auto 9px}
+    #{{ sid }} .riyan-cat__emblem svg{width:19px;height:19px}
+    #{{ sid }} .riyan-cat__badge{top:8px;left:8px;font-size:7px;padding:5px 6px}
+    #{{ sid }} .riyan-cat__image-arrow{width:25px;height:25px;font-size:16px;right:7px;bottom:7px}
+    #{{ sid }} .riyan-cat__explore{font-size:8px;margin-top:7px}
+  }
+  @media(prefers-reduced-motion:reduce){#{{ sid }} .riyan-cat__card,#{{ sid }} .riyan-cat__image,#{{ sid }} .riyan-cat__image-arrow{transition:none!important}}
+</style>
+
+{% schema %}
+{
+  "name": "Premium Categories",
+  "tag": "section",
+  "class": "section-riyan-categories",
+
+  "settings": [
+
+    {
+      "type": "header",
+      "content": "Section heading"
+    },
+
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "EXPLORE OUR COLLECTIONS"
+    },
+
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by Category"
+    },
+
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Desktop heading size",
+      "min": 20,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 46
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 18,
+      "max": 56,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Description",
+      "default": "Discover thoughtfully curated styles for every celebration, occasion and moment."
+    },
+
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "View all text",
+      "default": "View All Collections"
+    },
+
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View all link"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Desktop category layout"
+    },
+
+    {
+      "type": "range",
+      "id": "desktop_columns",
+      "label": "Desktop columns",
+      "min": 3,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+
+    {
+      "type": "range",
+      "id": "desktop_gap",
+      "label": "Desktop gap",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image ratio",
+      "options": [
+
+        {
+          "value": "1 / 1",
+          "label": "Square"
+        },
+
+        {
+          "value": "4 / 5",
+          "label": "Portrait"
+        },
+
+        {
+          "value": "3 / 4",
+          "label": "Tall portrait"
+        },
+
+        {
+          "value": "2 / 3",
+          "label": "Editorial portrait"
+        }
+
+      ],
+      "default": "4 / 5"
+    },
+
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Arch roundness",
+      "min": 20,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 25
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_icon",
+      "label": "Show premium ornament icon",
+      "default": true
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_shop_link",
+      "label": "Show Explore link",
+      "default": false
+    },
+
+    {
+      "type": "text",
+      "id": "shop_text",
+      "label": "Explore link text",
+      "default": "Explore"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Mobile layout"
+    },
+
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Mobile display",
+      "options": [
+
+        {
+          "value": "slider",
+          "label": "Premium horizontal slider"
+        },
+
+        {
+          "value": "grid",
+          "label": "Grid"
+        }
+
+      ],
+      "default": "grid"
+    },
+
+
+    {
+      "type": "select",
+      "id": "mobile_columns",
+      "label": "Mobile grid columns",
+      "options": [
+
+        {
+          "value": "1",
+          "label": "1 column"
+        },
+
+        {
+          "value": "2",
+          "label": "2 columns"
+        }
+
+      ],
+      "default": "2"
+    },
+
+
+    {
+      "type": "range",
+      "id": "mobile_card_width",
+      "label": "Slider card width",
+      "min": 50,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "default": 70
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "label": "Mobile gap",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+
+
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section background",
+      "default": "#FFFAF7"
+    },
+
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Category card background",
+      "default": "#FFFDF9"
+    },
+
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#591C27"
+    },
+
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#5C4740"
+    },
+
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Premium accent color",
+      "default": "#591C27"
+    },
+
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Card border color",
+      "default": "#E8D9CB"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Section layout"
+    },
+
+    {
+      "type": "range",
+      "id": "page_width",
+      "label": "Maximum width",
+      "min": 1000,
+      "max": 1800,
+      "step": 20,
+      "unit": "px",
+      "default": 1400
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_decorative_lines",
+      "label": "Show subtle decoration",
+      "default": true
+    },
+
+
+    {
+      "type": "header",
+      "content": "Desktop spacing"
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 52
+    },
+
+
+    {
+      "type": "header",
+      "content": "Mobile spacing"
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 44
+    }
+
+  ],
+
+
+  "blocks": [
+
+    {
+      "type": "category",
+      "name": "Category",
+      "limit": 12,
+
+      "settings": [
+
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom category image",
+          "info": "Optional. Collection image is used automatically when this is empty."
+        },
+
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Custom title",
+          "info": "Optional. Collection title is used automatically when this is empty."
+        },
+
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Elegance for every moment"
+        },
+
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Custom link",
+          "info": "Optional. Collection URL is used when empty."
+        },
+
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Premium badge",
+          "info": "Example: NEW, TRENDING, BESTSELLER"
+        },
+
+        {
+          "type": "select",
+          "id": "category_icon",
+          "label": "Fashion category icon",
+          "options": [
+            {"value":"lotus","label":"Lotus flower"},
+            {"value":"hanger","label":"Clothing hanger"},
+            {"value":"crown","label":"Royal crown"},
+            {"value":"heart","label":"Heart"},
+            {"value":"sparkle","label":"Sparkle"},
+            {"value":"bow","label":"Ribbon bow"},
+            {"value":"leaf","label":"Botanical leaf"}
+          ],
+          "default": "lotus"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_overlay",
+          "label": "Show image gradient",
+          "default": true
+        }
+
+      ]
+
+    }
+
+  ],
+
+
+  "presets": [
+
+    {
+      "name": "Premium Categories",
+
+      "blocks": [
+
+        {
+          "type": "category",
+          "settings": {
+            "title": "Anarkali Suits",
+            "subtitle": "Grace in Every Step",
+            "category_icon": "lotus"
+          }
+        },
+
+        {
+          "type": "category",
+          "settings": {
+            "title": "Kurti Sets",
+            "subtitle": "Everyday Elegance",
+            "category_icon": "hanger"
+          }
+        },
+
+        {
+          "type": "category",
+          "settings": {
+            "title": "Suits",
+            "subtitle": "Tradition Redefined",
+            "category_icon": "crown"
+          }
+        },
+
+        {
+          "type": "category",
+          "settings": {
+            "title": "Lehenga",
+            "subtitle": "Make Moments Grand",
+            "category_icon": "bow"
+          }
+        },
+
+        {
+          "type": "category",
+          "settings": {
+            "title": "Festive Collection",
+            "subtitle": "Celebrate in Style",
+            "category_icon": "leaf"
+          }
+        },
+
+        {
+          "type": "category",
+          "settings": {
+            "title": "New Arrivals",
+            "subtitle": "Fresh Styles for You",
+            "category_icon": "sparkle"
+          }
+        }
+
+      ]
+
+    }
+
+  ]
+
+}
+{% endschema %}

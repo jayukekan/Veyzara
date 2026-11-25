@@ -1,0 +1,800 @@
+{% liquid
+  assign section_id = section.id
+%}
+
+<section
+  id="pfm-{{ section_id }}"
+  class="pfm"
+  style="
+    --pfm-bg: {{ section.settings.background_color }};
+    --pfm-text: {{ section.settings.text_color }};
+    --pfm-accent: {{ section.settings.accent_color }};
+    --pfm-speed: {{ section.settings.speed }}s;
+    --pfm-desktop-size: {{ section.settings.desktop_font_size }}px;
+    --pfm-mobile-size: {{ section.settings.mobile_font_size }}px;
+    --pfm-image-width: {{ section.settings.desktop_image_width }}px;
+    --pfm-image-height: {{ section.settings.desktop_image_height }}px;
+    --pfm-mobile-image-width: {{ section.settings.mobile_image_width }}px;
+    --pfm-mobile-image-height: {{ section.settings.mobile_image_height }}px;
+  "
+>
+  <div class="pfm__viewport">
+
+    <div
+      class="pfm__track {% if section.settings.reverse %}pfm__track--reverse{% endif %}"
+      data-pfm-track
+    >
+
+      {% for repeat in (1..2) %}
+        <div
+          class="pfm__group"
+          {% if repeat == 2 %}
+            aria-hidden="true"
+          {% endif %}
+        >
+
+          {% for block in section.blocks %}
+
+            {% case block.type %}
+
+              {% when 'text' %}
+                <div
+                  class="
+                    pfm__text
+                    {% if block.settings.highlight %}
+                      pfm__text--highlight
+                    {% endif %}
+                  "
+                  {{ block.shopify_attributes }}
+                >
+                  {{ block.settings.text }}
+                </div>
+
+              {% when 'image' %}
+                <div
+                  class="pfm__image-wrap"
+                  {{ block.shopify_attributes }}
+                >
+                  {% if block.settings.image != blank %}
+                    {{
+                      block.settings.image
+                      | image_url: width: 900
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '240, 360, 480, 640, 900',
+                        class: 'pfm__image'
+                    }}
+                  {% else %}
+                    {{ 'collection-1' | placeholder_svg_tag: 'pfm__placeholder' }}
+                  {% endif %}
+                </div>
+
+              {% when 'separator' %}
+                <span
+                  class="pfm__separator"
+                  {{ block.shopify_attributes }}
+                >
+                  {% if block.settings.style == 'dot' %}
+                    <span class="pfm__dot"></span>
+                  {% elsif block.settings.style == 'star' %}
+                    ✦
+                  {% else %}
+                    •
+                  {% endif %}
+                </span>
+
+            {% endcase %}
+
+          {% endfor %}
+
+        </div>
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+
+
+<style>
+  #pfm-{{ section_id }} {
+    width: 100%;
+    background: var(--pfm-bg);
+    overflow: hidden;
+    position: relative;
+    isolation: isolate;
+  }
+
+  #pfm-{{ section_id }} .pfm__viewport {
+    width: 100%;
+    overflow: hidden;
+    padding:
+      {{ section.settings.padding_top }}px
+      0
+      {{ section.settings.padding_bottom }}px;
+  }
+
+  #pfm-{{ section_id }} .pfm__track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+    animation:
+      pfm-scroll-{{ section_id }}
+      var(--pfm-speed)
+      linear
+      infinite;
+  }
+
+  #pfm-{{ section_id }} .pfm__track--reverse {
+    animation-name: pfm-scroll-reverse-{{ section_id }};
+  }
+
+  #pfm-{{ section_id }} .pfm__group {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: {{ section.settings.item_gap }}px;
+    padding-right: {{ section.settings.item_gap }}px;
+  }
+
+  #pfm-{{ section_id }} .pfm__text {
+    flex: 0 0 auto;
+
+    font-size: var(--pfm-desktop-size);
+    font-weight: {{ section.settings.font_weight }};
+
+    line-height: .9;
+    letter-spacing: {{ section.settings.letter_spacing | divided_by: 10.0 }}px;
+
+    color: var(--pfm-text);
+    white-space: nowrap;
+
+    font-family:
+      var(--font-heading-family),
+      sans-serif;
+  }
+
+  #pfm-{{ section_id }} .pfm__text--highlight {
+    color: var(--pfm-accent);
+  }
+
+  #pfm-{{ section_id }} .pfm__image-wrap {
+    flex: 0 0 auto;
+
+    width: var(--pfm-image-width);
+    height: var(--pfm-image-height);
+
+    border-radius: {{ section.settings.image_radius }}px;
+
+    overflow: hidden;
+
+    position: relative;
+
+    background: rgba(255,255,255,.35);
+  }
+
+  #pfm-{{ section_id }} .pfm__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    display: block;
+
+    transition:
+      transform .6s cubic-bezier(.22,.61,.36,1);
+  }
+
+  #pfm-{{ section_id }} .pfm__image-wrap:hover .pfm__image {
+    transform: scale(1.05);
+  }
+
+  #pfm-{{ section_id }} .pfm__placeholder {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+    object-fit: cover;
+  }
+
+  #pfm-{{ section_id }} .pfm__separator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 auto;
+
+    font-size: calc(var(--pfm-desktop-size) * .28);
+
+    color: var(--pfm-accent);
+
+    line-height: 1;
+  }
+
+  #pfm-{{ section_id }} .pfm__dot {
+    display: block;
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: var(--pfm-accent);
+  }
+
+  /* Soft luxury fades */
+  {% if section.settings.enable_fade %}
+    #pfm-{{ section_id }}::before,
+    #pfm-{{ section_id }}::after {
+      content: '';
+
+      position: absolute;
+      top: 0;
+      bottom: 0;
+
+      width: {{ section.settings.fade_width }}px;
+
+      z-index: 3;
+
+      pointer-events: none;
+    }
+
+    #pfm-{{ section_id }}::before {
+      left: 0;
+
+      background: linear-gradient(
+        90deg,
+        var(--pfm-bg) 0%,
+        color-mix(in srgb, var(--pfm-bg) 85%, transparent) 25%,
+        transparent 100%
+      );
+    }
+
+    #pfm-{{ section_id }}::after {
+      right: 0;
+
+      background: linear-gradient(
+        270deg,
+        var(--pfm-bg) 0%,
+        color-mix(in srgb, var(--pfm-bg) 85%, transparent) 25%,
+        transparent 100%
+      );
+    }
+  {% endif %}
+
+  {% if section.settings.pause_on_hover %}
+    #pfm-{{ section_id }}:hover .pfm__track {
+      animation-play-state: paused;
+    }
+  {% endif %}
+
+  @keyframes pfm-scroll-{{ section_id }} {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes pfm-scroll-reverse-{{ section_id }} {
+    from {
+      transform: translateX(-50%);
+    }
+
+    to {
+      transform: translateX(0);
+    }
+  }
+
+
+  /* =========================
+     TABLET
+     ========================= */
+
+  @media screen and (max-width: 989px) {
+
+    #pfm-{{ section_id }} .pfm__group {
+      gap: calc({{ section.settings.item_gap }}px * .78);
+      padding-right: calc({{ section.settings.item_gap }}px * .78);
+    }
+
+    #pfm-{{ section_id }} .pfm__text {
+      font-size: clamp(
+        var(--pfm-mobile-size),
+        8vw,
+        var(--pfm-desktop-size)
+      );
+    }
+
+    #pfm-{{ section_id }} .pfm__image-wrap {
+      width: calc(var(--pfm-image-width) * .82);
+      height: calc(var(--pfm-image-height) * .82);
+    }
+
+  }
+
+
+  /* =========================
+     MOBILE
+     ========================= */
+
+  @media screen and (max-width: 749px) {
+
+    #pfm-{{ section_id }} .pfm__viewport {
+      padding:
+        {{ section.settings.mobile_padding_top }}px
+        0
+        {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    #pfm-{{ section_id }} .pfm__group {
+      gap: {{ section.settings.mobile_item_gap }}px;
+      padding-right: {{ section.settings.mobile_item_gap }}px;
+    }
+
+    #pfm-{{ section_id }} .pfm__text {
+      font-size: var(--pfm-mobile-size);
+
+      line-height: .92;
+
+      letter-spacing: {{ section.settings.mobile_letter_spacing | divided_by: 10.0 }}px;
+    }
+
+    #pfm-{{ section_id }} .pfm__image-wrap {
+      width: var(--pfm-mobile-image-width);
+      height: var(--pfm-mobile-image-height);
+
+      border-radius:
+        {{ section.settings.mobile_image_radius }}px;
+    }
+
+    #pfm-{{ section_id }} .pfm__separator {
+      font-size: calc(var(--pfm-mobile-size) * .32);
+    }
+
+    #pfm-{{ section_id }} .pfm__dot {
+      width: 7px;
+      height: 7px;
+    }
+
+    {% if section.settings.enable_fade %}
+      #pfm-{{ section_id }}::before,
+      #pfm-{{ section_id }}::after {
+        width: 36px;
+      }
+    {% endif %}
+
+  }
+
+
+  /* accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    #pfm-{{ section_id }} .pfm__track {
+      animation-play-state: paused;
+    }
+  }
+
+</style>
+
+
+{% schema %}
+{
+  "name": "Premium fashion marquee",
+  "tag": "section",
+  "class": "section-premium-fashion-marquee",
+
+  "settings": [
+
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#F3F1EC"
+    },
+
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#222329"
+    },
+
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#9A3038"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "s",
+      "label": "Speed",
+      "default": 35
+    },
+
+    {
+      "type": "checkbox",
+      "id": "reverse",
+      "label": "Reverse direction",
+      "default": false
+    },
+
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover",
+      "default": false
+    },
+
+    {
+      "type": "checkbox",
+      "id": "enable_fade",
+      "label": "Side fade effect",
+      "default": true
+    },
+
+    {
+      "type": "range",
+      "id": "fade_width",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Desktop fade width",
+      "default": 100
+    },
+
+
+    {
+      "type": "header",
+      "content": "Desktop typography"
+    },
+
+    {
+      "type": "range",
+      "id": "desktop_font_size",
+      "min": 45,
+      "max": 160,
+      "step": 5,
+      "unit": "px",
+      "label": "Font size",
+      "default": 95
+    },
+
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "default": "600",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ]
+    },
+
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "min": -10,
+      "max": 20,
+      "step": 1,
+      "label": "Letter spacing",
+      "default": -3
+    },
+
+
+    {
+      "type": "header",
+      "content": "Desktop image"
+    },
+
+    {
+      "type": "range",
+      "id": "desktop_image_width",
+      "min": 100,
+      "max": 320,
+      "step": 10,
+      "unit": "px",
+      "label": "Width",
+      "default": 190
+    },
+
+    {
+      "type": "range",
+      "id": "desktop_image_height",
+      "min": 80,
+      "max": 280,
+      "step": 10,
+      "unit": "px",
+      "label": "Height",
+      "default": 150
+    },
+
+    {
+      "type": "range",
+      "id": "image_radius",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Corner radius",
+      "default": 26
+    },
+
+
+    {
+      "type": "header",
+      "content": "Desktop spacing"
+    },
+
+    {
+      "type": "range",
+      "id": "item_gap",
+      "min": 15,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Item gap",
+      "default": 45
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 140,
+      "step": 5,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 55
+    },
+
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 140,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 55
+    },
+
+
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_font_size",
+      "min": 28,
+      "max": 70,
+      "step": 2,
+      "unit": "px",
+      "label": "Font size",
+      "default": 44
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_letter_spacing",
+      "min": -10,
+      "max": 10,
+      "step": 1,
+      "label": "Letter spacing",
+      "default": -2
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_image_width",
+      "min": 70,
+      "max": 180,
+      "step": 5,
+      "unit": "px",
+      "label": "Image width",
+      "default": 110
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_image_height",
+      "min": 60,
+      "max": 160,
+      "step": 5,
+      "unit": "px",
+      "label": "Image height",
+      "default": 90
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_image_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Image radius",
+      "default": 18
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_item_gap",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Item gap",
+      "default": 25
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 15,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 35
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 15,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 35
+    }
+
+  ],
+
+  "blocks": [
+
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "EFFORTLESS STYLE"
+        },
+
+        {
+          "type": "checkbox",
+          "id": "highlight",
+          "label": "Use accent color",
+          "default": false
+        }
+
+      ]
+    },
+
+    {
+      "type": "image",
+      "name": "Fashion image",
+      "settings": [
+
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+
+      ]
+    },
+
+    {
+      "type": "separator",
+      "name": "Separator",
+      "settings": [
+
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "default": "star",
+          "options": [
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "dot",
+              "label": "Dot"
+            },
+            {
+              "value": "bullet",
+              "label": "Bullet"
+            }
+          ]
+        }
+
+      ]
+    }
+
+  ],
+
+  "presets": [
+    {
+      "name": "Premium fashion marquee",
+      "blocks": [
+        {
+          "type": "text",
+          "settings": {
+            "text": "NEW SEASON"
+          }
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "text",
+          "settings": {
+            "text": "MODERN FEMININITY"
+          }
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "text",
+          "settings": {
+            "text": "EFFORTLESS STYLE"
+          }
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "text",
+          "settings": {
+            "text": "UP TO 40% OFF",
+            "highlight": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

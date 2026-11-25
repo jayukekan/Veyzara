@@ -1,0 +1,313 @@
+{% comment %}
+  RIYAN CREATION — COUTURE COLLECTION BANNER V4
+  Create: sections/riyan-couture-banner-v4.liquid
+  Collection image metafields (File > One image):
+  custom.collection_desktop_banner
+  custom.collection_mobile_banner
+{% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign desktop = collection.metafields.custom.collection_desktop_banner.value
+  assign mobile = collection.metafields.custom.collection_mobile_banner.value
+  if desktop == blank
+    assign desktop = collection.image
+  endif
+  if mobile == blank
+    assign mobile = desktop
+  endif
+  if desktop == blank
+    assign desktop = mobile
+  endif
+  assign collection_name = collection.title | default: 'The Collection'
+  assign banner_alt = desktop.alt | default: collection_name
+  assign description = collection.description | strip_html | strip
+  assign is_image = false
+  if desktop != blank
+    assign is_image = true
+  endif
+-%}
+<style>
+  #shopify-section-{{ section.id }} {
+    --rc-bg: {{ s.background }};
+    --rc-ink: {{ s.text_color }};
+    --rc-muted: {{ s.muted_color }};
+    --rc-accent: {{ s.accent_color }};
+    --rc-border: {{ s.border_color }};
+    --rc-frame: {{ s.frame_color }};
+    --rc-media-bg: {{ s.image_background }};
+    --rc-radius: {{ s.radius }}px;
+    --rc-max: {{ s.max_width }}px;
+  }
+  #shopify-section-{{ section.id }} .rcv4,
+  #shopify-section-{{ section.id }} .rcv4 * { box-sizing: border-box; }
+  #shopify-section-{{ section.id }} .rcv4 {
+    background: var(--rc-bg); color: var(--rc-ink);
+    padding: {{ s.padding_top }}px 0 {{ s.padding_bottom }}px;
+    overflow: hidden;
+  }
+  #shopify-section-{{ section.id }} .rcv4__shell {
+    max-width: {% if s.full_width %}none{% else %}var(--rc-max){% endif %};
+    margin: auto;
+    padding-inline: {% if s.full_width %}0{% else %}{{ s.side_gutter }}px{% endif %};
+  }
+  #shopify-section-{{ section.id }} .rcv4__crumb {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    margin: 0 0 18px; padding: 0;
+    color: var(--rc-muted); font: 500 10px/1.4 var(--font-body-family);
+    letter-spacing: .12em; text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} .rcv4__crumb a { color: inherit; text-decoration: none; }
+  #shopify-section-{{ section.id }} .rcv4__crumb a:hover { color: var(--rc-ink); }
+  #shopify-section-{{ section.id }} .rcv4__stage {
+    position: relative;
+    padding: {% if s.layout == 'framed' %}{{ s.frame_padding }}px{% else %}0{% endif %};
+    background: {% if s.layout == 'framed' %}var(--rc-frame){% else %}transparent{% endif %};
+    border: {% if s.layout == 'outlined' %}1px solid var(--rc-border){% else %}0{% endif %};
+    border-radius: var(--rc-radius);
+  }
+  #shopify-section-{{ section.id }} .rcv4__media {
+    position: relative; overflow: hidden; background: var(--rc-media-bg);
+    border-radius: {% if s.layout == 'framed' %}{{ s.inner_radius }}px{% else %}var(--rc-radius){% endif %};
+    isolation: isolate;
+  }
+  #shopify-section-{{ section.id }} .rcv4__picture { display: block; width: 100%; {% if s.desktop_mode == 'fixed' %}height: {{ s.desktop_height }}px;{% endif %} }
+  #shopify-section-{{ section.id }} .rcv4__image {
+    display: block; width: 100%; max-width: 100%;
+    height: {% if s.desktop_mode == 'fixed' %}100%{% else %}auto{% endif %};
+    object-fit: {{ s.desktop_fit }}; object-position: {{ s.desktop_position }};
+  }
+  #shopify-section-{{ section.id }} .rcv4--zoom .rcv4__image { transition: transform .9s cubic-bezier(.2,.7,.2,1); }
+  @media (hover:hover) and (prefers-reduced-motion:no-preference) {
+    #shopify-section-{{ section.id }} .rcv4--zoom .rcv4__media:hover .rcv4__image { transform: scale(1.025); }
+  }
+  #shopify-section-{{ section.id }} .rcv4__shade {
+    position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(90deg, rgba(19,15,15,{{ s.overlay_opacity | divided_by: 100.0 }}) 0%, rgba(19,15,15,0) 85%);
+  }
+  #shopify-section-{{ section.id }} .rcv4__overlay-content {
+    position: absolute; z-index: 1; left: clamp(25px,6vw,110px); top: 50%; transform: translateY(-50%);
+    max-width: min(490px,54%); color: {{ s.overlay_text_color }};
+  }
+  #shopify-section-{{ section.id }} .rcv4__eyebrow {
+    font: 600 10px/1.5 var(--font-body-family); letter-spacing: .25em; text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} .rcv4__overlay-title {
+    margin: 15px 0 0; font-family: {% if s.editorial_font %}Georgia, 'Times New Roman', serif{% else %}var(--font-heading-family){% endif %};
+    font-size: clamp(30px,4.2vw,{{ s.overlay_heading_size }}px); font-weight: 400; line-height: 1.12;
+    letter-spacing: -.035em; color: inherit;
+  }
+  #shopify-section-{{ section.id }} .rcv4__overlay-copy { margin: 13px 0 0; font-size: 13px; line-height: 1.7; }
+  #shopify-section-{{ section.id }} .rcv4__overlay-btn {
+    display: inline-flex; align-items: center; gap: 12px; margin-top: 25px;
+    padding-bottom: 8px; border-bottom: 1px solid currentColor;
+    color: inherit; text-decoration: none;
+    font: 600 10px/1.5 var(--font-body-family); letter-spacing: .15em; text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} .rcv4__overlay-btn svg { width: 15px; height: 15px; }
+  #shopify-section-{{ section.id }} .rcv4__corner-label {
+    position: absolute; z-index: 2; right: 24px; bottom: 24px;
+    padding: 10px 14px; color: #33251f; background: rgba(255,255,255,.94);
+    font: 600 9px/1.4 var(--font-body-family); letter-spacing: .18em; text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} .rcv4__placeholder {
+    min-height: 190px; padding: 45px 24px; display: grid; align-content: center; gap: 12px;
+    text-align: center; background: var(--rc-media-bg);
+  }
+  #shopify-section-{{ section.id }} .rcv4__placeholder p { margin: 0; font-size: 13px; color: var(--rc-muted); }
+  #shopify-section-{{ section.id }} .rcv4__info {
+    display: grid; grid-template-columns: minmax(0,1fr) auto;
+    align-items: end; gap: 20px;
+    padding: {{ s.info_top }}px {% if s.full_width %}clamp(20px,5vw,92px){% else %}0{% endif %} {{ s.info_bottom }}px;
+    border-bottom: {% if s.show_divider %}1px solid var(--rc-border){% else %}0{% endif %};
+  }
+  #shopify-section-{{ section.id }} .rcv4__kicker {
+    display: flex; align-items: center; gap: 12px; margin: 0 0 10px;
+    font: 600 10px/1.5 var(--font-body-family); letter-spacing: .22em;
+    text-transform: uppercase; color: var(--rc-accent);
+  }
+  #shopify-section-{{ section.id }} .rcv4__kicker:before { content: ''; display: block; width: 26px; height: 1px; background: currentColor; }
+  #shopify-section-{{ section.id }} .rcv4__title {
+    margin: 0; font-family: {% if s.editorial_font %}Georgia, 'Times New Roman', serif{% else %}var(--font-heading-family){% endif %};
+    font-size: {{ s.heading_size }}px; font-weight: 400; line-height: 1.15;
+    letter-spacing: -.035em; color: var(--rc-ink); overflow-wrap: anywhere;
+  }
+  #shopify-section-{{ section.id }} .rcv4__description {
+    margin: 12px 0 0; max-width: 650px; color: var(--rc-muted);
+    font-size: {{ s.description_size }}px; line-height: 1.75;
+  }
+  #shopify-section-{{ section.id }} .rcv4__meta { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; padding-bottom: 5px; }
+  #shopify-section-{{ section.id }} .rcv4__count {
+    font: 500 10px/1.5 var(--font-body-family); letter-spacing: .13em;
+    text-transform: uppercase; color: var(--rc-muted); white-space: nowrap;
+  }
+  #shopify-section-{{ section.id }} .rcv4__explore {
+    display: inline-flex; align-items: center; gap: 9px;
+    font: 600 10px/1.5 var(--font-body-family); letter-spacing: .1em;
+    text-decoration: none; text-transform: uppercase; color: var(--rc-ink);
+    border-bottom: 1px solid var(--rc-ink); padding-bottom: 4px;
+  }
+  #shopify-section-{{ section.id }} .rcv4__explore svg { width: 15px; height: 15px; }
+  @media(max-width:749px) {
+    #shopify-section-{{ section.id }} .rcv4 { padding: {{ s.mobile_padding_top }}px 0 {{ s.mobile_padding_bottom }}px; }
+    #shopify-section-{{ section.id }} .rcv4__shell { padding-inline: {% if s.mobile_full_width %}0{% else %}{{ s.mobile_gutter }}px{% endif %}; }
+    #shopify-section-{{ section.id }} .rcv4__crumb { padding-inline: 18px; margin-bottom: 12px; font-size: 9px; }
+    #shopify-section-{{ section.id }} .rcv4__stage { padding: {% if s.layout == 'framed' %}{{ s.mobile_frame_padding }}px{% else %}0{% endif %}; border-radius: {{ s.mobile_radius }}px; }
+    #shopify-section-{{ section.id }} .rcv4__media { border-radius: {{ s.mobile_radius }}px; }
+    #shopify-section-{{ section.id }} .rcv4__picture { height: {% if s.mobile_mode == 'fixed' %}{{ s.mobile_height }}px{% else %}auto{% endif %}; }
+    #shopify-section-{{ section.id }} .rcv4__image {
+      height: {% if s.mobile_mode == 'fixed' %}100%{% else %}auto{% endif %};
+      object-fit: {{ s.mobile_fit }}; object-position: {{ s.mobile_position }};
+    }
+    #shopify-section-{{ section.id }} .rcv4__shade { background: linear-gradient(0deg,rgba(19,15,15,{{ s.overlay_opacity | divided_by: 100.0 }}) 0%,rgba(19,15,15,0) 86%); }
+    #shopify-section-{{ section.id }} .rcv4__overlay-content { left: 22px; right: 22px; bottom: 26px; top: auto; transform: none; max-width: none; }
+    #shopify-section-{{ section.id }} .rcv4__overlay-title { font-size: {{ s.mobile_overlay_heading_size }}px; }
+    #shopify-section-{{ section.id }} .rcv4__overlay-copy { font-size: 11px; }
+    #shopify-section-{{ section.id }} .rcv4__overlay-btn { margin-top: 16px; }
+    #shopify-section-{{ section.id }} .rcv4__corner-label { right: 12px; bottom: 12px; font-size: 8px; }
+    #shopify-section-{{ section.id }} .rcv4__info {
+      grid-template-columns: minmax(0,1fr); align-items: start; gap: 15px;
+      padding: {{ s.mobile_info_top }}px {% if s.mobile_full_width %}20px{% else %}0{% endif %} {{ s.mobile_info_bottom }}px;
+    }
+    #shopify-section-{{ section.id }} .rcv4__kicker { font-size: 9px; margin-bottom: 8px; }
+    #shopify-section-{{ section.id }} .rcv4__title { font-size: {{ s.mobile_heading_size }}px; }
+    #shopify-section-{{ section.id }} .rcv4__description { font-size: 12px; line-height: 1.65; }
+    #shopify-section-{{ section.id }} .rcv4__meta { gap: 16px; padding-bottom: 0; }
+    #shopify-section-{{ section.id }} .rcv4__count, #shopify-section-{{ section.id }} .rcv4__explore { font-size: 9px; }
+  }
+  @media(prefers-reduced-motion:reduce) { #shopify-section-{{ section.id }} .rcv4__image { transition: none!important; transform: none!important; } }
+</style>
+<section class="rcv4{% if s.hover_zoom %} rcv4--zoom{% endif %}" aria-label="{{ collection_name | escape }} collection">
+  <div class="rcv4__shell">
+    {% if s.show_breadcrumbs %}
+      <nav class="rcv4__crumb" aria-label="Breadcrumb">
+        <a href="{{ routes.root_url }}">Home</a><span aria-hidden="true">/</span><span aria-current="page">{{ collection_name | escape }}</span>
+      </nav>
+    {% endif %}
+    {% if is_image %}
+      <div class="rcv4__stage">
+        <div class="rcv4__media">
+          <picture class="rcv4__picture">
+            {% if mobile != blank %}
+              <source media="(max-width: 749px)"
+                srcset="{{ mobile | image_url: width: 375 }} 375w, {{ mobile | image_url: width: 550 }} 550w, {{ mobile | image_url: width: 750 }} 750w, {{ mobile | image_url: width: 990 }} 990w"
+                sizes="{% if s.mobile_full_width %}100vw{% else %}calc(100vw - {{ s.mobile_gutter | times: 2 }}px){% endif %}">
+            {% endif %}
+            <img class="rcv4__image"
+              src="{{ desktop | image_url: width: 1500 }}"
+              srcset="{{ desktop | image_url: width: 750 }} 750w, {{ desktop | image_url: width: 1100 }} 1100w, {{ desktop | image_url: width: 1500 }} 1500w, {{ desktop | image_url: width: 1900 }} 1900w, {{ desktop | image_url: width: 2400 }} 2400w"
+              sizes="{% if s.full_width %}100vw{% else %}(min-width: {{ s.max_width }}px) {{ s.max_width | minus: 40 }}px, calc(100vw - 40px){% endif %}"
+              alt="{{ banner_alt | escape }}" width="{{ desktop.width }}" height="{{ desktop.height }}"
+              loading="eager" fetchpriority="high">
+          </picture>
+          {% if s.show_overlay %}
+            <div class="rcv4__shade" aria-hidden="true"></div>
+            <div class="rcv4__overlay-content">
+              {% if s.overlay_eyebrow != blank %}<div class="rcv4__eyebrow">{{ s.overlay_eyebrow | escape }}</div>{% endif %}
+              <h2 class="rcv4__overlay-title">{{ collection_name | escape }}</h2>
+              {% if s.overlay_copy != blank %}<p class="rcv4__overlay-copy">{{ s.overlay_copy | escape }}</p>{% endif %}
+              {% if s.show_overlay_button %}
+                <a class="rcv4__overlay-btn" href="#ProductGridContainer">{{ s.button_text | escape }}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+                </a>
+              {% endif %}
+            </div>
+          {% endif %}
+          {% if s.show_corner_label and s.corner_label != blank %}<span class="rcv4__corner-label">{{ s.corner_label | escape }}</span>{% endif %}
+        </div>
+      </div>
+    {% elsif request.design_mode %}
+      <div class="rcv4__placeholder"><strong>{{ collection_name | escape }}</strong><p>Upload the two collection banner metafields, or assign a collection image.</p></div>
+    {% endif %}
+    {% if s.show_info %}
+      <div class="rcv4__info">
+        <div>
+          {% if s.show_kicker and s.kicker != blank %}<div class="rcv4__kicker">{{ s.kicker | escape }}</div>{% endif %}
+          <h1 class="rcv4__title">{{ collection_name | escape }}</h1>
+          {% if s.show_description and description != blank %}<p class="rcv4__description">{{ description | escape | truncate: 220 }}</p>{% endif %}
+        </div>
+        <div class="rcv4__meta">
+          {% if s.show_count %}<span class="rcv4__count">{{ collection.all_products_count }} {% if collection.all_products_count == 1 %}style{% else %}styles{% endif %}</span>{% endif %}
+          {% if s.show_explore %}<a class="rcv4__explore" href="#ProductGridContainer">{{ s.explore_text | escape }}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>{% endif %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Riyan Couture Banner V4",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": {"templates": ["collection"]},
+  "settings": [
+    {"type":"header","content":"Dynamic collection banners"},
+    {"type":"paragraph","content":"Upload each collection's desktop and mobile images in metafields: custom.collection_desktop_banner and custom.collection_mobile_banner. Falls back to collection image."},
+    {"type":"header","content":"Premium presentation"},
+    {"type":"select","id":"layout","label":"Banner presentation","default":"framed","options":[{"value":"framed","label":"Couture frame"},{"value":"clean","label":"Clean edge to edge"},{"value":"outlined","label":"Subtle outline"}]},
+    {"type":"checkbox","id":"full_width","label":"Full width desktop","default":true},
+    {"type":"range","id":"max_width","label":"Max content width","min":1000,"max":1800,"step":20,"unit":"px","default":1600},
+    {"type":"range","id":"side_gutter","label":"Desktop side gutter","min":0,"max":80,"step":4,"unit":"px","default":24},
+    {"type":"range","id":"frame_padding","label":"Couture frame size","min":0,"max":48,"step":2,"unit":"px","default":14},
+    {"type":"range","id":"inner_radius","label":"Inner image radius","min":0,"max":30,"step":2,"unit":"px","default":2},
+    {"type":"range","id":"radius","label":"Desktop outer radius","min":0,"max":36,"step":2,"unit":"px","default":4},
+    {"type":"header","content":"Desktop image"},
+    {"type":"select","id":"desktop_mode","label":"Height mode","default":"adapt","options":[{"value":"adapt","label":"Adapt to image"},{"value":"fixed","label":"Custom height"}]},
+    {"type":"range","id":"desktop_height","label":"Fixed image height","min":250,"max":750,"step":10,"unit":"px","default":520},
+    {"type":"select","id":"desktop_fit","label":"Image fit","default":"contain","options":[{"value":"contain","label":"No cropping"},{"value":"cover","label":"Fill frame"}]},
+    {"type":"select","id":"desktop_position","label":"Image focal point","default":"center center","options":[{"value":"center center","label":"Center"},{"value":"center top","label":"Top"},{"value":"center bottom","label":"Bottom"},{"value":"left center","label":"Left"},{"value":"right center","label":"Right"}]},
+    {"type":"checkbox","id":"hover_zoom","label":"Subtle desktop hover zoom","default":false},
+    {"type":"header","content":"Mobile image"},
+    {"type":"checkbox","id":"mobile_full_width","label":"Full width mobile","default":true},
+    {"type":"range","id":"mobile_gutter","label":"Mobile side gutter","min":0,"max":32,"step":2,"unit":"px","default":12},
+    {"type":"range","id":"mobile_frame_padding","label":"Mobile couture frame","min":0,"max":24,"step":2,"unit":"px","default":6},
+    {"type":"range","id":"mobile_radius","label":"Mobile corners","min":0,"max":30,"step":2,"unit":"px","default":2},
+    {"type":"select","id":"mobile_mode","label":"Mobile height mode","default":"adapt","options":[{"value":"adapt","label":"Adapt to image"},{"value":"fixed","label":"Custom height"}]},
+    {"type":"range","id":"mobile_height","label":"Mobile fixed height","min":200,"max":700,"step":10,"unit":"px","default":520},
+    {"type":"select","id":"mobile_fit","label":"Mobile image fit","default":"contain","options":[{"value":"contain","label":"No cropping"},{"value":"cover","label":"Fill frame"}]},
+    {"type":"select","id":"mobile_position","label":"Mobile focal point","default":"center center","options":[{"value":"center center","label":"Center"},{"value":"center top","label":"Top"},{"value":"center bottom","label":"Bottom"},{"value":"left center","label":"Left"},{"value":"right center","label":"Right"}]},
+    {"type":"header","content":"Editorial content"},
+    {"type":"checkbox","id":"show_breadcrumbs","label":"Breadcrumbs above banner","default":false},
+    {"type":"checkbox","id":"show_info","label":"Premium collection title row","default":true},
+    {"type":"checkbox","id":"show_kicker","label":"Show small editorial label","default":true},
+    {"type":"text","id":"kicker","label":"Editorial label","default":"THE RIYAN EDIT"},
+    {"type":"checkbox","id":"editorial_font","label":"Editorial serif headings","default":true},
+    {"type":"range","id":"heading_size","label":"Desktop title size","min":28,"max":72,"step":1,"unit":"px","default":46},
+    {"type":"range","id":"mobile_heading_size","label":"Mobile title size","min":24,"max":46,"step":1,"unit":"px","default":31},
+    {"type":"checkbox","id":"show_description","label":"Collection description below title","default":false},
+    {"type":"range","id":"description_size","label":"Description size","min":12,"max":18,"step":1,"unit":"px","default":13},
+    {"type":"checkbox","id":"show_count","label":"Show product count","default":true},
+    {"type":"checkbox","id":"show_explore","label":"Show shop the edit link","default":true},
+    {"type":"text","id":"explore_text","label":"Shop link label","default":"Shop the edit"},
+    {"type":"checkbox","id":"show_divider","label":"Divider below heading","default":true},
+    {"type":"range","id":"info_top","label":"Title row top spacing","min":12,"max":80,"step":2,"unit":"px","default":32},
+    {"type":"range","id":"info_bottom","label":"Title row bottom spacing","min":12,"max":80,"step":2,"unit":"px","default":24},
+    {"type":"range","id":"mobile_info_top","label":"Mobile title top spacing","min":10,"max":60,"step":2,"unit":"px","default":22},
+    {"type":"range","id":"mobile_info_bottom","label":"Mobile title bottom spacing","min":10,"max":60,"step":2,"unit":"px","default":18},
+    {"type":"header","content":"Optional image overlay"},
+    {"type":"checkbox","id":"show_overlay","label":"Show editorial overlay","default":false},
+    {"type":"text","id":"overlay_eyebrow","label":"Overlay eyebrow","default":"RIYAN CREATION"},
+    {"type":"textarea","id":"overlay_copy","label":"Overlay subtitle","default":"A considered edit of effortless elegance."},
+    {"type":"range","id":"overlay_opacity","label":"Shadow strength","min":0,"max":75,"step":5,"unit":"%","default":40},
+    {"type":"range","id":"overlay_heading_size","label":"Desktop overlay heading","min":32,"max":82,"step":1,"unit":"px","default":60},
+    {"type":"range","id":"mobile_overlay_heading_size","label":"Mobile overlay heading","min":24,"max":46,"step":1,"unit":"px","default":33},
+    {"type":"color","id":"overlay_text_color","label":"Overlay text color","default":"#FFFFFF"},
+    {"type":"checkbox","id":"show_overlay_button","label":"Overlay shop link","default":false},
+    {"type":"text","id":"button_text","label":"Overlay link label","default":"Explore collection"},
+    {"type":"checkbox","id":"show_corner_label","label":"Corner signature label","default":false},
+    {"type":"text","id":"corner_label","label":"Corner label text","default":"RIYAN ATELIER"},
+    {"type":"header","content":"Colors and spacing"},
+    {"type":"color","id":"background","label":"Section background","default":"#FFFFFF"},
+    {"type":"color","id":"frame_color","label":"Couture frame background","default":"#F7F1EC"},
+    {"type":"color","id":"image_background","label":"Image background","default":"#F7F3EF"},
+    {"type":"color","id":"text_color","label":"Heading color","default":"#321F25"},
+    {"type":"color","id":"muted_color","label":"Secondary text color","default":"#77706E"},
+    {"type":"color","id":"accent_color","label":"Accent color","default":"#8E675B"},
+    {"type":"color","id":"border_color","label":"Divider and border color","default":"#E9E0DC"},
+    {"type":"range","id":"padding_top","label":"Desktop top spacing","min":0,"max":100,"step":4,"unit":"px","default":0},
+    {"type":"range","id":"padding_bottom","label":"Desktop bottom spacing","min":0,"max":100,"step":4,"unit":"px","default":20},
+    {"type":"range","id":"mobile_padding_top","label":"Mobile top spacing","min":0,"max":100,"step":4,"unit":"px","default":0},
+    {"type":"range","id":"mobile_padding_bottom","label":"Mobile bottom spacing","min":0,"max":100,"step":4,"unit":"px","default":16}
+  ],
+  "presets": [{"name":"Riyan Couture Banner V4"}]
+}
+{% endschema %}

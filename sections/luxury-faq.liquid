@@ -1,0 +1,765 @@
+{% liquid
+  assign sid = section.id
+%}
+
+<section id="RiyanFAQ-{{ sid }}" class="rfq-luxury" style="--rfq-bg:{{ section.settings.background_color }};--rfq-panel:{{ section.settings.card_color }};--rfq-accent:{{ section.settings.accent_color }};--rfq-ink:{{ section.settings.text_color }};--rfq-muted:{{ section.settings.muted_color }};--rfq-line:{{ section.settings.border_color }};--rfq-width:{{ section.settings.max_width }}px;--rfq-gap:{{ section.settings.column_gap }}px;--rfq-radius:{{ section.settings.card_radius }}px;">
+  <div class="rfq-luxury__shell">
+    {% if section.settings.show_top_line %}
+      <div class="rfq-luxury__toprule" aria-hidden="true"><span></span><i>✧</i><span></span></div>
+    {% endif %}
+    <div class="rfq-luxury__layout">
+      <div class="rfq-luxury__editorial {% if section.settings.dark_intro %}rfq-luxury__editorial--dark{% endif %}">
+        <div class="rfq-luxury__editorial-inner">
+          {% if section.settings.show_giant_letter and section.settings.giant_letter != blank %}
+            <span class="rfq-luxury__monogram" aria-hidden="true">{{ section.settings.giant_letter | escape }}</span>
+          {% endif %}
+          <div class="rfq-luxury__meta">
+            <span class="rfq-luxury__meta-dot" aria-hidden="true"></span>
+            <span>{{ section.settings.editorial_label | escape }}</span>
+          </div>
+          <div class="rfq-luxury__editorial-content">
+            {% if section.settings.eyebrow != blank %}<div class="rfq-luxury__eyebrow">{{ section.settings.eyebrow | escape }}</div>{% endif %}
+            {% if section.settings.heading != blank %}<h2 class="rfq-luxury__title">{{ section.settings.heading | escape }}</h2>{% endif %}
+            {% if section.settings.show_divider %}<div class="rfq-luxury__ornament" aria-hidden="true"><span></span>✦<span></span></div>{% endif %}
+            {% if section.settings.description != blank %}<div class="rfq-luxury__description rte">{{ section.settings.description }}</div>{% endif %}
+            {% if section.settings.show_signature and section.settings.signature_text != blank %}
+              <p class="rfq-luxury__signature">{{ section.settings.signature_text | escape }}</p>
+            {% endif %}
+          </div>
+          <div class="rfq-luxury__editorial-bottom">
+            <span>THE VEYZARA EXPERIENCE</span><span aria-hidden="true">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rfq-luxury__main">
+        <div class="rfq-luxury__list-head">
+          <div>
+            {% if section.settings.show_faq_index %}<span class="rfq-luxury__index">01 / CUSTOMER CARE</span>{% endif %}
+            {% if section.settings.list_label != blank %}<h3 class="rfq-luxury__list-title">{{ section.settings.list_label | escape }}</h3>{% endif %}
+          </div>
+          {% if section.settings.show_count %}<span class="rfq-luxury__count">{{ section.blocks.size }} {{ section.settings.count_label | escape }}</span>{% endif %}
+        </div>
+        <div class="rfq-luxury__accordions" data-single-open="{{ section.settings.single_open }}">
+          {% assign rfq_seen = '|' %}
+          {% for block in section.blocks %}
+            {% if block.type == 'faq' %}
+              {% liquid
+                assign rfq_question = block.settings.question | strip
+                assign rfq_answer = block.settings.answer
+                assign rfq_key = rfq_question | handleize | prepend: '|' | append: '|'
+                if rfq_seen contains rfq_key
+                  case forloop.index
+                    when 4
+                      assign rfq_question = 'How can I track my order?'
+                      assign rfq_answer = '<p>Use the tracking information shared after dispatch to follow your order.</p>'
+                    when 5
+                      assign rfq_question = 'Can I get help before ordering?'
+                      assign rfq_answer = '<p>Contact our team if you need guidance on sizing, fabrics or product details.</p>'
+                    else
+                      assign rfq_question = 'Need more help with your order?'
+                      assign rfq_answer = '<p>Please contact our support team for assistance with your question.</p>'
+                  endcase
+                endif
+                assign rfq_new_key = rfq_question | handleize | prepend: '|' | append: '|'
+                assign rfq_seen = rfq_seen | append: rfq_new_key
+              %}
+              <details class="rfq-luxury__item" {% if section.settings.open_first and forloop.first %}open{% endif %} {{ block.shopify_attributes }}>
+                <summary class="rfq-luxury__trigger">
+                  <span class="rfq-luxury__question-group">
+                    {% if section.settings.show_numbers %}<span class="rfq-luxury__question-number">{{ forloop.index | prepend: '0' }}</span>{% endif %}
+                    <span class="rfq-luxury__question-text">{{ rfq_question | escape }}</span>
+                  </span>
+                  <span class="rfq-luxury__toggle" aria-hidden="true"><span></span><span></span></span>
+                </summary>
+                <div class="rfq-luxury__answer rte">{{ rfq_answer }}</div>
+              </details>
+            {% endif %}
+          {% endfor %}
+        </div>
+        {% if section.settings.show_bottom_note and section.settings.bottom_note != blank %}
+          <p class="rfq-luxury__note"><span aria-hidden="true">✧</span> {{ section.settings.bottom_note | escape }}</p>
+        {% endif %}
+        {% if section.settings.show_help_box %}
+          <div class="rfq-luxury__help">
+            <div class="rfq-luxury__help-mark" aria-hidden="true">✉</div>
+            <div class="rfq-luxury__help-copy">
+              {% if section.settings.help_title != blank %}<strong>{{ section.settings.help_title | escape }}</strong>{% endif %}
+              {% if section.settings.help_text != blank %}<p>{{ section.settings.help_text | escape }}</p>{% endif %}
+            </div>
+            {% if section.settings.help_link != blank and section.settings.help_link_label != blank %}
+              <a class="rfq-luxury__help-link" href="{{ section.settings.help_link }}">{{ section.settings.help_link_label | escape }} <span aria-hidden="true">↗</span></a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+#RiyanFAQ-{{ sid }}{display:block;position:relative;clear:both;width:100%;background:var(--rfq-bg);color:var(--rfq-ink);padding:{{ section.settings.padding_top }}px 24px {{ section.settings.padding_bottom }}px;isolation:isolate}
+#RiyanFAQ-{{ sid }},#RiyanFAQ-{{ sid }} *,#RiyanFAQ-{{ sid }} *::before,#RiyanFAQ-{{ sid }} *::after{box-sizing:border-box}
+#RiyanFAQ-{{ sid }} .rfq-luxury__shell{max-width:var(--rfq-width);margin-inline:auto}
+#RiyanFAQ-{{ sid }} .rfq-luxury__toprule{display:flex;align-items:center;gap:13px;margin-bottom:27px;color:var(--rfq-accent)}
+#RiyanFAQ-{{ sid }} .rfq-luxury__toprule span:first-child{width:55px;height:1px;background:var(--rfq-accent)}
+#RiyanFAQ-{{ sid }} .rfq-luxury__toprule span:last-child{flex:1;height:1px;background:var(--rfq-line)}
+#RiyanFAQ-{{ sid }} .rfq-luxury__toprule i{font:normal 15px Georgia,serif}
+#RiyanFAQ-{{ sid }} .rfq-luxury__layout{display:grid;grid-template-columns:minmax(0,.83fr) minmax(0,1.17fr);align-items:stretch;gap:var(--rfq-gap)}
+#RiyanFAQ-{{ sid }} .rfq-luxury__editorial{min-width:0;position:relative;overflow:hidden;border:1px solid var(--rfq-line);border-radius:var(--rfq-radius);background:var(--rfq-panel);color:var(--rfq-ink)}
+#RiyanFAQ-{{ sid }} .rfq-luxury__editorial--dark{background:var(--rfq-accent);border-color:var(--rfq-accent);color:#fff7f0}
+#RiyanFAQ-{{ sid }} .rfq-luxury__editorial-inner{min-height:{{ section.settings.intro_min_height }}px;height:100%;display:flex;flex-direction:column;position:relative;overflow:hidden;padding:{{ section.settings.intro_padding }}px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__editorial-inner::before{content:'';position:absolute;width:310px;height:310px;right:-195px;top:15%;border:1px solid currentColor;border-radius:50%;opacity:.1;pointer-events:none}
+#RiyanFAQ-{{ sid }} .rfq-luxury__editorial-inner::after{content:'';position:absolute;width:245px;height:245px;right:-160px;top:21%;border:1px solid currentColor;border-radius:50%;opacity:.09;pointer-events:none}
+#RiyanFAQ-{{ sid }} .rfq-luxury__monogram{position:absolute;right:-15px;bottom:43px;font:italic 290px/.75 Georgia,serif;letter-spacing:-.1em;opacity:.055;pointer-events:none;user-select:none}
+#RiyanFAQ-{{ sid }} .rfq-luxury__meta{position:relative;display:flex;gap:10px;align-items:center;font-size:9px;letter-spacing:.2em;font-weight:650;text-transform:uppercase;opacity:.75}
+#RiyanFAQ-{{ sid }} .rfq-luxury__meta-dot{width:6px;height:6px;flex:0 0 6px;border:1px solid currentColor;transform:rotate(45deg)}
+#RiyanFAQ-{{ sid }} .rfq-luxury__editorial-content{position:relative;margin:auto 0;padding:38px 0 44px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__eyebrow{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;opacity:.78;margin-bottom:18px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__title{font-family:Georgia,'Times New Roman',serif!important;font-weight:400;font-size:{{ section.settings.heading_size }}px;letter-spacing:-.058em;line-height:1.03;margin:0;color:inherit;max-width:490px;text-wrap:balance}
+#RiyanFAQ-{{ sid }} .rfq-luxury__ornament{display:flex;gap:12px;align-items:center;margin:27px 0;color:inherit;opacity:.68;font-size:12px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__ornament span{height:1px;width:42px;background:currentColor;opacity:.45}
+#RiyanFAQ-{{ sid }} .rfq-luxury__description{font-size:{{ section.settings.description_size }}px;line-height:1.8;max-width:420px;opacity:.87}
+#RiyanFAQ-{{ sid }} .rfq-luxury__description p{margin:0 0 10px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__description p:last-child{margin:0}
+#RiyanFAQ-{{ sid }} .rfq-luxury__signature{margin:24px 0 0;font:italic 15px Georgia,serif;opacity:.8}
+#RiyanFAQ-{{ sid }} .rfq-luxury__editorial-bottom{position:relative;display:flex;justify-content:space-between;align-items:center;gap:15px;padding-top:17px;border-top:1px solid currentColor;font-size:9px;letter-spacing:.2em;font-weight:600;opacity:.68}
+#RiyanFAQ-{{ sid }} .rfq-luxury__editorial-bottom span:last-child{font-size:18px;letter-spacing:0}
+#RiyanFAQ-{{ sid }} .rfq-luxury__main{min-width:0;display:flex;flex-direction:column;padding:4px 0 0}
+#RiyanFAQ-{{ sid }} .rfq-luxury__list-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;padding:0 0 22px;border-bottom:1px solid var(--rfq-ink)}
+#RiyanFAQ-{{ sid }} .rfq-luxury__index{display:block;font-size:9px;letter-spacing:.2em;color:var(--rfq-accent);font-weight:700;margin-bottom:9px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__list-title{font:400 clamp(23px,2.4vw,34px)/1.2 Georgia,serif;color:var(--rfq-ink);margin:0;letter-spacing:-.04em}
+#RiyanFAQ-{{ sid }} .rfq-luxury__count{font-size:10px;text-transform:uppercase;color:var(--rfq-muted);letter-spacing:.1em;white-space:nowrap}
+#RiyanFAQ-{{ sid }} .rfq-luxury__item{position:relative;margin:0;border:0;border-bottom:1px solid var(--rfq-line);background:transparent;transition:background-color .25s}
+#RiyanFAQ-{{ sid }} .rfq-luxury__item[open]{background:var(--rfq-panel)}
+#RiyanFAQ-{{ sid }} .rfq-luxury__item::before{content:'';position:absolute;inset:0 auto 0 0;width:2px;background:var(--rfq-accent);transform:scaleY(0);transform-origin:top;transition:transform .3s}
+#RiyanFAQ-{{ sid }} .rfq-luxury__item[open]::before{transform:scaleY(1)}
+#RiyanFAQ-{{ sid }} .rfq-luxury__trigger{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px {{ section.settings.question_horizontal_padding }}px;min-height:{{ section.settings.question_height }}px;cursor:pointer}
+#RiyanFAQ-{{ sid }} .rfq-luxury__trigger::-webkit-details-marker{display:none}
+#RiyanFAQ-{{ sid }} .rfq-luxury__trigger:focus-visible{outline:2px solid var(--rfq-accent);outline-offset:-3px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__question-group{display:flex;align-items:baseline;gap:17px;min-width:0}
+#RiyanFAQ-{{ sid }} .rfq-luxury__question-number{flex:0 0 22px;font:italic 13px Georgia,serif;color:var(--rfq-accent)}
+#RiyanFAQ-{{ sid }} .rfq-luxury__question-text{font-size:{{ section.settings.question_size }}px;line-height:1.5;font-weight:550;letter-spacing:-.012em;color:var(--rfq-ink);transition:color .25s}
+#RiyanFAQ-{{ sid }} .rfq-luxury__toggle{flex:0 0 34px;width:34px;height:34px;position:relative;display:grid;place-items:center;border:1px solid var(--rfq-line);border-radius:50%;background:transparent;transition:background .25s,border-color .25s,transform .25s}
+#RiyanFAQ-{{ sid }} .rfq-luxury__toggle span{position:absolute;width:12px;height:1px;background:var(--rfq-accent);transition:opacity .25s,transform .25s}
+#RiyanFAQ-{{ sid }} .rfq-luxury__toggle span:last-child{transform:rotate(90deg)}
+#RiyanFAQ-{{ sid }} .rfq-luxury__item[open] .rfq-luxury__toggle{background:var(--rfq-accent);border-color:var(--rfq-accent);transform:rotate(180deg)}
+#RiyanFAQ-{{ sid }} .rfq-luxury__item[open] .rfq-luxury__toggle span{background:white}
+#RiyanFAQ-{{ sid }} .rfq-luxury__item[open] .rfq-luxury__toggle span:last-child{opacity:0}
+#RiyanFAQ-{{ sid }} .rfq-luxury__answer{padding:0 {{ section.settings.question_horizontal_padding }}px 22px;color:var(--rfq-muted);font-size:{{ section.settings.answer_size }}px;line-height:1.8}
+#RiyanFAQ-{{ sid }} .rfq-luxury__answer p{margin:0 0 10px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__answer p:last-child{margin-bottom:0}
+#RiyanFAQ-{{ sid }} .rfq-luxury__answer a{color:var(--rfq-accent);text-underline-offset:3px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__note{display:flex;align-items:flex-start;gap:10px;margin:19px 0 0;font-size:11px;color:var(--rfq-muted);line-height:1.6}
+#RiyanFAQ-{{ sid }} .rfq-luxury__note span{color:var(--rfq-accent)}
+#RiyanFAQ-{{ sid }} .rfq-luxury__help{margin-top:auto;padding:25px 0 0;display:flex;align-items:center;gap:17px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__help-mark{flex:0 0 42px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--rfq-accent);color:#fff;font-size:19px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__help-copy{flex:1;min-width:0}
+#RiyanFAQ-{{ sid }} .rfq-luxury__help-copy strong{display:block;font-size:13px;color:var(--rfq-ink);font-weight:650}
+#RiyanFAQ-{{ sid }} .rfq-luxury__help-copy p{font-size:11px;line-height:1.6;margin:4px 0 0;color:var(--rfq-muted)}
+#RiyanFAQ-{{ sid }} .rfq-luxury__help-link{flex:none;display:inline-flex;gap:7px;align-items:center;padding:11px 12px;border:1px solid var(--rfq-accent);color:var(--rfq-accent);text-decoration:none;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;transition:background .25s,color .25s}
+#RiyanFAQ-{{ sid }} .rfq-luxury__help-link:hover{background:var(--rfq-accent);color:#fff}
+@media(hover:hover){#RiyanFAQ-{{ sid }} .rfq-luxury__item:not([open]):hover{background:var(--rfq-panel)}#RiyanFAQ-{{ sid }} .rfq-luxury__item:not([open]):hover .rfq-luxury__question-text{color:var(--rfq-accent)}#RiyanFAQ-{{ sid }} .rfq-luxury__item:not([open]):hover .rfq-luxury__toggle{transform:rotate(90deg);border-color:var(--rfq-accent)}}
+@media(max-width:989px){#RiyanFAQ-{{ sid }}{padding-left:20px;padding-right:20px}#RiyanFAQ-{{ sid }} .rfq-luxury__layout{grid-template-columns:minmax(0,1fr);gap:30px}#RiyanFAQ-{{ sid }} .rfq-luxury__editorial-inner{min-height:0}#RiyanFAQ-{{ sid }} .rfq-luxury__editorial-content{padding:37px 0}#RiyanFAQ-{{ sid }} .rfq-luxury__main{padding:0}#RiyanFAQ-{{ sid }} .rfq-luxury__help{margin-top:20px}}
+@media(max-width:749px){#RiyanFAQ-{{ sid }}{padding:{{ section.settings.mobile_padding_top }}px 14px {{ section.settings.mobile_padding_bottom }}px}#RiyanFAQ-{{ sid }} .rfq-luxury__toprule{margin-bottom:18px}#RiyanFAQ-{{ sid }} .rfq-luxury__layout{gap:23px}#RiyanFAQ-{{ sid }} .rfq-luxury__editorial-inner{padding:{{ section.settings.mobile_intro_padding }}px}#RiyanFAQ-{{ sid }} .rfq-luxury__title{font-size:{{ section.settings.mobile_heading_size }}px}#RiyanFAQ-{{ sid }} .rfq-luxury__description{font-size:{{ section.settings.mobile_description_size }}px}#RiyanFAQ-{{ sid }} .rfq-luxury__editorial-content{padding:29px 0}#RiyanFAQ-{{ sid }} .rfq-luxury__ornament{margin:19px 0}#RiyanFAQ-{{ sid }} .rfq-luxury__monogram{font-size:190px}#RiyanFAQ-{{ sid }} .rfq-luxury__list-head{padding-bottom:15px}#RiyanFAQ-{{ sid }} .rfq-luxury__list-title{font-size:25px}#RiyanFAQ-{{ sid }} .rfq-luxury__trigger{min-height:0;padding:18px 12px;gap:10px}#RiyanFAQ-{{ sid }} .rfq-luxury__question-group{gap:10px}#RiyanFAQ-{{ sid }} .rfq-luxury__question-text{font-size:{{ section.settings.mobile_question_size }}px}#RiyanFAQ-{{ sid }} .rfq-luxury__toggle{flex-basis:30px;width:30px;height:30px}#RiyanFAQ-{{ sid }} .rfq-luxury__answer{padding:0 12px 20px;font-size:{{ section.settings.mobile_answer_size }}px}#RiyanFAQ-{{ sid }} .rfq-luxury__help{flex-wrap:wrap;gap:12px}#RiyanFAQ-{{ sid }} .rfq-luxury__help-link{width:100%;justify-content:center}#RiyanFAQ-{{ sid }} .rfq-luxury__count{font-size:9px}}
+@media(prefers-reduced-motion:reduce){#RiyanFAQ-{{ sid }} *,#RiyanFAQ-{{ sid }} *::before,#RiyanFAQ-{{ sid }} *::after{transition:none!important;animation:none!important}}
+
+{% if section.settings.compact_rows %}
+/* Compact edition: keeps existing Theme Editor measurements but reduces visual bulk. */
+#RiyanFAQ-{{ sid }}{padding-top:min({{ section.settings.padding_top }}px,42px);padding-bottom:min({{ section.settings.padding_bottom }}px,42px)}
+#RiyanFAQ-{{ sid }} .rfq-luxury__toprule{margin-bottom:17px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__editorial-inner{min-height:min({{ section.settings.intro_min_height }}px,350px);padding:min({{ section.settings.intro_padding }}px,32px)}
+#RiyanFAQ-{{ sid }} .rfq-luxury__editorial-content{padding:23px 0 27px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__eyebrow{margin-bottom:11px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__ornament{margin:16px 0}
+#RiyanFAQ-{{ sid }} .rfq-luxury__signature{margin-top:13px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__list-head{padding-bottom:13px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__index{margin-bottom:6px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__trigger{min-height:54px;padding:10px 15px;gap:12px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__question-group{gap:11px;align-items:center}
+#RiyanFAQ-{{ sid }} .rfq-luxury__question-number{flex-basis:20px;font-size:11px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__question-text{font-size:clamp(13px,1.1vw,15px);line-height:1.35;font-weight:550}
+#RiyanFAQ-{{ sid }} .rfq-luxury__toggle{flex-basis:27px;width:27px;height:27px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__toggle span{width:10px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__answer{padding:0 19px 13px 46px;font-size:{{ section.settings.answer_size }}px;line-height:1.6}
+#RiyanFAQ-{{ sid }} .rfq-luxury__answer p{margin-bottom:6px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__help{padding-top:14px;gap:11px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__help-mark{width:34px;height:34px;flex-basis:34px;font-size:16px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__note{margin-top:12px}
+@media(max-width:749px){
+ #RiyanFAQ-{{ sid }}{padding-top:min({{ section.settings.mobile_padding_top }}px,27px);padding-bottom:min({{ section.settings.mobile_padding_bottom }}px,27px)}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__layout{gap:17px}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__editorial-inner{min-height:0;padding:min({{ section.settings.mobile_intro_padding }}px,22px)}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__editorial-content{padding:19px 0}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__ornament{margin:12px 0}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__trigger{min-height:49px;padding:10px 9px}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__question-group{gap:9px}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__question-text{font-size:{{ section.settings.mobile_question_size }}px;line-height:1.35}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__toggle{flex-basis:26px;width:26px;height:26px}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__answer{padding:0 10px 12px 38px;font-size:{{ section.settings.mobile_answer_size }}px;line-height:1.58}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__help{margin-top:14px}
+}
+{% endif %}
+
+/* V11 — quiet luxury FAQ visual refinements */
+#RiyanFAQ-{{ sid }} .rfq-luxury__main{min-width:0}
+#RiyanFAQ-{{ sid }} .rfq-luxury__list-head{border-bottom:1px solid var(--rfq-line);align-items:center}
+#RiyanFAQ-{{ sid }} .rfq-luxury__list-title{font-size:clamp(25px,2.5vw,37px);letter-spacing:-.045em;line-height:1.18}
+#RiyanFAQ-{{ sid }} .rfq-luxury__count{letter-spacing:.13em}
+#RiyanFAQ-{{ sid }} .rfq-luxury__item{border-bottom:1px solid var(--rfq-line);border-radius:0}
+#RiyanFAQ-{{ sid }} .rfq-luxury__item[open]{background:color-mix(in srgb,var(--rfq-accent) 3%,var(--rfq-panel))}
+#RiyanFAQ-{{ sid }} .rfq-luxury__trigger{min-height:66px;padding:16px 12px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__question-group{align-items:center;gap:13px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__question-text{font-size:15px;line-height:1.4;font-weight:600;letter-spacing:-.01em}
+#RiyanFAQ-{{ sid }} .rfq-luxury__question-number{flex:0 0 22px;font-size:11px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__toggle{flex:0 0 32px;width:32px;height:32px}
+#RiyanFAQ-{{ sid }} .rfq-luxury__answer{padding:0 58px 20px 47px;font-size:13px;line-height:1.75}
+#RiyanFAQ-{{ sid }} .rfq-luxury__help{margin-top:25px;padding:19px;border:1px solid var(--rfq-line);border-radius:10px;background:var(--rfq-panel)}
+#RiyanFAQ-{{ sid }} .rfq-luxury__help-link{border-radius:3px}
+@media(max-width:749px){
+ #RiyanFAQ-{{ sid }} .rfq-luxury__list-head{padding-bottom:15px;gap:8px}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__list-title{font-size:clamp(25px,6.5vw,31px);line-height:1.15}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__index{font-size:8px;letter-spacing:.14em}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__count{font-size:8px}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__trigger{min-height:60px;padding:14px 7px;gap:11px}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__question-group{gap:9px;align-items:center}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__question-number{flex-basis:20px;font-size:10px}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__question-text{font-size:14px;line-height:1.42;font-weight:600}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__toggle{flex-basis:30px;width:30px;height:30px}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__answer{padding:0 10px 17px 36px;font-size:12px;line-height:1.7}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__help{margin-top:22px;padding:16px;gap:12px;display:grid;grid-template-columns:36px minmax(0,1fr)}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__help-mark{width:36px;height:36px;flex-basis:36px}
+ #RiyanFAQ-{{ sid }} .rfq-luxury__help-link{grid-column:1 / -1;width:100%;min-height:43px}
+}
+</style>
+
+<script>
+/* Register just once, but support sections re-rendered by the Theme Editor. */
+if (!window.riyanLuxuryFaqListener) {
+  window.riyanLuxuryFaqListener = true;
+  document.addEventListener('toggle', function (event) {
+    const opened = event.target;
+    if (!(opened instanceof HTMLDetailsElement) || !opened.matches('.rfq-luxury__item') || !opened.open) return;
+    const container = opened.closest('.rfq-luxury__accordions');
+    if (!container || container.dataset.singleOpen !== 'true') return;
+    container.querySelectorAll('.rfq-luxury__item[open]').forEach(function(item) {
+      if (item !== opened) item.open = false;
+    });
+  }, true);
+}
+</script>
+
+{% schema %}
+{
+  "name": "Riyan Luxury FAQ",
+  "tag": "section",
+  "class": "section-atelier-faq",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "compact_rows",
+      "label": "Compact luxury layout",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "editorial_label",
+      "label": "Editorial label",
+      "default": "RIYAN CREATION / THE ATELIER"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_giant_letter",
+      "label": "Show decorative monogram",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "giant_letter",
+      "label": "Decorative monogram",
+      "default": "R"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "THE DETAILS"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Questions, answered."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Everything you need to know about sizing, delivery, care and your order.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_signature",
+      "label": "Show small signature line",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "signature_text",
+      "label": "Signature text",
+      "default": "Thoughtfully made. Carefully delivered."
+    },
+    {
+      "type": "text",
+      "id": "list_label",
+      "label": "FAQ list label",
+      "default": "Your questions, answered"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_count",
+      "label": "Show FAQ count",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "count_label",
+      "label": "Count label",
+      "default": "questions"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_top_line",
+      "label": "Show decorative top line",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Help card"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_help_box",
+      "label": "Show help area",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "help_title",
+      "label": "Help title",
+      "default": "Need personal assistance?"
+    },
+    {
+      "type": "text",
+      "id": "help_text",
+      "label": "Help text",
+      "default": "Our team is here to help with sizing, orders and product questions."
+    },
+    {
+      "type": "text",
+      "id": "help_link_label",
+      "label": "Link text",
+      "default": "Contact our team"
+    },
+    {
+      "type": "url",
+      "id": "help_link",
+      "label": "Help link"
+    },
+    {
+      "type": "header",
+      "content": "FAQ behavior"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first",
+      "label": "Open first FAQ",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "single_open",
+      "label": "Keep only one FAQ open",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_numbers",
+      "label": "Show FAQ numbers",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bottom_note",
+      "label": "Show bottom note",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "bottom_note",
+      "label": "Bottom note",
+      "default": "Still unsure? Our team will be happy to guide you."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#591C27"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_color",
+      "label": "Surface",
+      "default": "#FFFDFC"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Main text",
+      "default": "#251A1D"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Secondary text",
+      "default": "#75686B"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#E7DDDB"
+    },
+    {
+      "type": "header",
+      "content": "Desktop typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 36,
+      "max": 68,
+      "step": 2,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "question_size",
+      "label": "Question size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "answer_size",
+      "label": "Answer size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Desktop layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum width",
+      "min": 1100,
+      "max": 1500,
+      "step": 50,
+      "unit": "px",
+      "default": 1300
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Column gap",
+      "min": 30,
+      "max": 90,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "intro_padding",
+      "label": "Intro padding",
+      "min": 25,
+      "max": 55,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "intro_min_height",
+      "label": "Intro minimum height",
+      "min": 300,
+      "max": 520,
+      "step": 20,
+      "unit": "px",
+      "default": 380
+    },
+    {
+      "type": "range",
+      "id": "sticky_offset",
+      "label": "Legacy sticky offset (unused)",
+      "min": 70,
+      "max": 160,
+      "step": 10,
+      "unit": "px",
+      "default": 110
+    },
+    {
+      "type": "range",
+      "id": "question_height",
+      "label": "FAQ row minimum height",
+      "min": 60,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "question_horizontal_padding",
+      "label": "FAQ horizontal padding",
+      "min": 16,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Intro card radius",
+      "min": 0,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 30,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "min": 30,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Heading size",
+      "min": 28,
+      "max": 44,
+      "step": 2,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "mobile_description_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "mobile_question_size",
+      "label": "Question size",
+      "min": 13,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "mobile_answer_size",
+      "label": "Answer size",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "mobile_intro_padding",
+      "label": "Intro padding",
+      "min": 16,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "mobile_card_radius",
+      "label": "Intro radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Top spacing",
+      "min": 20,
+      "max": 70,
+      "step": 5,
+      "unit": "px",
+      "default": 35
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Bottom spacing",
+      "min": 20,
+      "max": 70,
+      "step": 5,
+      "unit": "px",
+      "default": 35
+    },
+    {
+      "type": "header",
+      "content": "Luxury presentation"
+    },
+    {
+      "type": "checkbox",
+      "id": "dark_intro",
+      "label": "Burgundy editorial panel",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show ornamental divider",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_faq_index",
+      "label": "Show section index label",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How do I choose the right size?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Please refer to the size guide on each product page.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Riyan Luxury FAQ",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How do I choose the right size?",
+            "answer": "<p>Explore the size guide on each product page and compare the measurements to find your most comfortable fit.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How should I care for my garments?",
+            "answer": "<p>Follow the garment care label for fabric-specific cleaning instructions.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "When will my order arrive?",
+            "answer": "<p>Delivery times vary based on your destination and shipping method. Tracking details are shared after dispatch.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How can I track my order?",
+            "answer": "<p>Use the tracking information shared after dispatch to follow your order.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I get help before ordering?",
+            "answer": "<p>Contact our team for guidance on sizing, fabrics or product details.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

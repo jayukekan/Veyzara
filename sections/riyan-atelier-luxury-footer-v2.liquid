@@ -1,0 +1,744 @@
+{% liquid
+  assign fid = 'riyan-footer-' | append: section.id
+%}
+<footer id="{{ fid }}" class="rf-footer" style="
+  --rf-bg:{{ section.settings.bg }};
+  --rf-surface:{{ section.settings.surface }};
+  --rf-text:{{ section.settings.ink }};
+  --rf-muted:{{ section.settings.muted }};
+  --rf-accent:{{ section.settings.accent }};
+  --rf-line:{{ section.settings.line }};
+  --rf-button-bg:{{ section.settings.button_bg }};
+  --rf-button-text:{{ section.settings.button_text }};
+  --rf-input-bg:{{ section.settings.input_bg }};
+  --rf-service-bg:{{ section.settings.service_bg }};
+  --rf-width:{{ section.settings.max_width }}px;
+  --rf-top:{{ section.settings.padding_top }}px;
+  --rf-bottom:{{ section.settings.padding_bottom }}px;
+  --rf-mobile-top:{{ section.settings.mobile_padding_top }}px;
+  --rf-gap:{{ section.settings.column_spacing }}px;
+  --rf-brand-size:{{ section.settings.brand_font_size }}px;
+  --rf-news-size:{{ section.settings.newsletter_font_size }}px;
+  --rf-body-size:{{ section.settings.body_font_size }}px;
+  --rf-heading-size:{{ section.settings.menu_heading_size }}px;
+  --rf-menu-link-size:{{ section.settings.menu_link_size }}px;
+  --rf-mobile-menu-size:{{ section.settings.mobile_menu_link_size }}px;
+  --rf-mobile-heading-size:{{ section.settings.mobile_menu_heading_size }}px;
+  --rf-news-title-color:{{ section.settings.newsletter_heading_color }};
+  --rf-logo-width:{{ section.settings.logo_width }}px;
+  --rf-font-heading:{% if section.settings.heading_font_style == 'serif' %}Georgia, 'Times New Roman', serif{% elsif section.settings.heading_font_style == 'sans' %}Arial, Helvetica, sans-serif{% else %}var(--font-heading-family, Georgia, serif){% endif %};
+">
+  {% if section.settings.show_service_strip %}
+    <div class="rf-services">
+      <div class="rf-wrap rf-services-grid">
+        <div class="rf-service"><svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 10h17v13H3zM20 14h5l4 5v4h-9z"/><circle cx="9" cy="24" r="2.5"/><circle cx="24" cy="24" r="2.5"/></svg><span>{{ section.settings.service_one | escape }}</span></div>
+        <div class="rf-service"><svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 3 27 8v8c0 8-5 11-11 14C10 27 5 24 5 16V8L16 3Z"/><path d="m11 16 4 4 7-8"/></svg><span>{{ section.settings.service_two | escape }}</span></div>
+        <div class="rf-service"><svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 29 4 17C-2 9 9 2 16 11 23 2 34 9 28 17L16 29Z"/></svg><span>{{ section.settings.service_three | escape }}</span></div>
+      </div>
+    </div>
+  {% endif %}
+  <div class="rf-wrap">
+    <div class="rf-top">
+      <div class="rf-brand">
+        {% if section.settings.brand_eyebrow != blank %}<span class="rf-eyebrow">{{ section.settings.brand_eyebrow | escape }}</span>{% endif %}
+        {% if section.settings.logo != blank %}
+          {{ section.settings.logo | image_url: width: 600 | image_tag: class: 'rf-logo', widths: '180,300,450,600', loading: 'lazy', alt: section.settings.brand_name }}
+        {% else %}
+          <div class="rf-wordmark">{{ section.settings.brand_name | default: shop.name | escape }}</div>
+        {% endif %}
+        {% if section.settings.tagline != blank %}<p class="rf-tagline">{{ section.settings.tagline | escape }}</p>{% endif %}
+        {% if section.settings.brand_description != blank %}<p class="rf-description">{{ section.settings.brand_description | escape }}</p>{% endif %}
+        {% if section.settings.instagram != blank or section.settings.facebook != blank or section.settings.pinterest != blank or section.settings.youtube != blank %}
+          <div class="rf-social">
+            {% if section.settings.instagram != blank %}<a href="{{ section.settings.instagram }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram <span aria-hidden="true">↗</span></a>{% endif %}
+            {% if section.settings.facebook != blank %}<a href="{{ section.settings.facebook }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook">Facebook <span aria-hidden="true">↗</span></a>{% endif %}
+            {% if section.settings.pinterest != blank %}<a href="{{ section.settings.pinterest }}" target="_blank" rel="noopener noreferrer" aria-label="Pinterest">Pinterest <span aria-hidden="true">↗</span></a>{% endif %}
+            {% if section.settings.youtube != blank %}<a href="{{ section.settings.youtube }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube">YouTube <span aria-hidden="true">↗</span></a>{% endif %}
+          </div>
+        {% endif %}
+      </div>
+      {% if section.settings.show_newsletter %}
+        <div class="rf-newsletter">
+          {% if section.settings.newsletter_eyebrow != blank %}<span class="rf-eyebrow">{{ section.settings.newsletter_eyebrow | escape }}</span>{% endif %}
+          <h2 class="rf-newsletter-title">{{ section.settings.newsletter_title | escape }}</h2>
+          {% if section.settings.newsletter_description != blank %}<p class="rf-news-description">{{ section.settings.newsletter_description | escape }}</p>{% endif %}
+          {% form 'customer', class: 'rf-form' %}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <label class="rf-visually-hidden" for="rf-email-{{ section.id }}">Email address</label>
+            <div class="rf-field">
+              <input id="rf-email-{{ section.id }}" type="email" name="contact[email]" placeholder="{{ section.settings.email_placeholder | escape }}" autocomplete="email" autocapitalize="off" autocorrect="off" spellcheck="false" maxlength="254" value="{{ form.email | escape }}" required aria-required="true" {% if form.errors %}aria-invalid="true" aria-describedby="rf-email-error-{{ section.id }}"{% endif %}>
+              <button type="submit" aria-label="{{ section.settings.newsletter_button | escape }}"><span>{{ section.settings.newsletter_button | escape }}</span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16m-7-7 7 7-7 7"/></svg></button>
+            </div>
+            {% if form.posted_successfully? %}<p class="rf-form-message rf-form-success" role="status">Thank you for subscribing. You are on the list.</p>{% endif %}
+            {% if form.errors %}<div id="rf-email-error-{{ section.id }}" class="rf-form-message rf-form-error" role="alert">{{ form.errors | default_errors }}</div>{% endif %}
+          {% endform %}
+          {% if section.settings.newsletter_note != blank %}<p class="rf-news-note">{{ section.settings.newsletter_note | escape }}</p>{% endif %}
+        </div>
+      {% endif %}
+    </div>
+    <div class="rf-rule"><span aria-hidden="true">✦</span></div>
+    <div class="rf-navigation">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'menu' %}
+            <div class="rf-nav-col" {{ block.shopify_attributes }}>
+              <h3>{{ block.settings.heading | escape }}</h3>
+              {% if block.settings.menu != blank %}
+                <ul>{% for link in block.settings.menu.links %}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{% endfor %}</ul>
+              {% elsif request.design_mode %}<p class="rf-empty">Choose a navigation menu in the theme editor.</p>{% endif %}
+            </div>
+          {% when 'contact' %}
+            <div class="rf-nav-col rf-contact" {{ block.shopify_attributes }}>
+              <h3>{{ block.settings.heading | escape }}</h3>
+              {% if block.settings.intro != blank %}<p>{{ block.settings.intro | escape }}</p>{% endif %}
+              {% if block.settings.email != blank %}<a href="mailto:{{ block.settings.email | strip | escape }}">{{ block.settings.email | escape }}</a>{% endif %}
+              {% if block.settings.phone != blank %}{% assign phone_link = block.settings.phone | remove: ' ' | remove: '-' | remove: '(' | remove: ')' %}<a href="tel:{{ phone_link | escape }}">{{ block.settings.phone | escape }}</a>{% endif %}
+              {% if block.settings.whatsapp != blank %}{% assign wa = block.settings.whatsapp | remove: ' ' | remove: '+' | remove: '-' | remove: '(' | remove: ')' %}<a href="https://wa.me/{{ wa | escape }}" target="_blank" rel="noopener noreferrer">Chat on WhatsApp ↗</a>{% endif %}
+            </div>
+        {% endcase %}
+      {% endfor %}
+      {% if section.settings.show_editorial_note %}
+        <div class="rf-nav-col rf-editorial">
+          <span class="rf-eyebrow">{{ section.settings.editorial_eyebrow | escape }}</span>
+          <p>{{ section.settings.editorial_quote | escape | newline_to_br }}</p>
+          <span class="rf-editorial-sign">{{ section.settings.brand_name | escape }} <span aria-hidden="true">✦</span></span>
+        </div>
+      {% endif %}
+    </div>
+    {% if section.settings.show_big_brand %}<div class="rf-bigbrand" aria-hidden="true">{{ section.settings.brand_name | default: shop.name | escape }}</div>{% endif %}
+    <div class="rf-bottom">
+      <div class="rf-copyright">© {{ 'now' | date: '%Y' }} {{ section.settings.brand_name | default: shop.name | escape }}. All rights reserved.</div>
+      {% if section.settings.show_policies %}<nav class="rf-legal" aria-label="Footer policies">{% for policy in shop.policies %}{% if policy.url != blank %}<a href="{{ policy.url }}">{{ policy.title | escape }}</a>{% endif %}{% endfor %}</nav>{% endif %}
+      {% if section.settings.show_payments and shop.enabled_payment_types.size > 0 %}<div class="rf-payments" aria-label="Accepted payment methods">{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag: class: 'rf-payment-icon' }}{% endfor %}</div>{% endif %}
+    </div>
+    {% if section.settings.show_developer_credit %}
+      <div class="rf-credit" aria-label="Website design and development credit">
+        <span class="rf-credit-rule" aria-hidden="true"></span>
+        <span class="rf-credit-content">
+          <span class="rf-credit-label">{{ section.settings.developer_credit_label | escape }}</span>
+          <a class="rf-credit-link" href="{{ section.settings.developer_credit_url | default: 'https://blueslag.com/' | escape }}" target="_blank" rel="noopener noreferrer">
+            {{ section.settings.developer_credit_name | escape }}
+            <svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15 15 5M7 5h8v8"/></svg>
+          </a>
+        </span>
+        <span class="rf-credit-rule" aria-hidden="true"></span>
+      </div>
+    {% endif %}
+  </div>
+</footer>
+<style>
+  #{{ fid }} { background:var(--rf-bg); color:var(--rf-text); padding-bottom:var(--rf-bottom); font-family:var(--font-body-family,Arial,sans-serif); font-size:var(--rf-body-size); }
+  #{{ fid }},#{{ fid }} *,#{{ fid }} *::before,#{{ fid }} *::after {box-sizing:border-box}
+  #{{ fid }} .rf-wrap{width:min(calc(100% - 64px),var(--rf-width));margin-inline:auto}
+  #{{ fid }} a{color:inherit;text-decoration:none;transition:color .22s ease,transform .22s ease}
+  #{{ fid }} a:hover{color:var(--rf-accent)}
+  #{{ fid }} .rf-eyebrow{display:block;color:var(--rf-accent);font-size:10px;line-height:1.4;text-transform:uppercase;letter-spacing:.17em;font-weight:600}
+  #{{ fid }} .rf-services{background:var(--rf-service-bg);border-bottom:1px solid var(--rf-line)}
+  #{{ fid }} .rf-services-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));min-height:50px}
+  #{{ fid }} .rf-service{display:flex;align-items:center;justify-content:center;gap:9px;padding:9px 12px;border-right:1px solid var(--rf-line);font-size:10px;letter-spacing:.09em;text-transform:uppercase;text-align:center}
+  #{{ fid }} .rf-service:last-child{border-right:0}
+  #{{ fid }} .rf-service svg{width:20px;height:20px;flex:none;color:var(--rf-accent)}
+  #{{ fid }} .rf-top{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,6vw,100px);align-items:start;padding:var(--rf-top) 0 22px}
+  #{{ fid }} .rf-wordmark{font-family:var(--rf-font-heading);font-size:var(--rf-brand-size);line-height:1.04;letter-spacing:-.035em;font-weight:400;margin:11px 0 8px}
+  #{{ fid }} .rf-logo{display:block;max-width:100%;width:var(--rf-logo-width);height:auto;object-fit:contain;margin:11px 0 9px}
+  #{{ fid }} .rf-tagline{color:var(--rf-accent);text-transform:uppercase;letter-spacing:.14em;font-size:10px;margin:0 0 9px}
+  #{{ fid }} .rf-description{color:var(--rf-muted);line-height:1.55;max-width:460px;margin:0}
+  #{{ fid }} .rf-social{display:flex;flex-wrap:wrap;column-gap:19px;row-gap:9px;margin-top:16px}
+  #{{ fid }} .rf-social a{font-size:10px;font-weight:600;letter-spacing:.07em;border-bottom:1px solid var(--rf-line);padding-bottom:5px}
+  #{{ fid }} .rf-social span{color:var(--rf-accent)}
+  #{{ fid }} .rf-newsletter{border-left:1px solid var(--rf-line);padding-left:clamp(24px,4vw,62px)}
+  #{{ fid }} .rf-newsletter .rf-newsletter-title{color:var(--rf-news-title-color)!important;-webkit-text-fill-color:var(--rf-news-title-color);font-family:var(--rf-font-heading);font-size:var(--rf-news-size);font-weight:400;line-height:1.15;letter-spacing:-.026em;margin:9px 0}
+  #{{ fid }} .rf-newsletter{position:relative}
+  #{{ fid }} .rf-newsletter .rf-eyebrow{letter-spacing:.2em}
+  #{{ fid }} .rf-news-description{color:var(--rf-muted);line-height:1.6;margin:0 0 12px;max-width:400px}
+  #{{ fid }} .rf-field{display:flex;align-items:stretch;min-height:48px;border:1px solid var(--rf-line);background:var(--rf-input-bg);padding:4px;transition:border-color .2s ease,box-shadow .2s ease}
+  #{{ fid }} .rf-field:focus-within{border-color:var(--rf-accent);box-shadow:0 0 0 1px var(--rf-accent)}
+  #{{ fid }} .rf-field input{border:0!important;border-radius:0;box-shadow:none!important;outline:0!important;background:transparent;color:var(--rf-text);min-width:0;flex:1;width:100%;font:inherit;font-size:var(--rf-body-size);padding:7px 11px}
+  #{{ fid }} .rf-field input::placeholder{color:var(--rf-muted);opacity:1}
+  #{{ fid }} .rf-field button{border:0;border-radius:0;background:var(--rf-button-bg);color:var(--rf-button-text);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;font:inherit;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:8px 13px;transition:opacity .2s}
+  #{{ fid }} .rf-field button:hover{opacity:.88}
+  #{{ fid }} .rf-field button:focus-visible{outline-offset:-2px!important}
+  #{{ fid }} .rf-field input:invalid:not(:placeholder-shown){box-shadow:none!important}
+  #{{ fid }} .rf-field button svg{width:17px;height:17px}
+  #{{ fid }} .rf-news-note{font-size:10px;color:var(--rf-muted);margin:8px 0 0}
+  #{{ fid }} .rf-form-message{font-size:12px;line-height:1.5;margin:9px 0;color:var(--rf-text)}
+  #{{ fid }} .rf-form-success{color:var(--rf-accent)}
+  #{{ fid }} .rf-form-error{color:var(--rf-text)}
+  #{{ fid }} .rf-rule{display:flex;align-items:center;gap:13px;color:var(--rf-accent);font-size:11px}
+  #{{ fid }} .rf-rule::before,#{{ fid }} .rf-rule::after{content:"";height:1px;background:var(--rf-line);flex:1}
+  #{{ fid }} .rf-navigation{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--rf-gap);padding:25px 0 28px}
+  #{{ fid }} .rf-nav-col{min-width:0}
+  #{{ fid }} .rf-nav-col h3{display:flex;align-items:center;gap:9px;color:var(--rf-text);margin:0 0 13px;text-transform:uppercase;letter-spacing:.105em;font-size:var(--rf-heading-size);line-height:1.35;font-weight:650}
+  #{{ fid }} .rf-nav-col h3::before{content:"";width:15px;height:1px;background:var(--rf-accent);flex:none}
+  #{{ fid }} .rf-nav-col ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+  #{{ fid }} .rf-nav-col a,#{{ fid }} .rf-nav-col>p,#{{ fid }} .rf-empty{color:var(--rf-muted);line-height:1.55;font-size:var(--rf-body-size)}
+  #{{ fid }} .rf-nav-col li a{display:inline-block;font-size:var(--rf-menu-link-size)}
+  #{{ fid }} .rf-contact a{font-size:var(--rf-menu-link-size)}
+  #{{ fid }} .rf-nav-col a:hover{color:var(--rf-accent);transform:translateX(2px)}
+  #{{ fid }} .rf-contact>p{margin:0 0 9px}
+  #{{ fid }} .rf-contact a{display:block;width:fit-content;max-width:100%;overflow-wrap:anywhere;margin:6px 0}
+  #{{ fid }} .rf-editorial{border-left:1px solid var(--rf-line);padding-left:clamp(16px,2vw,30px)}
+  #{{ fid }} .rf-editorial p{font-family:var(--rf-font-heading);font-weight:400;font-size:clamp(19px,2vw,27px);line-height:1.25;color:var(--rf-text);margin:11px 0 13px}
+  #{{ fid }} .rf-editorial-sign{font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--rf-accent)}
+  #{{ fid }} .rf-bigbrand{font-family:var(--rf-font-heading);font-size:clamp(38px,7vw,112px);line-height:1.05;white-space:nowrap;overflow:hidden;letter-spacing:-.06em;text-align:center;opacity:.12;margin:0 0 7px}
+  #{{ fid }} .rf-bottom{border-top:1px solid var(--rf-line);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px;padding-top:15px;font-size:11px;color:var(--rf-muted)}
+  #{{ fid }} .rf-credit{display:flex;align-items:center;justify-content:center;gap:clamp(12px,2vw,26px);padding:21px 0 2px;min-width:0}
+  #{{ fid }} .rf-credit-rule{height:1px;width:clamp(22px,5vw,72px);background:linear-gradient(90deg,transparent,var(--rf-line));flex:none;opacity:.85}
+  #{{ fid }} .rf-credit-rule:last-child{transform:rotate(180deg)}
+  #{{ fid }} .rf-credit-content{display:flex;align-items:center;justify-content:center;gap:6px 8px;flex-wrap:wrap;text-align:center;min-width:0;font-size:11px;line-height:1.6;letter-spacing:.025em}
+  #{{ fid }} .rf-credit-label{color:var(--rf-muted)}
+  #{{ fid }} .rf-credit-link{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:650;letter-spacing:.045em;color:var(--rf-accent);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--rf-accent) 42%,transparent);padding-bottom:2px;transition:color .2s ease,border-color .2s ease}
+  #{{ fid }} .rf-credit-link:hover{color:var(--rf-text);border-bottom-color:var(--rf-text)}
+  #{{ fid }} .rf-credit-link svg{width:13px;height:13px;flex:none;transition:transform .2s ease}
+  #{{ fid }} .rf-credit-link:hover svg{transform:translate(2px,-2px)}
+  #{{ fid }} .rf-legal{display:flex;flex-wrap:wrap;gap:7px 15px}
+  #{{ fid }} .rf-payments{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+  #{{ fid }} .rf-payment-icon{width:auto;height:20px}
+  #{{ fid }} .rf-visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+  #{{ fid }} a:focus-visible,#{{ fid }} button:focus-visible,#{{ fid }} input:focus-visible{outline:2px solid var(--rf-accent)!important;outline-offset:3px!important}
+  @media(max-width:989px){#{{ fid }} .rf-navigation{grid-template-columns:repeat(2,minmax(0,1fr))}#{{ fid }} .rf-editorial{border-left:0;padding-left:0}}
+  @media(max-width:749px){
+    #{{ fid }} .rf-wrap{width:calc(100% - 34px)}
+    #{{ fid }} .rf-services-grid{min-height:0}
+    #{{ fid }} .rf-service{flex-direction:column;gap:5px;padding:10px 4px;font-size:8px;letter-spacing:.015em;line-height:1.35}
+    #{{ fid }} .rf-service svg{width:19px;height:19px}
+    #{{ fid }} .rf-top{grid-template-columns:1fr;gap:22px;padding:var(--rf-mobile-top) 0 23px}
+    #{{ fid }} .rf-wordmark{font-size:min(var(--rf-brand-size),42px)}
+    #{{ fid }} .rf-description{line-height:1.6}
+    #{{ fid }} .rf-newsletter{border-left:0;border-top:1px solid var(--rf-line);padding:21px 0 0}
+    #{{ fid }} .rf-newsletter .rf-newsletter-title{font-size:min(var(--rf-news-size),32px);line-height:1.18}
+    #{{ fid }} .rf-navigation{grid-template-columns:repeat(2,minmax(0,1fr));gap:21px 14px;padding:22px 0 22px}
+    #{{ fid }} .rf-nav-col h3{font-size:var(--rf-mobile-heading-size);letter-spacing:.055em;gap:6px;margin-bottom:10px}
+    #{{ fid }} .rf-nav-col h3::before{width:9px}
+    #{{ fid }} .rf-nav-col ul{gap:6px}
+    #{{ fid }} .rf-nav-col li a,#{{ fid }} .rf-contact a{font-size:var(--rf-mobile-menu-size);line-height:1.45}
+    #{{ fid }} .rf-contact>p{font-size:var(--rf-mobile-menu-size);line-height:1.5}
+    #{{ fid }} .rf-contact a{margin:5px 0}
+    #{{ fid }} .rf-field button{padding:8px 10px;font-size:9px;gap:6px}
+    #{{ fid }} .rf-field input{font-size:12px;padding:8px}
+    #{{ fid }} .rf-field{min-height:46px}
+    #{{ fid }} .rf-editorial{border-top:1px solid var(--rf-line);padding-top:20px;grid-column:1/-1}
+    #{{ fid }} .rf-bottom{align-items:flex-start;flex-direction:column;padding-top:14px}
+    #{{ fid }} .rf-credit{gap:10px;padding-top:19px}
+    #{{ fid }} .rf-credit-rule{width:20px}
+    #{{ fid }} .rf-credit-content,#{{ fid }} .rf-credit-link{font-size:10.5px}
+    #{{ fid }} .rf-bigbrand{font-size:clamp(30px,8vw,65px)}
+  }
+  @media(prefers-reduced-motion:reduce){#{{ fid }} *,#{{ fid }} *::before,#{{ fid }} *::after{transition:none!important}}
+</style>
+
+{% schema %}
+{
+  "name": "Riyan Premium Footer V6",
+  "tag": "section",
+  "class": "section-riyan-premium-footer",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Brand identity"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Footer logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo width",
+      "min": 100,
+      "max": 300,
+      "step": 10,
+      "default": 180,
+      "unit": "px"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand name",
+      "default": "RIYAN CREATION"
+    },
+    {
+      "type": "text",
+      "id": "brand_eyebrow",
+      "label": "Small brand eyebrow",
+      "default": "THE ART OF DRESSING BEAUTIFULLY"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Brand tagline",
+      "default": "ELEGANCE IN EVERY DETAIL"
+    },
+    {
+      "type": "textarea",
+      "id": "brand_description",
+      "label": "Brand description",
+      "default": "Discover women's fashion made for everyday elegance and memorable celebrations. Explore graceful silhouettes, embroidered styles and occasion-ready looks."
+    },
+    {
+      "type": "header",
+      "content": "Social links"
+    },
+    {
+      "type": "url",
+      "id": "instagram",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "facebook",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "pinterest",
+      "label": "Pinterest URL"
+    },
+    {
+      "type": "url",
+      "id": "youtube",
+      "label": "Youtube URL"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "Show newsletter",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "newsletter_eyebrow",
+      "label": "Small heading",
+      "default": "THE RIYAN EDIT"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Newsletter heading",
+      "default": "A Little Style in Your Inbox"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_description",
+      "label": "Newsletter description",
+      "default": "Be first to discover new arrivals, edits and exclusive updates."
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email placeholder",
+      "default": "Enter your email address"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button",
+      "label": "Submit button text",
+      "default": "Join"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_note",
+      "label": "Newsletter small note",
+      "default": "New collections, beautiful details and style inspiration."
+    },
+    {
+      "type": "header",
+      "content": "Editorial quote"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_editorial_note",
+      "label": "Show editorial column",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "editorial_eyebrow",
+      "label": "Quote eyebrow",
+      "default": "THE RIYAN PHILOSOPHY"
+    },
+    {
+      "type": "textarea",
+      "id": "editorial_quote",
+      "label": "Editorial quote",
+      "default": "Timeless pieces.\nBeautiful moments."
+    },
+    {
+      "type": "header",
+      "content": "Service highlight strip"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_service_strip",
+      "label": "Show service strip",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "service_one",
+      "label": "First highlight",
+      "default": "Thoughtful shopping"
+    },
+    {
+      "type": "text",
+      "id": "service_two",
+      "label": "Second highlight",
+      "default": "Secure checkout"
+    },
+    {
+      "type": "text",
+      "id": "service_three",
+      "label": "Third highlight",
+      "default": "Made for memorable moments"
+    },
+    {
+      "type": "header",
+      "content": "Layout and sizing"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum footer width",
+      "min": 1000,
+      "max": 1800,
+      "step": 20,
+      "default": 1440,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top spacing",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "default": 25,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top spacing",
+      "min": 16,
+      "max": 72,
+      "step": 4,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "column_spacing",
+      "label": "Menu column gap",
+      "min": 12,
+      "max": 60,
+      "step": 4,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "brand_font_size",
+      "label": "Brand font size",
+      "min": 30,
+      "max": 66,
+      "step": 2,
+      "default": 46,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "newsletter_font_size",
+      "label": "Newsletter heading size",
+      "min": 22,
+      "max": 46,
+      "step": 2,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_heading_color",
+      "label": "Newsletter title color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "body_font_size",
+      "label": "Body and link font size",
+      "min": 11,
+      "max": 17,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "menu_heading_size",
+      "label": "Menu heading size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "default": 11,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "menu_link_size",
+      "label": "Desktop menu link size",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_menu_link_size",
+      "label": "Mobile menu link size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "default": 11,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_menu_heading_size",
+      "label": "Mobile menu heading size",
+      "min": 9,
+      "max": 14,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "heading_font_style",
+      "label": "Heading typography",
+      "options": [
+        {
+          "value": "theme",
+          "label": "Theme heading font"
+        },
+        {
+          "value": "serif",
+          "label": "Editorial serif"
+        },
+        {
+          "value": "sans",
+          "label": "Modern sans serif"
+        }
+      ],
+      "default": "theme"
+    },
+    {
+      "type": "header",
+      "content": "Individual color controls"
+    },
+    {
+      "type": "color",
+      "id": "bg",
+      "label": "Footer background",
+      "default": "#34141E"
+    },
+    {
+      "type": "color",
+      "id": "surface",
+      "label": "Surface background",
+      "default": "#421B27"
+    },
+    {
+      "type": "color",
+      "id": "ink",
+      "label": "Heading and primary text",
+      "default": "#FFF9F4"
+    },
+    {
+      "type": "color",
+      "id": "muted",
+      "label": "Body and link text",
+      "default": "#CDB7BC"
+    },
+    {
+      "type": "color",
+      "id": "accent",
+      "label": "Accent and hover",
+      "default": "#E2B9A5"
+    },
+    {
+      "type": "color",
+      "id": "line",
+      "label": "Divider and border",
+      "default": "#67434C"
+    },
+    {
+      "type": "color",
+      "id": "service_bg",
+      "label": "Service strip background",
+      "default": "#421B27"
+    },
+    {
+      "type": "color",
+      "id": "input_bg",
+      "label": "Newsletter input background",
+      "default": "#34141E"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Newsletter button background",
+      "default": "#E2B9A5"
+    },
+    {
+      "type": "color",
+      "id": "button_text",
+      "label": "Newsletter button text",
+      "default": "#34141E"
+    },
+    {
+      "type": "header",
+      "content": "Developer credit"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_developer_credit",
+      "label": "Show agency credit",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "developer_credit_label",
+      "label": "Credit prefix",
+      "default": "Designed & Developed by"
+    },
+    {
+      "type": "text",
+      "id": "developer_credit_name",
+      "label": "Agency name",
+      "default": "Blueslag Technologies"
+    },
+    {
+      "type": "url",
+      "id": "developer_credit_url",
+      "label": "Agency website URL"
+    },
+    {
+      "type": "header",
+      "content": "Bottom bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_big_brand",
+      "label": "Show oversized wordmark",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_policies",
+      "label": "Show Shopify policy links",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payments",
+      "label": "Show enabled payment icons",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Navigation menu",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Column heading",
+          "default": "Explore"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Navigation menu"
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact details",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Column heading",
+          "default": "Here to Help"
+        },
+        {
+          "type": "textarea",
+          "id": "intro",
+          "label": "Intro text",
+          "default": "Questions about a style or an order? Reach out to us."
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email",
+          "default": "riyanc9714@gmail.com"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone",
+          "default": "+91 99047 09714"
+        },
+        {
+          "type": "text",
+          "id": "whatsapp",
+          "label": "WhatsApp with country code",
+          "info": "Enter digits with country code (e.g. 919904709714)."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Riyan Premium Footer V6",
+      "blocks": [
+        {
+          "type": "menu",
+          "settings": {
+            "heading": "Explore"
+          }
+        },
+        {
+          "type": "menu",
+          "settings": {
+            "heading": "Customer Care"
+          }
+        },
+        {
+          "type": "contact"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,1721 @@
+{% comment %}
+  Premium Transparent Fashion Header
+  Shopify Dawn Compatible
+{% endcomment %}
+
+{% liquid
+  assign header_menu = section.settings.menu
+%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --pth-transparent-text: {{ section.settings.transparent_text }};
+    --pth-solid-text: {{ section.settings.solid_text }};
+    --pth-solid-bg: {{ section.settings.solid_background }};
+    --pth-accent: {{ section.settings.accent_color }};
+    --pth-desktop-height: {{ section.settings.desktop_height }}px;
+    --pth-mobile-height: {{ section.settings.mobile_height }}px;
+    position: relative;
+    z-index: 99;
+  }
+
+  #shopify-section-{{ section.id }} *,
+  #shopify-section-{{ section.id }} *::before,
+  #shopify-section-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  /* ============================================
+     MAIN HEADER
+  ============================================ */
+
+  #shopify-section-{{ section.id }} .pth-header {
+    position: {% if section.settings.sticky_header %}fixed{% else %}absolute{% endif %};
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 9999;
+
+    color: var(--pth-transparent-text);
+    background: transparent;
+
+    border-bottom: 1px solid rgba(255,255,255,0.18);
+
+    transition:
+      background-color .35s ease,
+      color .35s ease,
+      border-color .35s ease,
+      box-shadow .35s ease,
+      backdrop-filter .35s ease;
+  }
+
+  #shopify-section-{{ section.id }} .pth-header.pth-scrolled,
+  #shopify-section-{{ section.id }} .pth-header.pth-hovered {
+    color: var(--pth-solid-text);
+    background: {{ section.settings.solid_background }};
+
+    {% if section.settings.enable_blur %}
+      background: {{ section.settings.solid_background | color_modify: 'alpha', 0.94 }};
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    {% endif %}
+
+    border-bottom-color: rgba(0,0,0,.07);
+
+    {% if section.settings.enable_shadow %}
+      box-shadow: 0 8px 35px rgba(0,0,0,.07);
+    {% endif %}
+  }
+
+  /* ============================================
+     ANNOUNCEMENT BAR
+  ============================================ */
+
+  #shopify-section-{{ section.id }} .pth-announcement {
+    width: 100%;
+    text-align: center;
+    padding: 8px 40px;
+
+    background: {{ section.settings.announcement_bg }};
+    color: {{ section.settings.announcement_text_color }};
+
+    font-size: 11px;
+    line-height: 1.4;
+    font-weight: 400;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .pth-announcement a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* ============================================
+     HEADER INNER
+  ============================================ */
+
+  #shopify-section-{{ section.id }} .pth-inner {
+    width: 100%;
+    max-width: {{ section.settings.page_width }}px;
+    min-height: var(--pth-desktop-height);
+
+    margin: 0 auto;
+    padding-left: {{ section.settings.desktop_side_padding }}px;
+    padding-right: {{ section.settings.desktop_side_padding }}px;
+
+    display: grid;
+    grid-template-columns: minmax(0,1fr) auto minmax(0,1fr);
+    align-items: center;
+    column-gap: 32px;
+  }
+
+  /* ============================================
+     LOGO
+  ============================================ */
+
+  #shopify-section-{{ section.id }} .pth-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: inherit;
+    text-decoration: none;
+    line-height: 1;
+
+    position: relative;
+    z-index: 2;
+  }
+
+  #shopify-section-{{ section.id }} .pth-logo img {
+    display: block;
+    width: auto;
+    max-width: {{ section.settings.logo_width }}px;
+    max-height: 58px;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .pth-logo-text {
+    color: inherit;
+    font-size: 25px;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  /* ============================================
+     DESKTOP NAVIGATION
+  ============================================ */
+
+  #shopify-section-{{ section.id }} .pth-navigation {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    min-width: 0;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .pth-menu {
+    display: flex;
+    align-items: center;
+    gap: {{ section.settings.menu_spacing }}px;
+
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #shopify-section-{{ section.id }} .pth-menu-item {
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .pth-menu-link {
+    position: relative;
+
+    min-height: var(--pth-desktop-height);
+
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    color: inherit;
+    text-decoration: none;
+
+    font-size: {{ section.settings.menu_font_size }}px;
+    line-height: 1;
+    font-weight: {{ section.settings.menu_font_weight }};
+    letter-spacing: {{ section.settings.menu_letter_spacing }}em;
+
+    {% if section.settings.uppercase_menu %}
+      text-transform: uppercase;
+    {% endif %}
+
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .pth-menu-link::after {
+    content: "";
+    position: absolute;
+
+    left: 0;
+    bottom: 17px;
+
+    width: 0;
+    height: 1px;
+
+    background: currentColor;
+
+    transition: width .3s ease;
+  }
+
+  #shopify-section-{{ section.id }} .pth-menu-item:hover > .pth-menu-link::after {
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .pth-arrow {
+    width: 11px;
+    height: 11px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.4;
+
+    transition: transform .25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .pth-menu-item:hover .pth-arrow {
+    transform: rotate(180deg);
+  }
+
+  /* ============================================
+     DESKTOP DROPDOWN
+  ============================================ */
+
+  #shopify-section-{{ section.id }} .pth-dropdown {
+    position: absolute;
+
+    top: calc(100% - 1px);
+    left: -22px;
+
+    min-width: 235px;
+
+    padding: 12px;
+
+    background: var(--pth-solid-bg);
+    color: var(--pth-solid-text);
+
+    border: 1px solid rgba(0,0,0,.07);
+
+    box-shadow:
+      0 8px 20px rgba(0,0,0,.04),
+      0 20px 50px rgba(0,0,0,.07);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transform: translateY(8px);
+
+    transition:
+      opacity .22s ease,
+      visibility .22s ease,
+      transform .22s ease;
+  }
+
+  #shopify-section-{{ section.id }} .pth-menu-item:hover > .pth-dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+
+    transform: translateY(0);
+  }
+
+  #shopify-section-{{ section.id }} .pth-dropdown-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .pth-dropdown-link {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 11px 12px;
+
+    color: inherit;
+    text-decoration: none;
+
+    font-size: 13px;
+    line-height: 1.4;
+    letter-spacing: .02em;
+
+    transition:
+      background .2s ease,
+      padding-left .2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .pth-dropdown-link:hover {
+    background: rgba(0,0,0,.04);
+    padding-left: 17px;
+  }
+
+  /* ============================================
+     HEADER ACTIONS
+  ============================================ */
+
+  #shopify-section-{{ section.id }} .pth-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: {{ section.settings.icon_spacing }}px;
+  }
+
+  #shopify-section-{{ section.id }} .pth-icon-button {
+    position: relative;
+
+    width: 38px;
+    height: 38px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    background: transparent;
+    border: 0;
+
+    color: inherit;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+      opacity .2s ease,
+      transform .2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .pth-icon-button:hover {
+    opacity: .62;
+    transform: translateY(-1px);
+  }
+
+  #shopify-section-{{ section.id }} .pth-icon-button svg {
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* CART COUNT */
+
+  #shopify-section-{{ section.id }} .pth-cart-count {
+    position: absolute;
+
+    right: -1px;
+    top: 0;
+
+    min-width: 16px;
+    height: 16px;
+
+    padding: 0 4px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50px;
+
+    background: var(--pth-accent);
+    color: #fff;
+
+    font-size: 9px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  /* ============================================
+     MOBILE
+  ============================================ */
+
+  #shopify-section-{{ section.id }} .pth-mobile-trigger {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .pth-mobile-overlay,
+  #shopify-section-{{ section.id }} .pth-mobile-drawer {
+    display: none;
+  }
+
+  @media screen and (max-width: 989px) {
+
+    #shopify-section-{{ section.id }} .pth-inner {
+      min-height: var(--pth-mobile-height);
+
+      grid-template-columns: 1fr auto 1fr;
+      column-gap: 8px;
+
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .pth-navigation {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .pth-mobile-trigger {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    #shopify-section-{{ section.id }} .pth-logo img {
+      max-width: {{ section.settings.mobile_logo_width }}px;
+      max-height: 45px;
+    }
+
+    #shopify-section-{{ section.id }} .pth-logo-text {
+      font-size: 19px;
+    }
+
+    #shopify-section-{{ section.id }} .pth-actions {
+      gap: 1px;
+    }
+
+    #shopify-section-{{ section.id }} .pth-icon-button {
+      width: 36px;
+      height: 36px;
+    }
+
+    #shopify-section-{{ section.id }} .pth-account-desktop {
+      display: none;
+    }
+
+    {% unless section.settings.mobile_search %}
+      #shopify-section-{{ section.id }} .pth-search-button {
+        display: none;
+      }
+    {% endunless %}
+
+    /* OVERLAY */
+
+    #shopify-section-{{ section.id }} .pth-mobile-overlay {
+      display: block;
+
+      position: fixed;
+      inset: 0;
+
+      z-index: 10000;
+
+      background: rgba(0,0,0,.42);
+
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+
+      transition:
+        opacity .35s ease,
+        visibility .35s ease;
+
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+    }
+
+    #shopify-section-{{ section.id }} .pth-mobile-overlay.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    /* DRAWER */
+
+    #shopify-section-{{ section.id }} .pth-mobile-drawer {
+      display: block;
+
+      position: fixed;
+
+      top: 0;
+      bottom: 0;
+      left: 0;
+
+      width: min(88vw, 390px);
+      height: 100dvh;
+
+      z-index: 10001;
+
+      background: #ffffff;
+      color: #171717;
+
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      transform: translateX(-105%);
+
+      box-shadow: 18px 0 60px rgba(0,0,0,.15);
+
+      transition:
+        transform .4s cubic-bezier(.22,.61,.36,1);
+    }
+
+    #shopify-section-{{ section.id }} .pth-mobile-drawer.is-open {
+      transform: translateX(0);
+    }
+
+    /* DRAWER TOP */
+
+    #shopify-section-{{ section.id }} .pth-drawer-top {
+      position: sticky;
+      top: 0;
+
+      z-index: 2;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      min-height: 70px;
+
+      padding: 16px 20px;
+
+      background: rgba(255,255,255,.97);
+
+      border-bottom: 1px solid rgba(0,0,0,.08);
+
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    #shopify-section-{{ section.id }} .pth-drawer-title {
+      padding: 0;
+      margin: 0;
+
+      color: #171717;
+
+      font-size: 15px;
+      line-height: 1;
+      font-weight: 500;
+      letter-spacing: .1em;
+    }
+
+    #shopify-section-{{ section.id }} .pth-close {
+      width: 38px;
+      height: 38px;
+
+      padding: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      border: 1px solid #e5e5e5;
+      background: #fff;
+      color: #171717;
+
+      cursor: pointer;
+    }
+
+    #shopify-section-{{ section.id }} .pth-close svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* MOBILE MENU */
+
+    #shopify-section-{{ section.id }} .pth-mobile-menu {
+      padding: 10px 20px 25px;
+    }
+
+    #shopify-section-{{ section.id }} .pth-mobile-menu ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    #shopify-section-{{ section.id }} .pth-mobile-menu > ul > li {
+      border-bottom: 1px solid #ededed;
+    }
+
+    #shopify-section-{{ section.id }} .pth-mobile-parent {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) auto;
+      align-items: center;
+    }
+
+    #shopify-section-{{ section.id }} .pth-mobile-link {
+      min-width: 0;
+
+      padding: 18px 0;
+
+      display: block;
+
+      color: #171717;
+      text-decoration: none;
+
+      font-size: 14px;
+      line-height: 1.3;
+      font-weight: 500;
+
+      letter-spacing: {{ section.settings.menu_letter_spacing }}em;
+
+      {% if section.settings.uppercase_menu %}
+        text-transform: uppercase;
+      {% endif %}
+    }
+
+    #shopify-section-{{ section.id }} .pth-submenu-toggle {
+      width: 42px;
+      height: 42px;
+
+      padding: 0;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background: transparent;
+      border: 0;
+
+      color: #171717;
+
+      cursor: pointer;
+    }
+
+    #shopify-section-{{ section.id }} .pth-submenu-toggle svg {
+      width: 13px;
+      height: 13px;
+
+      fill: none;
+      stroke: currentColor;
+
+      transition: transform .25s ease;
+    }
+
+    #shopify-section-{{ section.id }} .pth-submenu-toggle.is-open svg {
+      transform: rotate(180deg);
+    }
+
+    #shopify-section-{{ section.id }} .pth-mobile-submenu {
+      display: none;
+
+      padding: 0 0 15px 13px;
+      margin: 0;
+    }
+
+    #shopify-section-{{ section.id }} .pth-mobile-submenu.is-open {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .pth-mobile-submenu li {
+      margin: 0;
+      padding: 0;
+    }
+
+    #shopify-section-{{ section.id }} .pth-mobile-submenu a {
+      display: block;
+
+      padding: 9px 0;
+
+      color: #606060;
+      text-decoration: none;
+
+      font-size: 13px;
+      line-height: 1.4;
+      font-weight: 400;
+    }
+
+    /* MOBILE ACCOUNT */
+
+    #shopify-section-{{ section.id }} .pth-mobile-bottom {
+      margin: 0 20px 30px;
+      padding: 18px;
+
+      background: #f7f6f4;
+    }
+
+    #shopify-section-{{ section.id }} .pth-mobile-bottom a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      color: #171717;
+      text-decoration: none;
+
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    #shopify-section-{{ section.id }} .pth-mobile-bottom svg {
+      width: 18px;
+      height: 18px;
+
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+
+    #shopify-section-{{ section.id }} .pth-announcement {
+      padding: 7px 35px;
+
+      font-size: 9px;
+      letter-spacing: .08em;
+    }
+
+    #shopify-section-{{ section.id }} .pth-inner {
+      padding-left: 9px;
+      padding-right: 9px;
+    }
+
+    #shopify-section-{{ section.id }} .pth-icon-button {
+      width: 34px;
+      height: 34px;
+    }
+
+  }
+</style>
+
+
+<div class="pth-wrapper">
+
+  {% if section.settings.show_announcement and section.settings.announcement_text != blank %}
+
+    <div class="pth-announcement">
+
+      {% if section.settings.announcement_link != blank %}
+
+        <a href="{{ section.settings.announcement_link }}">
+          {{ section.settings.announcement_text }}
+        </a>
+
+      {% else %}
+
+        {{ section.settings.announcement_text }}
+
+      {% endif %}
+
+    </div>
+
+  {% endif %}
+
+
+  <header
+    class="pth-header"
+    data-pth-header
+  >
+
+    <div class="pth-inner">
+
+
+      <!-- ========================================
+           DESKTOP MENU
+      ========================================= -->
+
+      <nav class="pth-navigation" aria-label="Main navigation">
+
+        {% if header_menu != blank %}
+
+          <ul class="pth-menu">
+
+            {% for link in header_menu.links %}
+
+              <li class="pth-menu-item">
+
+                <a
+                  href="{{ link.url }}"
+                  class="pth-menu-link"
+                  {% if link.current %}
+                    aria-current="page"
+                  {% endif %}
+                >
+
+                  <span>{{ link.title }}</span>
+
+                  {% if link.links != blank %}
+
+                    <svg
+                      class="pth-arrow"
+                      viewBox="0 0 20 20"
+                      aria-hidden="true"
+                    >
+                      <path d="M5 7.5L10 12.5L15 7.5"/>
+                    </svg>
+
+                  {% endif %}
+
+                </a>
+
+
+                {% if link.links != blank %}
+
+                  <div class="pth-dropdown">
+
+                    <ul class="pth-dropdown-list">
+
+                      {% for childlink in link.links %}
+
+                        <li>
+
+                          <a
+                            href="{{ childlink.url }}"
+                            class="pth-dropdown-link"
+                          >
+
+                            <span>
+                              {{ childlink.title }}
+                            </span>
+
+                            {% if childlink.links != blank %}
+                              <span>›</span>
+                            {% endif %}
+
+                          </a>
+
+                        </li>
+
+                      {% endfor %}
+
+                    </ul>
+
+                  </div>
+
+                {% endif %}
+
+              </li>
+
+            {% endfor %}
+
+          </ul>
+
+        {% endif %}
+
+      </nav>
+
+
+      <!-- ========================================
+           MOBILE MENU TRIGGER
+      ========================================= -->
+
+      <div class="pth-mobile-trigger">
+
+        <button
+          type="button"
+          class="pth-icon-button"
+          data-pth-open
+          aria-label="Open navigation menu"
+          aria-expanded="false"
+        >
+
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path d="M3 7h18M3 12h18M3 17h18"/>
+          </svg>
+
+        </button>
+
+      </div>
+
+
+      <!-- ========================================
+           LOGO
+      ========================================= -->
+
+      <a
+        href="{{ routes.root_url }}"
+        class="pth-logo"
+        aria-label="{{ shop.name }}"
+      >
+
+        {% if section.settings.logo != blank %}
+
+          {{
+            section.settings.logo
+            | image_url: width: 600
+            | image_tag:
+              loading: 'eager',
+              widths: '100, 150, 200, 250, 300, 400, 500, 600',
+              alt: shop.name
+          }}
+
+        {% else %}
+
+          <span class="pth-logo-text">
+            {{ shop.name }}
+          </span>
+
+        {% endif %}
+
+      </a>
+
+
+      <!-- ========================================
+           RIGHT ICONS
+      ========================================= -->
+
+      <div class="pth-actions">
+
+
+        {% if section.settings.show_search %}
+
+          <a
+            href="{{ routes.search_url }}"
+            class="pth-icon-button pth-search-button"
+            aria-label="Search"
+          >
+
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="6.5"/>
+              <path d="M16 16l4 4"/>
+            </svg>
+
+          </a>
+
+        {% endif %}
+
+
+        {% if shop.customer_accounts_enabled and section.settings.show_account %}
+
+          <a
+            href="{{ routes.account_url }}"
+            class="pth-icon-button pth-account-desktop"
+            aria-label="Account"
+          >
+
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="8" r="3.4"/>
+              <path d="M5 20c.7-4 3.2-6 7-6s6.3 2 7 6"/>
+            </svg>
+
+          </a>
+
+        {% endif %}
+
+
+        {% if section.settings.show_cart %}
+
+          <a
+            href="{{ routes.cart_url }}"
+            class="pth-icon-button"
+            aria-label="Cart"
+          >
+
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M6.5 8h11l1 12h-13l1-12z"/>
+              <path d="M9 9V6.5a3 3 0 016 0V9"/>
+            </svg>
+
+
+            {% if cart.item_count > 0 %}
+
+              <span class="pth-cart-count">
+
+                {% if cart.item_count < 100 %}
+                  {{ cart.item_count }}
+                {% else %}
+                  99+
+                {% endif %}
+
+              </span>
+
+            {% endif %}
+
+          </a>
+
+        {% endif %}
+
+      </div>
+
+
+    </div>
+
+  </header>
+
+
+  <!-- ==========================================
+       MOBILE OVERLAY
+  =========================================== -->
+
+  <div
+    class="pth-mobile-overlay"
+    data-pth-overlay
+    aria-hidden="true"
+  ></div>
+
+
+  <!-- ==========================================
+       MOBILE DRAWER
+  =========================================== -->
+
+  <aside
+    class="pth-mobile-drawer"
+    data-pth-drawer
+    aria-hidden="true"
+  >
+
+    <div class="pth-drawer-top">
+
+      <p class="pth-drawer-title">
+        {{ section.settings.mobile_menu_heading }}
+      </p>
+
+
+      <button
+        type="button"
+        class="pth-close"
+        data-pth-close
+        aria-label="Close navigation menu"
+      >
+
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            d="M5 5L19 19M19 5L5 19"
+            stroke="currentColor"
+            stroke-width="1.5"
+          />
+        </svg>
+
+      </button>
+
+    </div>
+
+
+    <nav
+      class="pth-mobile-menu"
+      aria-label="Mobile navigation"
+    >
+
+      {% if header_menu != blank %}
+
+        <ul>
+
+          {% for link in header_menu.links %}
+
+            <li>
+
+              <div class="pth-mobile-parent">
+
+                <a
+                  href="{{ link.url }}"
+                  class="pth-mobile-link"
+                >
+                  {{ link.title }}
+                </a>
+
+
+                {% if link.links != blank %}
+
+                  <button
+                    type="button"
+                    class="pth-submenu-toggle"
+                    aria-label="Open {{ link.title }} submenu"
+                    aria-expanded="false"
+                  >
+
+                    <svg
+                      viewBox="0 0 20 20"
+                      aria-hidden="true"
+                    >
+                      <path d="M5 7.5L10 12.5L15 7.5"/>
+                    </svg>
+
+                  </button>
+
+                {% endif %}
+
+              </div>
+
+
+              {% if link.links != blank %}
+
+                <ul class="pth-mobile-submenu">
+
+                  {% for childlink in link.links %}
+
+                    <li>
+
+                      <a href="{{ childlink.url }}">
+                        {{ childlink.title }}
+                      </a>
+
+                    </li>
+
+                  {% endfor %}
+
+                </ul>
+
+              {% endif %}
+
+            </li>
+
+          {% endfor %}
+
+        </ul>
+
+      {% endif %}
+
+    </nav>
+
+
+    {% if shop.customer_accounts_enabled %}
+
+      <div class="pth-mobile-bottom">
+
+        <a href="{{ routes.account_url }}">
+
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="8" r="3.4"/>
+            <path d="M5 20c.7-4 3.2-6 7-6s6.3 2 7 6"/>
+          </svg>
+
+          <span>
+
+            {% if customer %}
+              My Account
+            {% else %}
+              Login / Create Account
+            {% endif %}
+
+          </span>
+
+        </a>
+
+      </div>
+
+    {% endif %}
+
+  </aside>
+
+</div>
+
+
+<script>
+  (function() {
+
+    const section = document.querySelector(
+      '#shopify-section-{{ section.id }}'
+    );
+
+    if (!section) return;
+
+
+    const header = section.querySelector('[data-pth-header]');
+    const drawer = section.querySelector('[data-pth-drawer]');
+    const overlay = section.querySelector('[data-pth-overlay]');
+    const openButton = section.querySelector('[data-pth-open]');
+    const closeButton = section.querySelector('[data-pth-close]');
+
+
+    /* ========================================
+       TRANSPARENT → SOLID HEADER
+    ======================================== */
+
+    function updateHeader() {
+
+      if (!header) return;
+
+      if (window.scrollY > 25) {
+
+        header.classList.add('pth-scrolled');
+
+      } else {
+
+        header.classList.remove('pth-scrolled');
+
+      }
+
+    }
+
+    updateHeader();
+
+    window.addEventListener(
+      'scroll',
+      updateHeader,
+      { passive: true }
+    );
+
+
+    /* Desktop hover solid background */
+
+    if (header) {
+
+      header.addEventListener('mouseenter', function() {
+        header.classList.add('pth-hovered');
+      });
+
+      header.addEventListener('mouseleave', function() {
+        header.classList.remove('pth-hovered');
+      });
+
+    }
+
+
+    /* ========================================
+       MOBILE DRAWER
+    ======================================== */
+
+    function openDrawer() {
+
+      if (!drawer || !overlay) return;
+
+      drawer.classList.add('is-open');
+      overlay.classList.add('is-open');
+
+      drawer.setAttribute('aria-hidden', 'false');
+      overlay.setAttribute('aria-hidden', 'false');
+
+      if (openButton) {
+        openButton.setAttribute('aria-expanded', 'true');
+      }
+
+      document.documentElement.style.overflow = 'hidden';
+
+    }
+
+
+    function closeDrawer() {
+
+      if (!drawer || !overlay) return;
+
+      drawer.classList.remove('is-open');
+      overlay.classList.remove('is-open');
+
+      drawer.setAttribute('aria-hidden', 'true');
+      overlay.setAttribute('aria-hidden', 'true');
+
+      if (openButton) {
+        openButton.setAttribute('aria-expanded', 'false');
+      }
+
+      document.documentElement.style.overflow = '';
+
+    }
+
+
+    if (openButton) {
+      openButton.addEventListener('click', openDrawer);
+    }
+
+
+    if (closeButton) {
+      closeButton.addEventListener('click', closeDrawer);
+    }
+
+
+    if (overlay) {
+      overlay.addEventListener('click', closeDrawer);
+    }
+
+
+    /* ========================================
+       MOBILE SUBMENUS
+    ======================================== */
+
+    const submenuButtons =
+      section.querySelectorAll('.pth-submenu-toggle');
+
+
+    submenuButtons.forEach(function(button) {
+
+      button.addEventListener('click', function() {
+
+        const parent = button.closest('li');
+
+        if (!parent) return;
+
+
+        const submenu =
+          parent.querySelector('.pth-mobile-submenu');
+
+        if (!submenu) return;
+
+
+        const currentlyOpen =
+          submenu.classList.contains('is-open');
+
+
+        submenu.classList.toggle(
+          'is-open',
+          !currentlyOpen
+        );
+
+
+        button.classList.toggle(
+          'is-open',
+          !currentlyOpen
+        );
+
+
+        button.setAttribute(
+          'aria-expanded',
+          currentlyOpen ? 'false' : 'true'
+        );
+
+      });
+
+    });
+
+
+    /* ========================================
+       ESCAPE CLOSE
+    ======================================== */
+
+    document.addEventListener(
+      'keydown',
+      function(event) {
+
+        if (event.key === 'Escape') {
+          closeDrawer();
+        }
+
+      }
+    );
+
+
+    /* ========================================
+       WINDOW RESIZE
+    ======================================== */
+
+    window.addEventListener(
+      'resize',
+      function() {
+
+        if (window.innerWidth > 989) {
+          closeDrawer();
+        }
+
+      }
+    );
+
+  })();
+</script>
+
+
+{% schema %}
+{
+  "name": "Premium fashion header",
+  "tag": "section",
+  "class": "premium-fashion-header",
+  "settings": [
+
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 80,
+      "max": 260,
+      "step": 10,
+      "unit": "px",
+      "label": "Desktop logo width",
+      "default": 150
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_logo_width",
+      "min": 70,
+      "max": 180,
+      "step": 10,
+      "unit": "px",
+      "label": "Mobile logo width",
+      "default": 120
+    },
+
+
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "uppercase_menu",
+      "label": "Uppercase menu",
+      "default": false
+    },
+
+    {
+      "type": "range",
+      "id": "menu_font_size",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Menu font size",
+      "default": 13
+    },
+
+    {
+      "type": "select",
+      "id": "menu_font_weight",
+      "label": "Menu font weight",
+      "default": "400",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi bold"
+        }
+      ]
+    },
+
+    {
+      "type": "range",
+      "id": "menu_spacing",
+      "min": 10,
+      "max": 45,
+      "step": 1,
+      "unit": "px",
+      "label": "Menu spacing",
+      "default": 25
+    },
+
+    {
+      "type": "select",
+      "id": "menu_letter_spacing",
+      "label": "Menu letter spacing",
+      "default": "0.04",
+      "options": [
+        {
+          "value": "0",
+          "label": "None"
+        },
+        {
+          "value": "0.02",
+          "label": "Subtle"
+        },
+        {
+          "value": "0.04",
+          "label": "Premium"
+        },
+        {
+          "value": "0.06",
+          "label": "Wide"
+        },
+        {
+          "value": "0.08",
+          "label": "Luxury"
+        },
+        {
+          "value": "0.1",
+          "label": "Extra wide"
+        }
+      ]
+    },
+
+
+    {
+      "type": "header",
+      "content": "Header layout"
+    },
+
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "min": 60,
+      "max": 110,
+      "step": 2,
+      "unit": "px",
+      "label": "Desktop header height",
+      "default": 78
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "min": 54,
+      "max": 84,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile header height",
+      "default": 64
+    },
+
+    {
+      "type": "range",
+      "id": "page_width",
+      "min": 1100,
+      "max": 1800,
+      "step": 50,
+      "unit": "px",
+      "label": "Header content width",
+      "default": 1500
+    },
+
+    {
+      "type": "range",
+      "id": "desktop_side_padding",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop side padding",
+      "default": 40
+    },
+
+    {
+      "type": "checkbox",
+      "id": "sticky_header",
+      "label": "Enable sticky header",
+      "default": true
+    },
+
+    {
+      "type": "checkbox",
+      "id": "enable_blur",
+      "label": "Enable glass blur",
+      "default": true
+    },
+
+    {
+      "type": "checkbox",
+      "id": "enable_shadow",
+      "label": "Show shadow after scroll",
+      "default": true
+    },
+
+
+    {
+      "type": "header",
+      "content": "Header colors"
+    },
+
+    {
+      "type": "color",
+      "id": "transparent_text",
+      "label": "Transparent header text",
+      "default": "#FFFFFF"
+    },
+
+    {
+      "type": "color",
+      "id": "solid_background",
+      "label": "Scrolled header background",
+      "default": "#FFFFFF"
+    },
+
+    {
+      "type": "color",
+      "id": "solid_text",
+      "label": "Scrolled header text",
+      "default": "#171717"
+    },
+
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Cart count accent",
+      "default": "#8A3746"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Header icons"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search",
+      "default": true
+    },
+
+    {
+      "type": "checkbox",
+      "id": "mobile_search",
+      "label": "Show search on mobile",
+      "default": true
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show account icon",
+      "default": true
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "Show cart icon",
+      "default": true
+    },
+
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 17,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Icon size",
+      "default": 21
+    },
+
+    {
+      "type": "range",
+      "id": "icon_spacing",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Icon spacing",
+      "default": 5
+    },
+
+
+    {
+      "type": "header",
+      "content": "Mobile menu"
+    },
+
+    {
+      "type": "text",
+      "id": "mobile_menu_heading",
+      "label": "Mobile menu heading",
+      "default": "MENU"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Announcement bar"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement bar",
+      "default": false
+    },
+
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement text",
+      "default": "Complimentary shipping on prepaid orders"
+    },
+
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Announcement link"
+    },
+
+    {
+      "type": "color",
+      "id": "announcement_bg",
+      "label": "Announcement background",
+      "default": "#171717"
+    },
+
+    {
+      "type": "color",
+      "id": "announcement_text_color",
+      "label": "Announcement text color",
+      "default": "#FFFFFF"
+    }
+
+  ],
+
+  "presets": [
+    {
+      "name": "Premium fashion header"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,191 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement-bar-0": {
+          "type": "announcement",
+          "settings": {
+            "text": "Welcome to our store",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement-bar-0"
+      ],
+      "disabled": true,
+      "settings": {
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "color_scheme": "scheme-2",
+        "show_line_separator": true,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    },
+    "header": {
+      "type": "header",
+      "disabled": true,
+      "settings": {
+        "logo_position": "middle-center",
+        "mobile_logo_position": "center",
+        "menu": "main-menu",
+        "menu_type_desktop": "dropdown",
+        "sticky_header_type": "always",
+        "show_line_separator": true,
+        "color_scheme": "scheme-1",
+        "menu_color_scheme": "scheme-1",
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "margin_bottom": 0,
+        "padding_top": 4,
+        "padding_bottom": 4
+      }
+    },
+    "premium_fashion_header_v2_bpMxVq": {
+      "type": "premium-fashion-header-v2",
+      "blocks": {
+        "menu_image_BHGEE8": {
+          "type": "menu_image",
+          "settings": {
+            "parent_menu": "Shop",
+            "image": "shopify://shop_images/WhatsApp_Image_2026-10-16_at_2.20.40_AM.jpg",
+            "mobile_image": "shopify://shop_images/WhatsApp_Image_2026-10-16_at_2.20.40_AM.jpg",
+            "image_position": "center",
+            "kicker": "The VEYZARA Edit",
+            "title": "Signature Dresses",
+            "cta": "Explore now",
+            "link": "shopify://collections/shop"
+          }
+        },
+        "menu_image_igmVxU": {
+          "type": "menu_image",
+          "disabled": true,
+          "settings": {
+            "parent_menu": "Shop",
+            "image": "shopify://shop_images/WhatsAppImage2026-10-21at3.51.37PM_585fc2c7-2444-44fc-b0b0-8cd08283ed59.jpg",
+            "mobile_image": "shopify://shop_images/WhatsAppImage2026-10-21at3.51.37PM_585fc2c7-2444-44fc-b0b0-8cd08283ed59.jpg",
+            "image_position": "center",
+            "kicker": "Occasion Dressing",
+            "title": "Graceful Gowns",
+            "cta": "Explore now",
+            "link": "shopify://collections/gown"
+          }
+        }
+      },
+      "block_order": [
+        "menu_image_BHGEE8",
+        "menu_image_igmVxU"
+      ],
+      "name": "MONO Editorial Header V5",
+      "settings": {
+        "logo": "shopify://shop_images/WhatsApp_Image_2026-11-07_at_1.53.19_PM-removebg-preview_02cdd10d-221c-4887-8b11-63d69d259ca9.png",
+        "scrolled_logo": "shopify://shop_images/WhatsApp_Image_2026-11-07_at_1.53.19_PM-removebg-preview_02cdd10d-221c-4887-8b11-63d69d259ca9.png",
+        "logo_width": 150,
+        "mobile_logo_width": 120,
+        "menu": "main-menu-copy",
+        "uppercase_menu": true,
+        "couture_nav_font": "serif",
+        "couture_nav_weight": 600,
+        "couture_nav_size": 14,
+        "menu_font_size": 14,
+        "menu_font_weight": "500",
+        "menu_spacing": 24,
+        "menu_letter_spacing": "0.04",
+        "submenu_text_color": "#666666",
+        "mega_columns": "2",
+        "image_card_columns": "2",
+        "image_card_gap": 14,
+        "desktop_menu_image_height": 220,
+        "menu_image_fit": "contain",
+        "menu_image_position": "center",
+        "mega_padding": 28,
+        "menu_radius": 16,
+        "desktop_height": 64,
+        "mobile_height": 54,
+        "page_width": 1600,
+        "desktop_side_padding": 20,
+        "homepage_overlay": true,
+        "sticky_header": true,
+        "scroll_trigger": 30,
+        "transparent_background": "#ffffff",
+        "transparent_opacity": 40,
+        "transparent_border_color": "#ffffff",
+        "transparent_border_opacity": 10,
+        "enable_blur": true,
+        "blur_strength": 16,
+        "enable_shadow": true,
+        "shadow_opacity": 8,
+        "solid_opacity": 96,
+        "transparent_text": "#ffffff",
+        "solid_background": "#ffffff",
+        "menu_open_background": "#ffffff",
+        "menu_open_opacity": 100,
+        "solid_text": "#000000",
+        "border_color": "#eae7e2",
+        "scrolled_height_reduction": 6,
+        "mega_background": "#ffffff",
+        "accent_color": "#a84511",
+        "show_search": true,
+        "mobile_search": true,
+        "show_account": true,
+        "show_wishlist": true,
+        "wishlist_url": "",
+        "show_cart": true,
+        "icon_size": 22,
+        "icon_spacing": 8,
+        "scrolled_icon_color": "#fffaf5",
+        "icon_hover_color": "#ffffff",
+        "nav_underline_color": "#591c27",
+        "scrolled_icon_background": "#591c27",
+        "scrolled_icon_border": "#ffffff",
+        "icon_hover_background": "#f5f1ec",
+        "icon_hover_border": "#e7ded6",
+        "mobile_menu_eyebrow": "Explore",
+        "mobile_menu_heading": "MENU",
+        "drawer_width": 400,
+        "mobile_menu_font_size": 15,
+        "mobile_footer_weight": 700,
+        "mobile_footer_size": 13,
+        "mobile_one_open": true,
+        "mobile_drawer_bg": "#ffffff",
+        "mobile_drawer_text": "#171717",
+        "mobile_submenu_text": "#6d6d6d",
+        "mobile_border": "#ece9e4",
+        "mobile_card_radius": 16,
+        "mobile_feature_height": 170,
+        "mobile_menu_image_height": 150,
+        "mobile_feature_kicker": "New collection",
+        "mobile_feature_title": "Discover the latest edit",
+        "mobile_feature_link": "",
+        "show_announcement": true,
+        "announcement_text": "Welcome to VEYZARA Global",
+        "announcement_text_2": "Free shipping on orders above ₹1,499",
+        "announcement_height": 38,
+        "announcement_font_size": 16,
+        "announcement_speed": 30,
+        "announcement_link": "",
+        "announcement_bg": "#ffffff",
+        "announcement_text_color": "#000000"
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header",
+    "premium_fashion_header_v2_bpMxVq"
+  ]
+}

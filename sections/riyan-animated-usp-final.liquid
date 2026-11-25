@@ -1,0 +1,956 @@
+{% comment %}
+  Riyaan Signature Values V3 · accessible high-contrast luxury USP cards
+  Desktop: 3 cards, Mobile: 2 + 1 wide card
+{% endcomment %}
+{% style %}
+#BrandValues-{{ section.id }} {
+  --bv-bg: {{ section.settings.background_color }};
+  --bv-text: {{ section.settings.text_color }};
+  --bv-muted: {{ section.settings.muted_text_color }};
+  --bv-accent: {{ section.settings.accent_color }};
+  --bv-border: {{ section.settings.border_color }};
+  --bv-card: {{ section.settings.card_background }};
+  background: var(--bv-bg);
+  color: var(--bv-text);
+  width: 100%; position: relative; overflow: hidden;
+}
+#BrandValues-{{ section.id }} *,
+#BrandValues-{{ section.id }} *::before,
+#BrandValues-{{ section.id }} *::after { box-sizing: border-box; }
+#BrandValues-{{ section.id }} .bv-shell {
+  width: 100%; max-width: {{ section.settings.max_width }}px;
+  margin-inline: auto;
+  padding: {{ section.settings.padding_top }}px {{ section.settings.desktop_side_padding }}px {{ section.settings.padding_bottom }}px;
+}
+#BrandValues-{{ section.id }} .bv-layout {
+  display: grid; grid-template-columns: minmax(230px, .9fr) minmax(0, 2.1fr);
+  gap: clamp(26px, 4.5vw, 80px); align-items: center;
+}
+#BrandValues-{{ section.id }} .bv-intro { min-width: 0; }
+#BrandValues-{{ section.id }} .bv-eyebrow {
+  display: inline-flex; align-items:center; gap: 11px; margin-bottom: 19px;
+  color:var(--bv-accent); text-transform:uppercase; letter-spacing:.17em;
+  font: 700 10px/1.5 var(--font-body-family, sans-serif);
+}
+#BrandValues-{{ section.id }} .bv-eyebrow::before {
+  content:""; width:27px; height:1px; background:currentColor;
+}
+#BrandValues-{{ section.id }} .bv-heading,
+#BrandValues-{{ section.id }} .bv-heading p {
+  margin:0; color:var(--bv-text); font-family: var(--font-heading-family, Georgia, serif);
+  font-size:{{ section.settings.heading_size }}px;
+  font-weight:{{ section.settings.heading_weight }};
+  line-height:1.14; letter-spacing:-.035em;
+}
+#BrandValues-{{ section.id }} .bv-heading em {
+  color:var(--bv-accent); font-family:Georgia,serif; font-weight:400; font-style:italic;
+}
+#BrandValues-{{ section.id }} .bv-description {
+  margin-top:19px; max-width:420px; color:var(--bv-muted);
+  font:400 14px/1.75 var(--font-body-family, sans-serif);
+}
+#BrandValues-{{ section.id }} .bv-grid {
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:{{ section.settings.card_gap }}px; min-width:0;
+}
+#BrandValues-{{ section.id }} .bv-item {
+  position:relative;
+  min-width:0;
+  display:flex;
+  overflow:hidden;
+  isolation:isolate;
+  border:1px solid rgba(89,28,39,.10);
+  border-radius:{{ section.settings.card_radius }}px;
+  background:var(--bv-card);
+  box-shadow:
+    0 1px 2px rgba(30,18,20,.03),
+    0 10px 30px rgba(50,28,32,.045);
+  transition:
+    transform .42s cubic-bezier(.2,.7,.2,1),
+    box-shadow .42s ease,
+    border-color .42s ease;
+}
+#BrandValues-{{ section.id }} .bv-item::before {
+  content:"";
+  position:absolute;
+  inset:0 auto auto 0;
+  width:100%;
+  height:2px;
+  background:linear-gradient(90deg, transparent 0%, var(--bv-accent) 50%, transparent 100%);
+  opacity:.68;
+  transform:scaleX(.34);
+  transform-origin:center;
+  transition:transform .42s ease, opacity .42s ease;
+}
+#BrandValues-{{ section.id }} .bv-item::after {
+  content:"";
+  position:absolute;
+  z-index:-1;
+  width:120px;
+  height:120px;
+  right:-55px;
+  bottom:-60px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(166,124,103,.10) 0%, rgba(166,124,103,0) 72%);
+  pointer-events:none;
+}
+#BrandValues-{{ section.id }} .bv-card {
+  width:100%;
+  min-height:235px;
+  padding:32px 24px 25px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+#BrandValues-{{ section.id }} .bv-number {
+  position:absolute;
+  right:18px;
+  top:16px;
+  font:500 10px/1 var(--font-body-family,sans-serif);
+  color:rgba(89,28,39,.42);
+  letter-spacing:.16em;
+}
+#BrandValues-{{ section.id }} .bv-icon-wrap {
+  width:54px;
+  height:54px;
+  flex:none;
+  margin-bottom:24px;
+  display:grid;
+  place-items:center;
+  position:relative;
+  border-radius:50%;
+  border:1px solid rgba(166,124,103,.22);
+  background:#fffaf7;
+  color:var(--bv-accent);
+  box-shadow:inset 0 0 0 5px rgba(166,124,103,.035);
+  transition:transform .4s cubic-bezier(.2,.7,.2,1), background .35s ease, border-color .35s ease, box-shadow .35s ease;
+}
+#BrandValues-{{ section.id }} .bv-icon-wrap::after {
+  content:""; position:absolute; inset:-5px; border-radius:50%;
+  border:1px solid var(--bv-accent); opacity:0;
+  transform:scale(.92); transition:opacity .35s ease, transform .35s ease;
+}
+#BrandValues-{{ section.id }} .bv-icon-wrap svg {
+  width:23px; height:23px; stroke:currentColor;stroke-width:1.35;fill:none;
+  stroke-linecap:round; stroke-linejoin:round;
+}
+#BrandValues-{{ section.id }} .bv-title {
+  margin:0 0 10px;
+  color:var(--bv-text);
+  font:600 {{ section.settings.card_heading_size }}px/1.28 var(--font-heading-family,Georgia,serif);
+  letter-spacing:-.018em;
+  overflow-wrap:break-word;
+}
+#BrandValues-{{ section.id }} .bv-text {
+  margin:0;
+  max-width:30ch;
+  color:var(--bv-muted);
+  font:400 {{ section.settings.card_text_size }}px/1.68 var(--font-body-family,sans-serif);
+  letter-spacing:.002em;
+  overflow-wrap:break-word;
+}
+{% if section.settings.animate_icons %}
+@keyframes bvFloat-{{ section.id }} {
+  0%,100% {transform:translateY(0)}
+  50% {transform:translateY(-4px)}
+}
+#BrandValues-{{ section.id }} .bv-icon-wrap svg {animation:bvFloat-{{ section.id }} 3.7s ease-in-out infinite}
+#BrandValues-{{ section.id }} .bv-item:nth-child(2) svg {animation-delay:-1.2s}
+#BrandValues-{{ section.id }} .bv-item:nth-child(3) svg {animation-delay:-2.4s}
+{% endif %}
+{% if section.settings.enable_card_hover %}
+@media (hover:hover) {
+  #BrandValues-{{ section.id }} .bv-item:hover {
+    transform:translateY(-7px);
+    border-color:rgba(166,124,103,.42);
+    box-shadow:
+      0 2px 5px rgba(30,18,20,.035),
+      0 20px 45px rgba(89,28,39,.09);
+  }
+  #BrandValues-{{ section.id }} .bv-item:hover::before {
+    transform:scaleX(.82);
+    opacity:1;
+  }
+  #BrandValues-{{ section.id }} .bv-item:hover .bv-icon-wrap {
+    transform:translateY(-2px) scale(1.045);
+    background:#fff;
+    border-color:rgba(166,124,103,.5);
+    box-shadow:0 8px 22px rgba(89,28,39,.07), inset 0 0 0 5px rgba(166,124,103,.04);
+  }
+  #BrandValues-{{ section.id }} .bv-item:hover .bv-icon-wrap::after {opacity:.28;transform:scale(1.06)}
+}
+{% endif %}
+@media (max-width: 1050px) {
+  #BrandValues-{{ section.id }} .bv-layout {grid-template-columns:1fr;gap:27px}
+  #BrandValues-{{ section.id }} .bv-shell {padding-left:26px;padding-right:26px}
+  #BrandValues-{{ section.id }} .bv-card {min-height:195px}
+}
+@media (max-width: 749px) {
+  #BrandValues-{{ section.id }} .bv-shell {
+    padding:{{ section.settings.mobile_padding_top }}px 14px {{ section.settings.mobile_padding_bottom }}px;
+  }
+  #BrandValues-{{ section.id }} .bv-layout {gap:23px}
+  #BrandValues-{{ section.id }} .bv-eyebrow {font-size:9px;margin-bottom:13px}
+  #BrandValues-{{ section.id }} .bv-heading,
+  #BrandValues-{{ section.id }} .bv-heading p {font-size:{{ section.settings.mobile_heading_size }}px;line-height:1.14}
+  #BrandValues-{{ section.id }} .bv-description {font-size:12px;line-height:1.65;margin-top:14px}
+  #BrandValues-{{ section.id }} .bv-grid {grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  #BrandValues-{{ section.id }} .bv-card {
+    min-height:190px; padding:{{ section.settings.mobile_card_padding }}px;
+  }
+  #BrandValues-{{ section.id }} .bv-icon-wrap {width:43px;height:43px;margin-bottom:15px}
+  #BrandValues-{{ section.id }} .bv-icon-wrap svg {width:20px;height:20px}
+  #BrandValues-{{ section.id }} .bv-title {font-size:14px;line-height:1.3;margin-bottom:7px}
+  #BrandValues-{{ section.id }} .bv-text {font-size:11.5px;line-height:1.55}
+  #BrandValues-{{ section.id }} .bv-number {top:10px;right:10px;font-size:9px}
+  {% if section.settings.third_full_mobile %}
+  #BrandValues-{{ section.id }} .bv-item:nth-child(3):last-child {grid-column:1/-1}
+  #BrandValues-{{ section.id }} .bv-item:nth-child(3):last-child .bv-card {min-height:0;padding:20px}
+  #BrandValues-{{ section.id }} .bv-item:nth-child(3):last-child .bv-icon-wrap {margin-bottom:12px}
+  {% endif %}
+}
+@media (max-width: 359px) {
+  #BrandValues-{{ section.id }} .bv-shell {padding-left:10px;padding-right:10px}
+  #BrandValues-{{ section.id }} .bv-card {padding:12px}
+  #BrandValues-{{ section.id }} .bv-title {font-size:13px}
+  #BrandValues-{{ section.id }} .bv-text {font-size:11px}
+}
+@media (prefers-reduced-motion:reduce) {
+  #BrandValues-{{ section.id }} *, #BrandValues-{{ section.id }} *::before,
+  #BrandValues-{{ section.id }} *::after {animation:none!important;transition:none!important}
+}
+
+/* Riyaan V3 — high-contrast luxury palette, independent of saved theme colors */
+#BrandValues-{{ section.id }} .bv-grid { align-items:stretch; }
+#BrandValues-{{ section.id }} .bv-item {
+  background:#FFFFFF !important;
+  border:1px solid #E9DFDA !important;
+  border-radius:16px;
+  box-shadow:0 5px 25px rgba(24,11,16,.08);
+  overflow:hidden;
+}
+#BrandValues-{{ section.id }} .bv-item::before {
+  width:100%; height:3px; left:0; transform:scaleX(.38);
+  background:linear-gradient(90deg,#C39775,#71303F,#C39775);
+  opacity:.95;
+}
+#BrandValues-{{ section.id }} .bv-item::after { opacity:.4; z-index:0; }
+#BrandValues-{{ section.id }} .bv-card {
+  position:relative; z-index:1; padding:29px 23px 26px; min-height:235px;
+}
+#BrandValues-{{ section.id }} .bv-number {color:#98827E !important; font-weight:600;}
+#BrandValues-{{ section.id }} .bv-icon-wrap {
+  width:64px; height:64px; margin-bottom:22px;
+  border:2px solid #E7D2C6 !important;
+  border-radius:18px;
+  background:#FFF4EB !important;
+  color:#451522 !important;
+  box-shadow:inset 0 1px 0 #FFFFFF, 0 6px 14px rgba(53,19,29,.075);
+}
+#BrandValues-{{ section.id }} .bv-icon-wrap::after {
+  inset:-5px; border-radius:22px; border-color:#B98077;
+}
+/* Force dark, clearly visible SVG strokes even if the theme has global SVG CSS. */
+#BrandValues-{{ section.id }} .bv-icon-wrap svg {
+  display:block !important;
+  width:33px !important; height:33px !important;
+  color:#451522 !important;
+  stroke:#451522 !important;
+  stroke-width:2.65px !important;
+  stroke-linecap:round !important;
+  stroke-linejoin:round !important;
+  fill:none !important;
+  opacity:1 !important; visibility:visible !important;
+  animation:none !important;
+  transform:none !important;
+}
+#BrandValues-{{ section.id }} .bv-icon-wrap svg path,
+#BrandValues-{{ section.id }} .bv-icon-wrap svg line,
+#BrandValues-{{ section.id }} .bv-icon-wrap svg circle,
+#BrandValues-{{ section.id }} .bv-icon-wrap svg rect,
+#BrandValues-{{ section.id }} .bv-icon-wrap svg polyline,
+#BrandValues-{{ section.id }} .bv-icon-wrap svg polygon {
+  stroke:#451522 !important;
+  stroke-width:2.65px !important;
+  fill:none !important;
+  opacity:1 !important;
+  vector-effect:non-scaling-stroke;
+}
+#BrandValues-{{ section.id }} .bv-title {
+  color:#371922 !important;
+  font-size:clamp(16px,1.22vw,19px);
+  font-weight:700; line-height:1.35; margin-bottom:10px;
+}
+#BrandValues-{{ section.id }} .bv-text {
+  color:#665A5B !important;
+  font-size:13px; line-height:1.7; max-width:36ch;
+}
+@media(hover:hover) {
+  #BrandValues-{{ section.id }} .bv-item:hover {
+    background:#FFFFFF !important;
+    border-color:#CCAAA0 !important;
+    box-shadow:0 18px 40px rgba(31,13,20,.14);
+    transform:translateY(-5px);
+  }
+  #BrandValues-{{ section.id }} .bv-item:hover::before { transform:scaleX(.76); }
+  #BrandValues-{{ section.id }} .bv-item:hover .bv-icon-wrap {
+    background:#FBE8DD !important; border-color:#CFA999 !important;
+    transform:translateY(-2px);
+  }
+}
+@media(max-width:749px){
+  #BrandValues-{{ section.id }} .bv-grid {gap:11px;}
+  #BrandValues-{{ section.id }} .bv-item {border-radius:13px;}
+  #BrandValues-{{ section.id }} .bv-card {min-height:208px;padding:20px 15px 21px;}
+  #BrandValues-{{ section.id }} .bv-icon-wrap {
+    width:55px;height:55px;border-radius:15px;margin-bottom:17px;
+  }
+  #BrandValues-{{ section.id }} .bv-icon-wrap svg {width:28px !important;height:28px !important;}
+  #BrandValues-{{ section.id }} .bv-title {font-size:14px;line-height:1.35;}
+  #BrandValues-{{ section.id }} .bv-text {font-size:11.5px;line-height:1.6;}
+  #BrandValues-{{ section.id }} .bv-item:nth-child(3):last-child .bv-card {padding:20px 18px;}
+}
+@media(prefers-reduced-motion:reduce) {
+  #BrandValues-{{ section.id }} .bv-item,
+  #BrandValues-{{ section.id }} .bv-icon-wrap {transition:none !important;transform:none !important;}
+}
+
+{% endstyle %}
+
+<section id="BrandValues-{{ section.id }}" class="premium-brand-values">
+  <div class="bv-shell">
+    <div class="bv-layout">
+      <div class="bv-intro">
+        {% if section.settings.eyebrow != blank %}
+          <div class="bv-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+        {% endif %}
+        {% if section.settings.heading != blank %}
+          <div class="bv-heading">{{ section.settings.heading }}</div>
+        {% endif %}
+        {% if section.settings.description != blank %}
+          <div class="bv-description">{{ section.settings.description | escape | newline_to_br }}</div>
+        {% endif %}
+      </div>
+      {% if section.blocks.size > 0 %}
+        <div class="bv-grid">
+          {% for block in section.blocks limit: 4 %}
+            {% assign card_description = block.settings.description | default: block.settings.text %}
+            <article class="bv-item" {{ block.shopify_attributes }}>
+              <div class="bv-card">
+                {% if section.settings.show_numbers %}
+                  <span class="bv-number" aria-hidden="true">0{{ forloop.index }}</span>
+                {% endif %}
+                <div class="bv-icon-wrap" aria-hidden="true">
+                  {% case block.settings.icon %}
+
+
+
+
+                    {% when 'fabric' %}
+
+                      <svg viewBox="0 0 32 32" aria-hidden="true">
+
+                        <path d="M6 5.5h20v21H6z"/>
+
+                        <path d="M10 5.5c0 3 2.7 5.2 6 5.2s6-2.2 6-5.2"/>
+
+                        <path d="M11 17h10"/>
+
+                        <path d="M11 21h7"/>
+
+                      </svg>
+
+
+
+                    {% when 'hanger', 'dress' %}
+
+                      <svg viewBox="0 0 32 32" aria-hidden="true">
+
+                        <path d="M13.5 8.8c0-1.6 1-2.8 2.5-2.8 1.4 0 2.4 1 2.4 2.3 0 1.7-1.3 2.4-2.4 3.4"/>
+
+                        <path d="M16 11.7 5 23h22L16 11.7Z"/>
+
+                      </svg>
+
+
+
+                    {% when 'sparkle' %}
+
+                      <svg viewBox="0 0 32 32" aria-hidden="true">
+
+                        <path d="M16 3c.8 7.8 5.1 12.2 13 13-7.9.8-12.2 5.1-13 13-.8-7.9-5.2-12.2-13-13C10.8 15.2 15.2 10.8 16 3Z"/>
+
+                        <path d="M25 3v6"/>
+
+                        <path d="M22 6h6"/>
+
+                      </svg>
+
+
+
+                    {% when 'heart' %}
+
+                      <svg viewBox="0 0 32 32" aria-hidden="true">
+
+                        <path d="M16 27S5 20.5 5 12.6C5 8.9 7.5 6 11 6c2.2 0 4.1 1.2 5 3 1-1.8 2.8-3 5-3 3.5 0 6 2.9 6 6.6C27 20.5 16 27 16 27Z"/>
+
+                      </svg>
+
+
+
+                    {% when 'leaf' %}
+
+                      <svg viewBox="0 0 32 32" aria-hidden="true">
+
+                        <path d="M26.5 5.5C18 5.7 9.3 8.4 6.7 15.4c-1.7 4.5.5 8.2 4.4 9.8 4.4 1.8 8.8-.1 11.4-4.4 2.6-4.3 3.5-10 4-15.3Z"/>
+
+                        <path d="M7 26c4.5-6.6 9.5-11.1 16.4-15"/>
+
+                      </svg>
+
+
+
+                    {% when 'diamond' %}
+
+                      <svg viewBox="0 0 32 32" aria-hidden="true">
+
+                        <path d="M8 7h16l5 7-13 12L3 14l5-7Z"/>
+
+                        <path d="m8 7 8 19L24 7"/>
+
+                        <path d="M3 14h26"/>
+
+                        <path d="m11 7-3 7"/>
+
+                        <path d="m21 7 3 7"/>
+
+                      </svg>
+
+
+
+                    {% when 'needle' %}
+
+                      <svg viewBox="0 0 32 32" aria-hidden="true">
+
+                        <path d="M24.5 5.5 8 22"/>
+
+                        <path d="m22 4 6 6"/>
+
+                        <path d="M8 22c-2.8 2.8-3.6 5.4-2 6.5 1.6 1 4.5-1.8 3-3.4-1.4-1.5-4.6 1.5-2 3.2"/>
+
+                      </svg>
+
+
+
+                    {% when 'delivery', 'truck' %}
+
+                      <svg viewBox="0 0 32 32" aria-hidden="true">
+
+                        <path d="M3 8h17v15H3z"/>
+
+                        <path d="M20 13h5l4 5v5h-9z"/>
+
+                        <circle cx="9" cy="24" r="3"/>
+
+                        <circle cx="24" cy="24" r="3"/>
+
+                      </svg>
+
+
+
+                    {% when 'exchange' %}
+
+                      <svg viewBox="0 0 32 32" aria-hidden="true">
+
+                        <path d="M6 10h18"/>
+
+                        <path d="m20 6 4 4-4 4"/>
+
+                        <path d="M26 22H8"/>
+
+                        <path d="m12 18-4 4 4 4"/>
+
+                      </svg>
+
+
+
+                    {% when 'flower' %}
+
+                      <svg viewBox="0 0 32 32" aria-hidden="true">
+                        <path d="M16 5c2.5 0 3.9 3.7 3.9 6.3 2.2-1.4 5.8-2.4 7.1-.2 1.3 2.2-1.4 5.2-3.7 6.5 2.3 1.3 5 4.3 3.7 6.5-1.3 2.2-4.9 1.2-7.1-.2 0 2.6-1.4 6.3-3.9 6.3s-3.9-3.7-3.9-6.3c-2.2 1.4-5.8 2.4-7.1.2-1.3-2.2 1.4-5.2 3.7-6.5-2.3-1.3-5-4.3-3.7-6.5 1.3-2.2 4.9-1.2 7.1.2C12.1 8.7 13.5 5 16 5Z"/>
+                        <circle cx="16" cy="17" r="2.2"/>
+                      </svg>
+
+
+
+                    {% when 'payment' %}
+
+                      <svg viewBox="0 0 32 32" aria-hidden="true">
+                        <rect x="3.5" y="7" width="25" height="18" rx="2"/>
+                        <path d="M3.5 12.5h25M8 20h6"/>
+                      </svg>
+
+
+
+                    {% else %}
+
+                      <svg viewBox="0 0 32 32" aria-hidden="true">
+
+                        <circle cx="16" cy="16" r="11"/>
+
+                        <path d="m11 16 3.2 3.2L21 12.4"/>
+
+                      </svg>
+
+
+
+                                    {% endcase %}
+                </div>
+                {% if block.settings.title != blank %}<h3 class="bv-title">{{ block.settings.title | escape }}</h3>{% endif %}
+                {% if card_description != blank %}<p class="bv-text">{{ card_description | escape | newline_to_br }}</p>{% endif %}
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Premium Brand Values",
+  "tag": "section",
+  "class": "section-premium-values",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "THE RIYAAN STANDARD"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Made beautifully.<br><em>Worn confidently.</em></p>"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Thoughtfully designed womenswear created with refined fabrics, flattering silhouettes and attention to every detail."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 1200,
+      "max": 1800,
+      "step": 50,
+      "unit": "px",
+      "label": "Maximum width",
+      "default": 1600
+    },
+    {
+      "type": "select",
+      "id": "desktop_columns",
+      "label": "Legacy columns (3-card grid)",
+      "default": "3",
+      "options": [
+        {
+          "value": "2",
+          "label": "2 columns"
+        },
+        {
+          "value": "3",
+          "label": "3 columns"
+        },
+        {
+          "value": "4",
+          "label": "4 columns"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "desktop_side_padding",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop side spacing",
+      "default": 52
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 28,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "min": 24,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile heading size",
+      "default": 30
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading weight",
+      "default": "500",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "card_heading_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Feature heading size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "card_text_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Feature text size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FAF7F3"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Main text",
+      "default": "#591C27"
+    },
+    {
+      "type": "color",
+      "id": "muted_text_color",
+      "label": "Secondary text",
+      "default": "#746469"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#A67C67"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Borders",
+      "default": "#E7DDD6"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop top spacing",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop bottom spacing",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile top spacing",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile bottom spacing",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Effects"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_card_hover",
+      "label": "Enable premium hover",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_numbers",
+      "label": "Show feature numbers",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "glow_opacity",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "%",
+      "label": "Background glow",
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "animate_icons",
+      "label": "Animate icons",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "third_full_mobile",
+      "label": "Wide third card on mobile",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card rounding",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Card spacing",
+      "min": 8,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "mobile_card_padding",
+      "label": "Mobile card padding",
+      "min": 10,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "fabric",
+          "options": [
+            {
+              "value": "fabric",
+              "label": "Premium fabric"
+            },
+            {
+              "value": "hanger",
+              "label": "Fashion hanger"
+            },
+            {
+              "value": "sparkle",
+              "label": "Craftsmanship"
+            },
+            {
+              "value": "heart",
+              "label": "Made with care"
+            },
+            {
+              "value": "leaf",
+              "label": "Conscious fashion"
+            },
+            {
+              "value": "diamond",
+              "label": "Premium quality"
+            },
+            {
+              "value": "needle",
+              "label": "Tailoring"
+            },
+            {
+              "value": "delivery",
+              "label": "Delivery"
+            },
+            {
+              "value": "exchange",
+              "label": "Easy exchange"
+            },
+            {
+              "value": "check",
+              "label": "Quality check"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Premium Fabrics"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Carefully selected fabrics chosen for their beautiful feel, graceful fall and lasting comfort."
+        }
+      ]
+    },
+    {
+      "type": "usp",
+      "name": "USP",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "flower",
+          "options": [
+            {
+              "value": "flower",
+              "label": "Flower"
+            },
+            {
+              "value": "dress",
+              "label": "Dress"
+            },
+            {
+              "value": "truck",
+              "label": "Delivery"
+            },
+            {
+              "value": "payment",
+              "label": "Payment"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Thoughtful Details"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Designed to make every shopping experience special."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Premium Brand Values",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "fabric",
+            "title": "Premium Fabrics",
+            "text": "Carefully selected fabrics chosen for their beautiful feel, graceful fall and lasting comfort."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "needle",
+            "title": "Refined Craftsmanship",
+            "text": "Thoughtful tailoring and considered details designed to make every silhouette feel exceptional."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Made To Elevate",
+            "text": "Versatile pieces created to bring effortless elegance to everyday moments and special occasions."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

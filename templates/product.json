@@ -1,0 +1,370 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        },
+        "background_element_MiX3eF": {
+          "type": "background_element",
+          "settings": {
+            "x": 8,
+            "y": 3,
+            "width": 240,
+            "rotation": 0,
+            "opacity": 20,
+            "show_mobile": true,
+            "mobile_x": 85,
+            "mobile_y": 20,
+            "mobile_width": 120,
+            "mobile_rotation": 0,
+            "mobile_opacity": 15
+          }
+        },
+        "background_element_dWxVN7": {
+          "type": "background_element",
+          "settings": {
+            "x": 90,
+            "y": 37,
+            "width": 240,
+            "rotation": 0,
+            "opacity": 10,
+            "show_mobile": true,
+            "mobile_x": 85,
+            "mobile_y": 20,
+            "mobile_width": 120,
+            "mobile_rotation": 0,
+            "mobile_opacity": 15
+          }
+        },
+        "vendor": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "judge_me_reviews_preview_badge_N9an66": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "custom_liquid_pF3A9Y": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% comment %}\n  VEYZARA GLOBAL | PREMIUM OFFERS V7\n  Desktop: Two elegant compact offer cards\n  Mobile: Swipeable slider with autoplay\n  Shopify Custom Liquid compatible\n{% endcomment %}\n\n{% assign ry_offer_uid = section.id | default: 'main' | append: '-' | append: product.id %}\n\n<div id=\"ry-offers-{{ ry_offer_uid }}\" class=\"ry-offers-v7\">\n\n  <div class=\"ry-offers-v7__head\">\n    <div class=\"ry-offers-v7__heading\">\n      <span class=\"ry-offers-v7__gift\" aria-hidden=\"true\">\n        <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\"\n          stroke-width=\"1.6\" stroke-linecap=\"round\"\n          stroke-linejoin=\"round\">\n          <rect x=\"3\" y=\"8\" width=\"18\" height=\"13\" rx=\"2\"/>\n          <path d=\"M12 8v13M3 12h18\"/>\n          <path d=\"M12 8H8a2.5 2.5 0 1 1 2.5-2.5L12 8Z\"/>\n          <path d=\"M12 8h4a2.5 2.5 0 1 0-2.5-2.5L12 8Z\"/>\n        </svg>\n      </span>\n      <span>Exclusive Privileges</span>\n    </div>\n    <span class=\"ry-offers-v7__brand\">VEYZARA GLOBAL</span>\n  </div>\n\n  <div class=\"ry-offers-v7__viewport\"\n       role=\"region\"\n       aria-label=\"Exclusive shopping offers\"\n       tabindex=\"0\">\n\n    <div class=\"ry-offers-v7__track\">\n\n      <!-- OFFER 1: PREPAID -->\n      <div class=\"ry-offers-v7__card\">\n        <div class=\"ry-offers-v7__info\">\n          <span class=\"ry-offers-v7__eyebrow\">\n            PREPAID EXCLUSIVE\n          </span>\n\n          <div class=\"ry-offers-v7__offer\">\n            <strong>5% OFF</strong>\n          </div>\n\n          <p>On online payment</p>\n        </div>\n\n        <button type=\"button\"\n          class=\"ry-offers-v7__coupon\"\n          data-code=\"5prepaid\"\n          aria-label=\"Copy coupon code 5prepaid\">\n          <span class=\"ry-offers-v7__coupon-text\">5prepaid</span>\n\n          <svg viewBox=\"0 0 24 24\" fill=\"none\"\n            stroke=\"currentColor\" stroke-width=\"1.7\"\n            stroke-linecap=\"round\" stroke-linejoin=\"round\"\n            aria-hidden=\"true\">\n            <rect x=\"8\" y=\"8\" width=\"12\" height=\"12\" rx=\"2\"/>\n            <path d=\"M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2\"/>\n          </svg>\n          <span class=\"ry-offers-v7__copy-label\">Copy</span>\n        </button>\n      </div>\n\n      <!-- OFFER 2: BULK -->\n      <div class=\"ry-offers-v7__card\">\n        <div class=\"ry-offers-v7__info\">\n          <span class=\"ry-offers-v7__eyebrow\">\n            MORE STYLES, MORE SAVINGS\n          </span>\n\n          <div class=\"ry-offers-v7__offer\">\n            <strong>15% OFF</strong>\n          </div>\n\n          <p>On 5 or more items</p>\n        </div>\n\n        <span class=\"ry-offers-v7__automatic\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\"\n            stroke=\"currentColor\" stroke-width=\"1.8\"\n            stroke-linecap=\"round\" stroke-linejoin=\"round\"\n            aria-hidden=\"true\">\n            <circle cx=\"12\" cy=\"12\" r=\"9\"/>\n            <path d=\"m8 12 2.5 2.5L16 9\"/>\n          </svg>\n          <span>Auto Applied</span>\n        </span>\n      </div>\n\n    </div>\n  </div>\n\n  <div class=\"ry-offers-v7__navigation\">\n    <button type=\"button\" class=\"ry-offers-v7__dot is-active\"\n      data-index=\"0\" aria-label=\"Show prepaid offer\"\n      aria-current=\"true\"></button>\n    <button type=\"button\" class=\"ry-offers-v7__dot\"\n      data-index=\"1\" aria-label=\"Show bulk offer\"\n      aria-current=\"false\"></button>\n  </div>\n\n  <span class=\"ry-offers-v7__status\"\n    role=\"status\" aria-live=\"polite\"></span>\n\n</div>\n\n<style>\n#ry-offers-{{ ry_offer_uid }} {\n  --ry-primary: #602536;\n  --ry-primary-light: #823F51;\n  --ry-bg: #FFFDFB;\n  --ry-card: #FBF2EF;\n  --ry-card-hover: #F8EAE6;\n  --ry-border: #E9DAD6;\n  --ry-muted: #836D73;\n\n  display: block;\n  width: 100%;\n  max-width: 100%;\n  margin: 10px 0;\n  padding: 12px;\n  background: var(--ry-bg);\n  border: 1px solid var(--ry-border);\n  border-radius: 12px;\n  box-sizing: border-box;\n  font-family: var(--font-body-family, sans-serif);\n  overflow: hidden;\n}\n\n#ry-offers-{{ ry_offer_uid }} *,\n#ry-offers-{{ ry_offer_uid }} *::before,\n#ry-offers-{{ ry_offer_uid }} *::after {\n  box-sizing: border-box;\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__head {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 8px;\n  margin-bottom: 10px;\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__heading {\n  display: flex;\n  align-items: center;\n  gap: 7px;\n  font-size: 12px;\n  font-weight: 700;\n  letter-spacing: .01em;\n  line-height: 1.3;\n  color: var(--ry-primary);\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__gift {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 25px;\n  height: 25px;\n  background: #F9EDE9;\n  border-radius: 7px;\n  color: var(--ry-primary);\n  flex-shrink: 0;\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__gift svg {\n  width: 15px;\n  height: 15px;\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__brand {\n  font-size: 9px;\n  color: #A08787;\n  font-weight: 600;\n  letter-spacing: 1.1px;\n  white-space: nowrap;\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__viewport {\n  width: 100%;\n  overflow-x: auto;\n  overflow-y: hidden;\n  scrollbar-width: none;\n  scroll-snap-type: x mandatory;\n  scroll-behavior: smooth;\n  overscroll-behavior-x: contain;\n  -webkit-overflow-scrolling: touch;\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__viewport::-webkit-scrollbar {\n  display: none;\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__track {\n  display: flex;\n  gap: 9px;\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__card {\n  position: relative;\n  display: flex;\n  flex: 0 0 calc((100% - 9px) / 2);\n  align-items: center;\n  justify-content: space-between;\n  min-width: 0;\n  min-height: 91px;\n  padding: 13px;\n  gap: 8px;\n  border: 1px solid var(--ry-border);\n  border-radius: 10px;\n  background: var(--ry-card);\n  scroll-snap-align: start;\n  transition:\n    background .25s ease,\n    border-color .25s ease,\n    transform .25s ease;\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__card:hover {\n  background: var(--ry-card-hover);\n  border-color: #DAC0BD;\n  transform: translateY(-1px);\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__info {\n  flex: 1 1 auto;\n  min-width: 0;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  gap: 5px;\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__eyebrow {\n  font-size: 9px;\n  font-weight: 700;\n  color: var(--ry-primary-light);\n  line-height: 1.3;\n  letter-spacing: .7px;\n  text-transform: uppercase;\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__offer strong {\n  display: block;\n  font-size: 23px;\n  font-weight: 750;\n  line-height: 1.1;\n  letter-spacing: -.7px;\n  color: var(--ry-primary);\n  white-space: nowrap;\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__info p {\n  margin: 0;\n  font-size: 10px;\n  font-weight: 400;\n  line-height: 1.4;\n  color: var(--ry-muted);\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__coupon {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: nowrap;\n  flex: 0 0 auto;\n  gap: 5px;\n  border: 1px dashed #D6B7B3;\n  border-radius: 6px;\n  padding: 8px 9px;\n  background: #FFFFFF;\n  color: var(--ry-primary);\n  font-family: inherit;\n  cursor: pointer;\n  min-width: 0;\n  min-height: 34px;\n  line-height: 1;\n  transition: background .2s, border-color .2s;\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__coupon:hover {\n  background: #FFF8F6;\n  border-color: var(--ry-primary);\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__coupon-text {\n  font-size: 11px;\n  font-weight: 700;\n  letter-spacing: .2px;\n  white-space: nowrap;\n  text-transform: uppercase;\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__coupon svg {\n  width: 14px;\n  height: 14px;\n  flex-shrink: 0;\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__copy-label {\n  font-size: 10px;\n  font-weight: 600;\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__automatic {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 5px;\n  flex: 0 0 auto;\n  font-size: 10px;\n  font-weight: 600;\n  color: var(--ry-primary);\n  white-space: nowrap;\n  padding: 8px 9px;\n  background: #FFFFFF;\n  border: 1px solid #E9DAD6;\n  border-radius: 6px;\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__automatic svg {\n  width: 14px;\n  height: 14px;\n  flex-shrink: 0;\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__navigation {\n  display: none;\n  align-items: center;\n  justify-content: center;\n  gap: 6px;\n  margin-top: 10px;\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__dot {\n  display: block;\n  width: 6px;\n  height: 6px;\n  padding: 0;\n  min-width: 0;\n  min-height: 0;\n  background: #DBC7C3;\n  border: 0;\n  border-radius: 10px;\n  cursor: pointer;\n  transition: width .25s ease, background .25s ease;\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__dot.is-active {\n  width: 20px;\n  background: var(--ry-primary);\n}\n\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__status {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  padding: 0;\n  margin: -1px;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  white-space: nowrap;\n  border: 0;\n}\n\n#ry-offers-{{ ry_offer_uid }} button:focus-visible,\n#ry-offers-{{ ry_offer_uid }} .ry-offers-v7__viewport:focus-visible {\n  outline: 2px solid var(--ry-primary);\n  outline-offset: 2px;\n}\n\n/* TABLET / NARROW PRODUCT COLUMN */\n@media screen and (min-width: 750px) and (max-width: 1100px) {\n  #ry-offers-{{ ry_offer_uid }} .ry-offers-v7__card {\n    padding: 10px;\n    gap: 6px;\n  }\n\n  #ry-offers-{{ ry_offer_uid }} .ry-offers-v7__offer strong {\n    font-size: 19px;\n  }\n\n  #ry-offers-{{ ry_offer_uid }} .ry-offers-v7__copy-label {\n    display: none;\n  }\n\n  #ry-offers-{{ ry_offer_uid }} .ry-offers-v7__automatic {\n    padding: 6px;\n    font-size: 9px;\n  }\n}\n\n/* MOBILE SLIDER */\n@media screen and (max-width: 749px) {\n  #ry-offers-{{ ry_offer_uid }} {\n    padding: 10px;\n    border-radius: 10px;\n    margin: 8px 0;\n  }\n\n  #ry-offers-{{ ry_offer_uid }} .ry-offers-v7__head {\n    margin-bottom: 8px;\n  }\n\n  #ry-offers-{{ ry_offer_uid }} .ry-offers-v7__heading {\n    font-size: 11px;\n  }\n\n  #ry-offers-{{ ry_offer_uid }} .ry-offers-v7__brand {\n    font-size: 8px;\n    letter-spacing: .6px;\n  }\n\n  #ry-offers-{{ ry_offer_uid }} .ry-offers-v7__gift {\n    width: 23px;\n    height: 23px;\n  }\n\n  #ry-offers-{{ ry_offer_uid }} .ry-offers-v7__card {\n    flex: 0 0 100%;\n    min-height: 84px;\n    padding: 12px;\n    gap: 8px;\n    border-radius: 9px;\n  }\n\n  #ry-offers-{{ ry_offer_uid }} .ry-offers-v7__offer strong {\n    font-size: 23px;\n  }\n\n  #ry-offers-{{ ry_offer_uid }} .ry-offers-v7__eyebrow {\n    font-size: 9px;\n  }\n\n  #ry-offers-{{ ry_offer_uid }} .ry-offers-v7__navigation {\n    display: flex;\n  }\n\n  #ry-offers-{{ ry_offer_uid }} .ry-offers-v7__coupon {\n    padding: 8px;\n  }\n\n  #ry-offers-{{ ry_offer_uid }} .ry-offers-v7__copy-label {\n    display: none;\n  }\n}\n\n/* EXTRA SMALL MOBILE */\n@media screen and (max-width: 360px) {\n  #ry-offers-{{ ry_offer_uid }} .ry-offers-v7__card {\n    padding: 10px 9px;\n    gap: 6px;\n  }\n\n  #ry-offers-{{ ry_offer_uid }} .ry-offers-v7__offer strong {\n    font-size: 21px;\n  }\n\n  #ry-offers-{{ ry_offer_uid }} .ry-offers-v7__eyebrow {\n    font-size: 8px;\n  }\n\n  #ry-offers-{{ ry_offer_uid }} .ry-offers-v7__coupon-text {\n    font-size: 10px;\n  }\n\n  #ry-offers-{{ ry_offer_uid }} .ry-offers-v7__automatic {\n    font-size: 9px;\n    padding: 7px;\n  }\n}\n\n/* REDUCED MOTION */\n@media (prefers-reduced-motion: reduce) {\n  #ry-offers-{{ ry_offer_uid }} *,\n  #ry-offers-{{ ry_offer_uid }} *::before,\n  #ry-offers-{{ ry_offer_uid }} *::after {\n    transition: none !important;\n    animation: none !important;\n  }\n\n  #ry-offers-{{ ry_offer_uid }} .ry-offers-v7__viewport {\n    scroll-behavior: auto;\n  }\n}\n</style>\n\n<script>\n(function () {\n  const rootId = 'ry-offers-{{ ry_offer_uid }}';\n\n  function initRiyanOffersV7() {\n    const root = document.getElementById(rootId);\n\n    if (!root || root.dataset.ryReady === 'true') return;\n    root.dataset.ryReady = 'true';\n\n    const viewport = root.querySelector('.ry-offers-v7__viewport');\n    const cards = Array.from(root.querySelectorAll('.ry-offers-v7__card'));\n    const dots = Array.from(root.querySelectorAll('.ry-offers-v7__dot'));\n    const copyButton = root.querySelector('.ry-offers-v7__coupon');\n    const status = root.querySelector('.ry-offers-v7__status');\n\n    if (!viewport || !cards.length) return;\n\n    const mobileQuery = window.matchMedia('(max-width: 749px)');\n    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');\n\n    let autoplay = null;\n    let resumeTimer = null;\n    let scrollTimer = null;\n\n    function getCurrentSlide() {\n      let closest = 0;\n      let minDistance = Infinity;\n\n      cards.forEach((card, index) => {\n        const position = card.offsetLeft - cards[0].offsetLeft;\n        const distance = Math.abs(viewport.scrollLeft - position);\n\n        if (distance < minDistance) {\n          minDistance = distance;\n          closest = index;\n        }\n      });\n\n      return closest;\n    }\n\n    function updateDots(index = getCurrentSlide()) {\n      dots.forEach((dot, i) => {\n        const active = index === i;\n        dot.classList.toggle('is-active', active);\n        dot.setAttribute('aria-current', String(active));\n      });\n    }\n\n    function goTo(index) {\n      if (!mobileQuery.matches || !cards[index]) return;\n\n      const left = cards[index].offsetLeft - cards[0].offsetLeft;\n\n      viewport.scrollTo({\n        left: left,\n        behavior: motionQuery.matches ? 'instant' : 'smooth'\n      });\n\n      updateDots(index);\n    }\n\n    function stopAutoplay() {\n      if (autoplay) {\n        clearInterval(autoplay);\n        autoplay = null;\n      }\n    }\n\n    function startAutoplay() {\n      stopAutoplay();\n\n      if (\n        !mobileQuery.matches ||\n        motionQuery.matches ||\n        document.hidden ||\n        root.matches(':hover') ||\n        root.contains(document.activeElement) ||\n        cards.length < 2\n      ) return;\n\n      autoplay = setInterval(() => {\n        goTo((getCurrentSlide() + 1) % cards.length);\n      }, 4000);\n    }\n\n    function resumeLater() {\n      clearTimeout(resumeTimer);\n      resumeTimer = setTimeout(startAutoplay, 5000);\n    }\n\n    dots.forEach((dot, index) => {\n      dot.addEventListener('click', () => {\n        stopAutoplay();\n        goTo(index);\n        resumeLater();\n      });\n    });\n\n    viewport.addEventListener('scroll', () => {\n      clearTimeout(scrollTimer);\n      scrollTimer = setTimeout(() => updateDots(), 90);\n    }, { passive: true });\n\n    viewport.addEventListener('touchstart', () => {\n      stopAutoplay();\n      clearTimeout(resumeTimer);\n    }, { passive: true });\n\n    viewport.addEventListener('touchend', resumeLater, {\n      passive: true\n    });\n\n    root.addEventListener('mouseenter', stopAutoplay);\n    root.addEventListener('mouseleave', startAutoplay);\n    root.addEventListener('focusin', stopAutoplay);\n    root.addEventListener('focusout', () => {\n      setTimeout(startAutoplay, 0);\n    });\n\n    window.addEventListener('resize', () => {\n      if (!mobileQuery.matches) viewport.scrollLeft = 0;\n      updateDots();\n      startAutoplay();\n    });\n\n    document.addEventListener('visibilitychange', startAutoplay);\n\n    if (copyButton) {\n      copyButton.addEventListener('click', async () => {\n        const code = copyButton.dataset.code;\n        const label = copyButton.querySelector('.ry-offers-v7__copy-label');\n\n        let copied = false;\n\n        try {\n          if (navigator.clipboard && window.isSecureContext) {\n            await navigator.clipboard.writeText(code);\n            copied = true;\n          }\n        } catch (error) {\n          copied = false;\n        }\n\n        if (!copied) {\n          const textArea = document.createElement('textarea');\n          textArea.value = code;\n          textArea.style.position = 'fixed';\n          textArea.style.opacity = '0';\n          document.body.appendChild(textArea);\n          textArea.select();\n\n          try {\n            copied = document.execCommand('copy');\n          } catch (error) {\n            copied = false;\n          }\n\n          textArea.remove();\n        }\n\n        if (copied) {\n          copyButton.classList.add('is-copied');\n          copyButton.setAttribute('aria-label', 'Coupon copied: ' + code);\n          if (label) label.textContent = 'Copied!';\n          if (status) status.textContent = 'Copied coupon code ' + code;\n\n          setTimeout(() => {\n            copyButton.classList.remove('is-copied');\n            copyButton.setAttribute('aria-label', 'Copy coupon code ' + code);\n            if (label) label.textContent = 'Copy';\n          }, 2200);\n        } else {\n          if (status) status.textContent = 'Unable to copy. Coupon code is ' + code;\n        }\n      });\n    }\n\n    startAutoplay();\n  }\n\n  initRiyanOffersV7();\n\n  document.addEventListener('shopify:section:load', initRiyanOffersV7);\n})();\n</script>"
+          }
+        },
+        "custom_liquid_Ppq6rx": {
+          "type": "custom_liquid",
+          "disabled": true,
+          "settings": {
+            "custom_liquid": "{% comment %}\n  VEYZARA GLOBAL — PREMIUM SIZE GUIDE DRAWER\n  Add to Product Information > Custom Liquid\n{% endcomment %}\n\n{% assign ry_size_key = section.id | append: '-' | append: product.id %}\n\n<div id=\"ry-size-entry-{{ ry_size_key }}\" class=\"ry-size-entry\">\n\n  <button\n    class=\"ry-size-open\"\n    type=\"button\"\n    aria-haspopup=\"dialog\"\n    aria-controls=\"ry-size-dialog-{{ ry_size_key }}\"\n  >\n    <span class=\"ry-size-open-left\">\n      <svg viewBox=\"0 0 24 24\" fill=\"none\"\n        stroke=\"currentColor\" stroke-width=\"1.6\"\n        aria-hidden=\"true\">\n        <rect x=\"2.5\" y=\"6\" width=\"19\" height=\"12\" rx=\"2\"/>\n        <path d=\"M6 6v5m4-5v3m4-3v5m4-5v3\"/>\n      </svg>\n      <span>Find Your Perfect Fit</span>\n    </span>\n\n    <span class=\"ry-size-open-right\">\n      SIZE GUIDE\n      <span aria-hidden=\"true\">↗</span>\n    </span>\n  </button>\n\n  <dialog\n    id=\"ry-size-dialog-{{ ry_size_key }}\"\n    class=\"ry-size-dialog\"\n    aria-labelledby=\"ry-size-title-{{ ry_size_key }}\"\n    aria-describedby=\"ry-size-desc-{{ ry_size_key }}\"\n  >\n    <div class=\"ry-size-panel\">\n\n      <header class=\"ry-size-panel-head\">\n\n        <span class=\"ry-size-eyebrow\">\n          VEYZARA GLOBAL · THE FIT EDIT\n        </span>\n\n        <button\n          type=\"button\"\n          class=\"ry-size-close\"\n          aria-label=\"Close size guide\"\n        >\n          <svg viewBox=\"0 0 24 24\" fill=\"none\"\n            stroke=\"currentColor\" stroke-width=\"1.8\"\n            aria-hidden=\"true\">\n            <path d=\"M6 6l12 12M18 6 6 18\"/>\n          </svg>\n        </button>\n\n        <h2 id=\"ry-size-title-{{ ry_size_key }}\">\n          Your Perfect Fit\n        </h2>\n\n        <p id=\"ry-size-desc-{{ ry_size_key }}\">\n          An effortless guide to finding your size.\n        </p>\n\n      </header>\n\n      <div class=\"ry-size-panel-body\">\n\n        <div class=\"ry-size-table-head\">\n          <span>SIZE</span>\n          <span>CHEST · INCHES</span>\n        </div>\n\n        <div\n          class=\"ry-size-measurements\"\n          role=\"table\"\n          aria-label=\"VEYZARA Global chest size chart\"\n        >\n          {% assign ry_size_labels = 'XS,S,M,L,XL,XXL,XXXL,XXXXL' | split: ',' %}\n          {% assign ry_chest_sizes = '34,36,39,40,42,44,46,48' | split: ',' %}\n\n          {% for ry_label in ry_size_labels %}\n            <div class=\"ry-size-measure-row\" role=\"row\">\n              <span role=\"cell\">{{ ry_label }}</span>\n              <strong role=\"cell\">\n                {{ ry_chest_sizes[forloop.index0] }}&Prime;\n              </strong>\n            </div>\n          {% endfor %}\n        </div>\n\n        <div class=\"ry-size-advice\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\"\n            stroke=\"currentColor\" stroke-width=\"1.7\"\n            aria-hidden=\"true\">\n            <circle cx=\"12\" cy=\"12\" r=\"9\"/>\n            <path d=\"M12 11v5m0-8h.01\"/>\n          </svg>\n\n          <span>\n            All measurements are in inches.\n            Compare against your preferred garment\n            for a comfortable fit.\n          </span>\n        </div>\n\n      </div>\n\n      <footer class=\"ry-size-panel-foot\">\n        <button type=\"button\" class=\"ry-size-done\">\n          CONTINUE SHOPPING\n          <span aria-hidden=\"true\">→</span>\n        </button>\n      </footer>\n\n    </div>\n  </dialog>\n\n</div>\n\n<style>\n/* =======================================\n   VEYZARA GLOBAL PREMIUM SIZE GUIDE\n======================================= */\n\n/* COMPACT TRIGGER */\n\n#ry-size-entry-{{ ry_size_key }} {\n  --ry-wine: #591C27;\n  --ry-gold: #B18A65;\n  --ry-cream: #FCF8F4;\n\n  font-family: inherit;\n  width: 100%;\n  margin: 9px 0;\n}\n\n#ry-size-entry-{{ ry_size_key }} * {\n  box-sizing: border-box;\n}\n\n#ry-size-entry-{{ ry_size_key }} .ry-size-open {\n  width: 100%;\n  min-height: 46px;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 10px;\n  padding: 10px 14px;\n  background: #FFFDFB;\n  border: 1px solid #E5D7CD;\n  border-radius: 7px;\n  color: var(--ry-wine);\n  font-family: inherit;\n  cursor: pointer;\n  transition:\n    border-color .22s,\n    background .22s,\n    box-shadow .22s;\n}\n\n#ry-size-entry-{{ ry_size_key }} .ry-size-open:hover {\n  background: #FAF3EF;\n  border-color: #C9A98C;\n  box-shadow: 0 4px 15px rgba(89,28,39,.05);\n}\n\n#ry-size-entry-{{ ry_size_key }} .ry-size-open:focus-visible {\n  outline: 2px solid var(--ry-wine);\n  outline-offset: 3px;\n}\n\n#ry-size-entry-{{ ry_size_key }} .ry-size-open-left {\n  display: flex;\n  align-items: center;\n  gap: 9px;\n  min-width: 0;\n  font-size: 12px;\n  font-weight: 700;\n  letter-spacing: .1px;\n}\n\n#ry-size-entry-{{ ry_size_key }} .ry-size-open-left svg {\n  width: 17px;\n  height: 17px;\n  color: var(--ry-gold);\n  flex-shrink: 0;\n}\n\n#ry-size-entry-{{ ry_size_key }} .ry-size-open-right {\n  font-size: 9px;\n  font-weight: 700;\n  letter-spacing: 1.3px;\n  color: #9C765C;\n  white-space: nowrap;\n}\n\n#ry-size-entry-{{ ry_size_key }} .ry-size-open-right span {\n  font-size: 17px;\n  margin-left: 7px;\n  vertical-align: middle;\n  color: var(--ry-wine);\n}\n\n/* FLOATING DRAWER */\n\n#ry-size-dialog-{{ ry_size_key }} {\n  --ry-wine: #591C27;\n  --ry-gold: #B18A65;\n\n  box-sizing: border-box;\n  position: fixed;\n  inset: 0 0 0 auto;\n  margin: 0;\n  padding: 0;\n  width: min(440px, 100vw);\n  max-width: 100vw;\n  height: 100dvh;\n  max-height: 100dvh;\n  border: 0;\n  border-left: 1px solid #E6D7CB;\n  border-radius: 0;\n  background: #FFFEFD;\n  color: #392C30;\n  box-shadow: -15px 0 60px rgba(38,15,23,.14);\n  overflow: hidden;\n  font-family: inherit;\n  opacity: 0;\n  transform: translateX(24px);\n  transition:\n    opacity .25s ease,\n    transform .25s ease,\n    display .25s allow-discrete,\n    overlay .25s allow-discrete;\n  z-index: 2147483000;\n}\n\n#ry-size-dialog-{{ ry_size_key }}[open] {\n  opacity: 1;\n  transform: translateX(0);\n}\n\n@starting-style {\n  #ry-size-dialog-{{ ry_size_key }}[open] {\n    opacity: 0;\n    transform: translateX(24px);\n  }\n}\n\n#ry-size-dialog-{{ ry_size_key }}::backdrop {\n  background: rgba(24,13,18,.54);\n  backdrop-filter: blur(2px);\n}\n\n#ry-size-dialog-{{ ry_size_key }} *,\n#ry-size-dialog-{{ ry_size_key }} *::before,\n#ry-size-dialog-{{ ry_size_key }} *::after {\n  box-sizing: border-box;\n}\n\n/* DRAWER STRUCTURE */\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-panel {\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  min-height: 0;\n}\n\n/* DRAWER HEADER */\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-panel-head {\n  flex-shrink: 0;\n  position: relative;\n  padding: 37px 28px 21px;\n  background: linear-gradient(\n    145deg,\n    #FFFCF8,\n    #F9F0EA\n  );\n  border-bottom: 1px solid #EBDDD4;\n}\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-eyebrow {\n  font-size: 10px;\n  letter-spacing: 2px;\n  font-weight: 700;\n  color: #AB8463;\n}\n\n#ry-size-dialog-{{ ry_size_key }} h2 {\n  margin: 15px 0 8px;\n  padding: 0;\n  font-family: Georgia, 'Times New Roman', serif;\n  font-size: 34px;\n  font-weight: 400;\n  line-height: 1.14;\n  color: #591C27;\n  letter-spacing: -.7px;\n}\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-panel-head p {\n  margin: 0;\n  font-size: 12px;\n  color: #8B746C;\n  line-height: 1.6;\n}\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-close {\n  position: absolute;\n  right: 20px;\n  top: 22px;\n  width: 35px;\n  height: 35px;\n  border: 1px solid #E5D5C9;\n  border-radius: 50%;\n  background: #FFFFFF;\n  color: #591C27;\n  cursor: pointer;\n  display: grid;\n  place-items: center;\n  transition: transform .2s, background .2s;\n}\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-close:hover {\n  transform: rotate(90deg);\n  background: #F6EBE5;\n}\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-close svg {\n  width: 16px;\n  height: 16px;\n}\n\n/* SCROLLABLE CONTENT */\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-panel-body {\n  padding: 24px 28px;\n  overflow: auto;\n  flex: 1;\n  min-height: 0;\n  overscroll-behavior: contain;\n}\n\n/* SIZE TABLE */\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-table-head {\n  display: flex;\n  justify-content: space-between;\n  padding: 0 4px 10px;\n  font-size: 9px;\n  font-weight: 700;\n  letter-spacing: 1.5px;\n  color: #B18A65;\n}\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-measurements {\n  border: 1px solid #E8DAD0;\n  border-radius: 8px;\n  overflow: hidden;\n}\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-measure-row {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  min-height: 45px;\n  padding: 9px 16px;\n  border-bottom: 1px solid #EDE2DB;\n  font-size: 13px;\n  line-height: 1.4;\n  background: #FFFFFF;\n  transition: background .2s;\n}\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-measure-row:nth-child(even) {\n  background: #FCF8F5;\n}\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-measure-row:last-child {\n  border-bottom: 0;\n}\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-measure-row:hover {\n  background: #F7EEE8;\n}\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-measure-row span {\n  font-weight: 700;\n  color: #591C27;\n}\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-measure-row strong {\n  font-size: 13px;\n  color: #57464A;\n  font-variant-numeric: tabular-nums;\n}\n\n/* FIT ADVICE */\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-advice {\n  display: flex;\n  gap: 10px;\n  align-items: flex-start;\n  margin-top: 18px;\n  padding: 14px;\n  border: 1px solid #EBDDD1;\n  border-radius: 7px;\n  background: #FBF5F0;\n  font-size: 11px;\n  line-height: 1.6;\n  color: #806E68;\n}\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-advice svg {\n  width: 17px;\n  height: 17px;\n  flex-shrink: 0;\n  color: #B18A65;\n}\n\n/* FOOTER BUTTON */\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-panel-foot {\n  padding: 14px 28px max(17px, env(safe-area-inset-bottom));\n  border-top: 1px solid #EFE5DD;\n  background: #FFFFFF;\n  flex-shrink: 0;\n}\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-done {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 18px;\n  width: 100%;\n  min-height: 46px;\n  background: #591C27;\n  border: 1px solid #591C27;\n  border-radius: 5px;\n  color: #FFFFFF;\n  font-family: inherit;\n  font-size: 11px;\n  font-weight: 700;\n  line-height: 1.4;\n  letter-spacing: 1.4px;\n  cursor: pointer;\n  transition: background .2s, transform .2s;\n}\n\n#ry-size-dialog-{{ ry_size_key }} .ry-size-done:hover {\n  background: #743646;\n  transform: translateY(-1px);\n}\n\n#ry-size-dialog-{{ ry_size_key }} button:focus-visible {\n  outline: 2px solid #B18A65;\n  outline-offset: 3px;\n}\n\n/* MOBILE BOTTOM SHEET */\n\n@media (max-width: 749px) {\n\n  #ry-size-entry-{{ ry_size_key }} .ry-size-open {\n    min-height: 43px;\n    padding: 9px 11px;\n  }\n\n  #ry-size-entry-{{ ry_size_key }} .ry-size-open-left {\n    font-size: 11px;\n  }\n\n  #ry-size-dialog-{{ ry_size_key }} {\n    inset: auto 0 0 0;\n    width: 100vw;\n    height: min(85dvh, 760px);\n    max-height: 85dvh;\n    border: 0;\n    border-radius: 16px 16px 0 0;\n    transform: translateY(22px);\n  }\n\n  #ry-size-dialog-{{ ry_size_key }}[open] {\n    transform: translateY(0);\n  }\n\n  #ry-size-dialog-{{ ry_size_key }} .ry-size-panel-head {\n    padding: 28px 20px 17px;\n  }\n\n  #ry-size-dialog-{{ ry_size_key }} h2 {\n    font-size: 29px;\n  }\n\n  #ry-size-dialog-{{ ry_size_key }} .ry-size-close {\n    right: 17px;\n    top: 15px;\n  }\n\n  #ry-size-dialog-{{ ry_size_key }} .ry-size-panel-body {\n    padding: 16px 20px;\n  }\n\n  #ry-size-dialog-{{ ry_size_key }} .ry-size-measure-row {\n    min-height: 41px;\n  }\n\n  #ry-size-dialog-{{ ry_size_key }} .ry-size-panel-foot {\n    padding: 12px 20px max(13px, env(safe-area-inset-bottom));\n  }\n}\n\n/* ACCESSIBILITY */\n\n@media (prefers-reduced-motion: reduce) {\n\n  #ry-size-dialog-{{ ry_size_key }},\n  #ry-size-dialog-{{ ry_size_key }} .ry-size-close,\n  #ry-size-dialog-{{ ry_size_key }} .ry-size-done,\n  #ry-size-entry-{{ ry_size_key }} .ry-size-open {\n    transition: none;\n  }\n}\n</style>\n\n<script>\n(function () {\n\n  var entry = document.getElementById(\n    'ry-size-entry-{{ ry_size_key }}'\n  );\n\n  var dialog = document.getElementById(\n    'ry-size-dialog-{{ ry_size_key }}'\n  );\n\n  if (!entry || !dialog ||\n      entry.dataset.rySizeReady === 'true') {\n    return;\n  }\n\n  entry.dataset.rySizeReady = 'true';\n\n  var trigger = entry.querySelector('.ry-size-open');\n  var closeButton = dialog.querySelector('.ry-size-close');\n  var doneButton = dialog.querySelector('.ry-size-done');\n\n  /*\n    Move the dialog outside the theme's\n    product information column.\n    This prevents clipping and layout conflicts.\n  */\n  document.body.appendChild(dialog);\n\n  function closeGuide() {\n    if (dialog.open) {\n      dialog.close();\n    }\n  }\n\n  /*\n    OPEN DRAWER\n  */\n  trigger.addEventListener('click', function () {\n    if (!dialog.isConnected) {\n      document.body.appendChild(dialog);\n    }\n\n    if (!dialog.open) {\n      dialog.showModal();\n    }\n  });\n\n  /*\n    CLOSE BUTTONS\n  */\n  closeButton.addEventListener('click', closeGuide);\n  doneButton.addEventListener('click', closeGuide);\n\n  /*\n    CLOSE WHEN CLICKING OUTSIDE PANEL\n  */\n  dialog.addEventListener('click', function (event) {\n\n    if (event.target !== dialog) {\n      return;\n    }\n\n    var r = dialog.getBoundingClientRect();\n\n    if (\n      event.clientX < r.left ||\n      event.clientX > r.right ||\n      event.clientY < r.top ||\n      event.clientY > r.bottom\n    ) {\n      closeGuide();\n    }\n  });\n\n  /*\n    RESTORE FOCUS AFTER CLOSING\n  */\n  dialog.addEventListener('close', function () {\n    if (trigger.isConnected) {\n      trigger.focus({ preventScroll: true });\n    }\n  });\n\n  /*\n    SHOPIFY THEME EDITOR CLEANUP\n  */\n  document.addEventListener(\n    'shopify:section:unload',\n    function (event) {\n      if (event.target && event.target.contains(entry)) {\n        closeGuide();\n        dialog.remove();\n      }\n    }\n  );\n\n})();\n</script>"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": true
+          }
+        },
+        "frequently_bought_together": {
+          "type": "complementary",
+          "settings": {
+            "recommendation_intent": "related",
+            "block_heading": "Frequently Bought Together",
+            "make_collapsible_row": false,
+            "icon": "price_tag",
+            "product_list_limit": 4,
+            "products_per_page": 2,
+            "pagination_style": "dots",
+            "image_ratio": "square",
+            "enable_quick_add": true
+          }
+        },
+        "custom_liquid_VjeUda": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% comment %}\n  VEYZARA GLOBAL — PREMIUM PAYMENT ICONS\n  Original Shopify CDN Images\n  Custom Liquid Compatible\n  Desktop + Mobile Responsive\n{% endcomment %}\n\n<div class=\"rc-premium-payments\">\n\n  <div class=\"rc-premium-payments__grid\">\n\n    <!-- PhonePe -->\n    <div class=\"rc-premium-payments__item\">\n      <img\n        src=\"https://cdn.shopify.com/s/files/1/0892/3892/9719/files/download_17954508-c3dc-4d03-87b2-f11bae4d1a81.png?v=1792235701\"\n        alt=\"PhonePe\"\n        width=\"150\"\n        height=\"80\"\n        loading=\"lazy\"\n      >\n    </div>\n\n    <!-- Google Pay -->\n    <div class=\"rc-premium-payments__item\">\n      <img\n        src=\"https://cdn.shopify.com/s/files/1/0892/3892/9719/files/download_a247c5c9-949e-4a18-a3c8-84f0207e5b2e.png?v=1792235710\"\n        alt=\"Google Pay\"\n        width=\"150\"\n        height=\"80\"\n        loading=\"lazy\"\n      >\n    </div>\n\n    <!-- CRED -->\n    <div class=\"rc-premium-payments__item\">\n      <img\n        src=\"https://cdn.shopify.com/s/files/1/0892/3892/9719/files/download_92765148-e118-458c-b48e-89d5b645d3f0.png?v=1792235715\"\n        alt=\"CRED\"\n        width=\"150\"\n        height=\"80\"\n        loading=\"lazy\"\n      >\n    </div>\n\n    <!-- Paytm -->\n    <div class=\"rc-premium-payments__item\">\n      <img\n        src=\"https://cdn.shopify.com/s/files/1/0892/3892/9719/files/download_8de876c7-197f-4174-85e8-5d6d654a5149.png?v=1792235756\"\n        alt=\"Paytm\"\n        width=\"150\"\n        height=\"80\"\n        loading=\"lazy\"\n      >\n    </div>\n\n    <!-- Visa -->\n    <div class=\"rc-premium-payments__item\">\n      <img\n        src=\"https://cdn.shopify.com/s/files/1/0892/3892/9719/files/download_c51fad86-e938-4cd4-b870-58a853b7eaec.png?v=1792235723\"\n        alt=\"Visa\"\n        width=\"150\"\n        height=\"80\"\n        loading=\"lazy\"\n      >\n    </div>\n\n  </div>\n\n</div>\n\n<style>\n.rc-premium-payments {\n  width: 100%;\n  margin: 14px 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\n.rc-premium-payments *,\n.rc-premium-payments *::before,\n.rc-premium-payments *::after {\n  box-sizing: border-box;\n}\n\n.rc-premium-payments__grid {\n  display: grid;\n  grid-template-columns: repeat(5, minmax(0, 1fr));\n  gap: 9px;\n  width: 100%;\n  align-items: center;\n}\n\n.rc-premium-payments__item {\n  width: 100%;\n  min-width: 0;\n  height: 60px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 9px;\n\n  background: #ffffff;\n  border: 1px solid #eadedb;\n  border-radius: 9px;\n  overflow: hidden;\n\n  transition:\n    transform 0.25s ease,\n    box-shadow 0.25s ease,\n    border-color 0.25s ease;\n}\n\n.rc-premium-payments__item:hover {\n  transform: translateY(-3px);\n  border-color: #c5a29f;\n  box-shadow: 0 6px 16px rgba(72, 28, 43, 0.09);\n}\n\n.rc-premium-payments__item img {\n  display: block;\n  width: 100%;\n  height: 100%;\n  max-width: 100%;\n  max-height: 100%;\n  object-fit: contain;\n  object-position: center;\n  margin: 0;\n  padding: 0;\n  border: 0;\n  box-shadow: none;\n}\n\n/* Tablet */\n@media screen and (max-width: 989px) {\n  .rc-premium-payments__grid {\n    gap: 7px;\n  }\n\n  .rc-premium-payments__item {\n    height: 52px;\n    padding: 6px;\n    border-radius: 7px;\n  }\n}\n\n/* Mobile */\n@media screen and (max-width: 749px) {\n  .rc-premium-payments {\n    margin: 11px 0;\n  }\n\n  .rc-premium-payments__grid {\n    grid-template-columns: repeat(5, minmax(0, 1fr));\n    gap: 5px;\n  }\n\n  .rc-premium-payments__item {\n    height: 44px;\n    padding: 4px;\n    border-radius: 6px;\n  }\n}\n\n/* Small mobile screens */\n@media screen and (max-width: 359px) {\n  .rc-premium-payments__grid {\n    gap: 4px;\n  }\n\n  .rc-premium-payments__item {\n    height: 39px;\n    padding: 3px;\n  }\n}\n\n/* Accessibility */\n@media (prefers-reduced-motion: reduce) {\n  .rc-premium-payments__item {\n    transition: none;\n  }\n\n  .rc-premium-payments__item:hover {\n    transform: none;\n  }\n}\n</style>"
+          }
+        },
+        "custom_liquid_YJARVC": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% comment %}\n  VEYZARA GLOBAL | THE VEYZARA PROMISE V6\n  Premium compact USP slider\n  Desktop: 4 USP cards\n  Mobile: 2 cards per slide\n  Native swipe + autoplay + interactive dots\n  Dawn compatible | No dependencies\n{% endcomment %}\n\n{% assign ry_usp_uid = block.id | default: section.id | default: 'main' | replace: '_', '-' %}\n\n<div id=\"ry-usp-{{ ry_usp_uid }}\" class=\"ry-usp-v6\">\n\n  <div class=\"ry-usp-v6__header\">\n    <div class=\"ry-usp-v6__heading\">\n      <span class=\"ry-usp-v6__heading-icon\" aria-hidden=\"true\">\n        <svg viewBox=\"0 0 24 24\" fill=\"none\"\n          stroke=\"currentColor\" stroke-width=\"1.6\"\n          stroke-linecap=\"round\" stroke-linejoin=\"round\">\n          <path d=\"M12 3 14.6 9.4 21 12l-6.4 2.6L12 21l-2.6-6.4L3 12l6.4-2.6L12 3Z\"/>\n          <path d=\"m19 2 .8 2.2L22 5l-2.2.8L19 8l-.8-2.2L16 5l2.2-.8L19 2Z\"/>\n        </svg>\n      </span>\n      <span>THE VEYZARA PROMISE</span>\n    </div>\n    <span class=\"ry-usp-v6__header-tag\">\n      Thoughtfully Crafted\n    </span>\n  </div>\n\n  <div class=\"ry-usp-v6__viewport\"\n    tabindex=\"0\"\n    role=\"region\"\n    aria-roledescription=\"carousel\"\n    aria-label=\"VEYZARA Global shopping benefits\">\n\n    <div class=\"ry-usp-v6__track\">\n\n      <!-- USP 1: SHIPPING -->\n      <div class=\"ry-usp-v6__item\">\n        <span class=\"ry-usp-v6__icon\" aria-hidden=\"true\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\"\n            stroke=\"currentColor\" stroke-width=\"1.5\"\n            stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M3 6.5h11.5V17H3z\"/>\n            <path d=\"M14.5 10h4l3 4v3h-7\"/>\n            <circle cx=\"7.5\" cy=\"17.5\" r=\"1.7\"/>\n            <circle cx=\"18\" cy=\"17.5\" r=\"1.7\"/>\n            <path d=\"M3 10.5H1.5\"/>\n            <path d=\"M3 13.5H2\"/>\n          </svg>\n        </span>\n\n        <span class=\"ry-usp-v6__text\">\n          <strong>Free Shipping</strong>\n          <small>Across India</small>\n        </span>\n      </div>\n\n      <!-- USP 2: EXCHANGE -->\n      <div class=\"ry-usp-v6__item\">\n        <span class=\"ry-usp-v6__icon\" aria-hidden=\"true\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\"\n            stroke=\"currentColor\" stroke-width=\"1.5\"\n            stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M20 7H5\"/>\n            <path d=\"m9 3-4 4 4 4\"/>\n            <path d=\"M4 17h15\"/>\n            <path d=\"m15 13 4 4-4 4\"/>\n          </svg>\n        </span>\n\n        <span class=\"ry-usp-v6__text\">\n          <strong>Easy Exchange</strong>\n          <small>7-Day Window</small>\n        </span>\n      </div>\n\n      <!-- USP 3: PAYMENT -->\n      <div class=\"ry-usp-v6__item\">\n        <span class=\"ry-usp-v6__icon\" aria-hidden=\"true\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\"\n            stroke=\"currentColor\" stroke-width=\"1.5\"\n            stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M12 2.5 20 6v6c0 5-3.2 8-8 10-4.8-2-8-5-8-10V6l8-3.5Z\"/>\n            <path d=\"m8.5 12 2.2 2.2 4.8-4.8\"/>\n          </svg>\n        </span>\n\n        <span class=\"ry-usp-v6__text\">\n          <strong>Secure Payment</strong>\n          <small>Protected Checkout</small>\n        </span>\n      </div>\n\n      <!-- USP 4: PREMIUM STYLES -->\n      <div class=\"ry-usp-v6__item\">\n        <span class=\"ry-usp-v6__icon\" aria-hidden=\"true\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\"\n            stroke=\"currentColor\" stroke-width=\"1.5\"\n            stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M6 4h12l4 6-10 12L2 10l4-6Z\"/>\n            <path d=\"M2 10h20\"/>\n            <path d=\"m6 4 6 18 6-18\"/>\n          </svg>\n        </span>\n\n        <span class=\"ry-usp-v6__text\">\n          <strong>Premium Styles</strong>\n          <small>Timeless Fashion</small>\n        </span>\n      </div>\n\n    </div>\n  </div>\n\n  <!-- MOBILE NAVIGATION -->\n  <div class=\"ry-usp-v6__navigation\"\n    role=\"group\"\n    aria-label=\"Benefit slider navigation\">\n\n    <button\n      type=\"button\"\n      class=\"ry-usp-v6__dot is-active\"\n      data-page=\"0\"\n      aria-label=\"Show benefits 1 and 2\"\n      aria-current=\"true\">\n    </button>\n\n    <button\n      type=\"button\"\n      class=\"ry-usp-v6__dot\"\n      data-page=\"1\"\n      aria-label=\"Show benefits 3 and 4\"\n      aria-current=\"false\">\n    </button>\n\n  </div>\n\n</div>\n\n<style>\n#ry-usp-{{ ry_usp_uid }} {\n  --ry-wine: #652B42;\n  --ry-wine-dark: #542A3A;\n  --ry-wine-soft: #806671;\n  --ry-background: #FFFAF8;\n  --ry-card: #FFFFFF;\n  --ry-icon-bg: #F8EEEA;\n  --ry-icon-border: #EBDAD5;\n  --ry-border: #EBDDD8;\n\n  display: block;\n  position: relative;\n  width: 100%;\n  max-width: 100%;\n  margin: 9px 0;\n  padding: 10px;\n  background: var(--ry-background);\n  border: 1px solid var(--ry-border);\n  border-radius: 11px;\n  overflow: hidden;\n  box-sizing: border-box;\n  font-family: var(--font-body-family, Arial, sans-serif);\n}\n\n#ry-usp-{{ ry_usp_uid }} *,\n#ry-usp-{{ ry_usp_uid }} *::before,\n#ry-usp-{{ ry_usp_uid }} *::after {\n  box-sizing: border-box;\n}\n\n/* HEADER */\n#ry-usp-{{ ry_usp_uid }} .ry-usp-v6__header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 8px;\n  margin-bottom: 9px;\n}\n\n#ry-usp-{{ ry_usp_uid }} .ry-usp-v6__heading {\n  display: inline-flex;\n  align-items: center;\n  gap: 6px;\n  color: var(--ry-wine);\n  font-size: 10px;\n  font-weight: 700;\n  letter-spacing: .85px;\n  line-height: 1.3;\n}\n\n#ry-usp-{{ ry_usp_uid }} .ry-usp-v6__heading-icon {\n  display: inline-flex;\n  width: 16px;\n  height: 16px;\n  align-items: center;\n  justify-content: center;\n}\n\n#ry-usp-{{ ry_usp_uid }} .ry-usp-v6__heading-icon svg {\n  width: 16px;\n  height: 16px;\n}\n\n#ry-usp-{{ ry_usp_uid }} .ry-usp-v6__header-tag {\n  color: #9F848B;\n  font-size: 9px;\n  font-weight: 500;\n  letter-spacing: .2px;\n  white-space: nowrap;\n}\n\n/* SLIDER VIEWPORT */\n#ry-usp-{{ ry_usp_uid }} .ry-usp-v6__viewport {\n  width: 100%;\n  max-width: 100%;\n  overflow-x: auto;\n  overflow-y: hidden;\n  scrollbar-width: none;\n  scroll-snap-type: x mandatory;\n  scroll-behavior: smooth;\n  overscroll-behavior-x: contain;\n  -webkit-overflow-scrolling: touch;\n}\n\n#ry-usp-{{ ry_usp_uid }} .ry-usp-v6__viewport::-webkit-scrollbar {\n  display: none;\n}\n\n#ry-usp-{{ ry_usp_uid }} .ry-usp-v6__track {\n  display: flex;\n  gap: 7px;\n}\n\n/* USP CARDS */\n#ry-usp-{{ ry_usp_uid }} .ry-usp-v6__item {\n  display: flex;\n  align-items: center;\n  justify-content: flex-start;\n  gap: 8px;\n  flex: 0 0 calc((100% - 21px) / 4);\n  min-width: 0;\n  min-height: 60px;\n  padding: 8px;\n  background: var(--ry-card);\n  border: 1px solid var(--ry-border);\n  border-radius: 8px;\n  scroll-snap-align: start;\n  transition:\n    background .25s ease,\n    border-color .25s ease,\n    transform .25s ease,\n    box-shadow .25s ease;\n}\n\n#ry-usp-{{ ry_usp_uid }} .ry-usp-v6__item:hover {\n  background: #FFFFFF;\n  border-color: #DDC6C6;\n  box-shadow: 0 3px 12px rgba(80, 30, 45, .055);\n}\n\n/* DARK, VISIBLE ICONS */\n#ry-usp-{{ ry_usp_uid }} .ry-usp-v6__icon {\n  display: flex;\n  flex: 0 0 34px;\n  width: 34px;\n  height: 34px;\n  align-items: center;\n  justify-content: center;\n  background: var(--ry-icon-bg);\n  border: 1px solid var(--ry-icon-border);\n  border-radius: 7px;\n  color: var(--ry-wine);\n}\n\n#ry-usp-{{ ry_usp_uid }} .ry-usp-v6__icon svg {\n  display: block;\n  width: 21px;\n  height: 21px;\n  flex-shrink: 0;\n  stroke: currentColor;\n}\n\n/* TEXT */\n#ry-usp-{{ ry_usp_uid }} .ry-usp-v6__text {\n  display: flex;\n  flex: 1 1 auto;\n  flex-direction: column;\n  align-items: flex-start;\n  justify-content: center;\n  min-width: 0;\n  gap: 3px;\n  text-align: left;\n}\n\n#ry-usp-{{ ry_usp_uid }} .ry-usp-v6__text strong {\n  display: block;\n  width: 100%;\n  color: var(--ry-wine-dark);\n  font-size: 11px;\n  line-height: 1.3;\n  font-weight: 650;\n  letter-spacing: 0;\n  overflow-wrap: break-word;\n}\n\n#ry-usp-{{ ry_usp_uid }} .ry-usp-v6__text small {\n  display: block;\n  width: 100%;\n  color: var(--ry-wine-soft);\n  font-size: 9px;\n  line-height: 1.35;\n  font-weight: 400;\n  overflow-wrap: break-word;\n}\n\n/* NAVIGATION */\n#ry-usp-{{ ry_usp_uid }} .ry-usp-v6__navigation {\n  display: none;\n  justify-content: center;\n  align-items: center;\n  gap: 6px;\n  padding-top: 9px;\n}\n\n#ry-usp-{{ ry_usp_uid }} .ry-usp-v6__dot {\n  display: block;\n  width: 6px;\n  height: 6px;\n  min-width: 0;\n  min-height: 0;\n  padding: 0;\n  border: 0;\n  border-radius: 10px;\n  background: #DECAC9;\n  cursor: pointer;\n  transition:\n    width .3s ease,\n    background .3s ease;\n}\n\n#ry-usp-{{ ry_usp_uid }} .ry-usp-v6__dot.is-active {\n  width: 20px;\n  background: var(--ry-wine);\n}\n\n#ry-usp-{{ ry_usp_uid }} button:focus-visible,\n#ry-usp-{{ ry_usp_uid }} .ry-usp-v6__viewport:focus-visible {\n  outline: 2px solid var(--ry-wine);\n  outline-offset: 2px;\n}\n\n/* MOBILE: TWO CARDS PER PAGE */\n@media screen and (max-width: 749px) {\n  #ry-usp-{{ ry_usp_uid }} {\n    padding: 8px;\n    margin: 8px 0;\n    border-radius: 9px;\n  }\n\n  #ry-usp-{{ ry_usp_uid }} .ry-usp-v6__header {\n    margin-bottom: 8px;\n  }\n\n  #ry-usp-{{ ry_usp_uid }} .ry-usp-v6__heading {\n    font-size: 9.5px;\n    letter-spacing: .65px;\n  }\n\n  #ry-usp-{{ ry_usp_uid }} .ry-usp-v6__header-tag {\n    font-size: 8px;\n  }\n\n  #ry-usp-{{ ry_usp_uid }} .ry-usp-v6__track {\n    gap: 6px;\n  }\n\n  #ry-usp-{{ ry_usp_uid }} .ry-usp-v6__item {\n    flex: 0 0 calc((100% - 6px) / 2);\n    min-height: 57px;\n    padding: 7px;\n    gap: 7px;\n    border-radius: 7px;\n  }\n\n  #ry-usp-{{ ry_usp_uid }} .ry-usp-v6__icon {\n    flex-basis: 31px;\n    width: 31px;\n    height: 31px;\n    border-radius: 6px;\n  }\n\n  #ry-usp-{{ ry_usp_uid }} .ry-usp-v6__icon svg {\n    width: 19px;\n    height: 19px;\n  }\n\n  #ry-usp-{{ ry_usp_uid }} .ry-usp-v6__text {\n    gap: 2px;\n  }\n\n  #ry-usp-{{ ry_usp_uid }} .ry-usp-v6__text strong {\n    font-size: 10px;\n    line-height: 1.25;\n  }\n\n  #ry-usp-{{ ry_usp_uid }} .ry-usp-v6__text small {\n    font-size: 8.5px;\n  }\n\n  #ry-usp-{{ ry_usp_uid }} .ry-usp-v6__navigation {\n    display: flex;\n  }\n}\n\n/* SMALL MOBILE */\n@media screen and (max-width: 370px) {\n  #ry-usp-{{ ry_usp_uid }} {\n    padding: 6px;\n  }\n\n  #ry-usp-{{ ry_usp_uid }} .ry-usp-v6__item {\n    padding: 6px 5px;\n    gap: 5px;\n    min-height: 54px;\n  }\n\n  #ry-usp-{{ ry_usp_uid }} .ry-usp-v6__icon {\n    flex-basis: 27px;\n    width: 27px;\n    height: 27px;\n  }\n\n  #ry-usp-{{ ry_usp_uid }} .ry-usp-v6__icon svg {\n    width: 17px;\n    height: 17px;\n  }\n\n  #ry-usp-{{ ry_usp_uid }} .ry-usp-v6__text strong {\n    font-size: 9px;\n  }\n\n  #ry-usp-{{ ry_usp_uid }} .ry-usp-v6__text small {\n    font-size: 8px;\n  }\n\n  #ry-usp-{{ ry_usp_uid }} .ry-usp-v6__header-tag {\n    font-size: 7px;\n  }\n}\n\n/* REDUCED MOTION */\n@media (prefers-reduced-motion: reduce) {\n  #ry-usp-{{ ry_usp_uid }} .ry-usp-v6__viewport {\n    scroll-behavior: auto;\n  }\n\n  #ry-usp-{{ ry_usp_uid }} .ry-usp-v6__item,\n  #ry-usp-{{ ry_usp_uid }} .ry-usp-v6__dot {\n    transition: none;\n  }\n}\n</style>\n\n<script>\n(function () {\n  const rootId = 'ry-usp-{{ ry_usp_uid }}';\n\n  function initRiyanUSP() {\n    const root = document.getElementById(rootId);\n\n    if (!root || root.dataset.ryUspReady === 'true') return;\n\n    const viewport = root.querySelector('.ry-usp-v6__viewport');\n    const items = Array.from(root.querySelectorAll('.ry-usp-v6__item'));\n    const dots = Array.from(root.querySelectorAll('.ry-usp-v6__dot'));\n\n    if (!viewport || items.length < 2) return;\n\n    root.dataset.ryUspReady = 'true';\n\n    const mobileQuery = window.matchMedia('(max-width: 749px)');\n    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');\n\n    let autoplay = null;\n    let resumeTimer = null;\n    let scrollTimer = null;\n\n    const pageCount = Math.ceil(items.length / 2);\n\n    function getPosition(page) {\n      const target = items[page * 2];\n\n      if (!target) return 0;\n\n      const first = items[0].getBoundingClientRect();\n      const rect = target.getBoundingClientRect();\n\n      return viewport.scrollLeft + rect.left - first.left;\n    }\n\n    function currentPage() {\n      if (!mobileQuery.matches) return 0;\n\n      let closest = 0;\n      let distance = Infinity;\n\n      for (let i = 0; i < pageCount; i++) {\n        const gap = Math.abs(viewport.scrollLeft - getPosition(i));\n\n        if (gap < distance) {\n          distance = gap;\n          closest = i;\n        }\n      }\n\n      return closest;\n    }\n\n    function updateDots(page = currentPage()) {\n      dots.forEach((dot, index) => {\n        const active = page === index;\n        dot.classList.toggle('is-active', active);\n        dot.setAttribute('aria-current', String(active));\n      });\n    }\n\n    function goTo(page) {\n      if (!mobileQuery.matches) return;\n\n      const safePage = Math.max(0, Math.min(pageCount - 1, page));\n\n      viewport.scrollTo({\n        left: getPosition(safePage),\n        behavior: motionQuery.matches ? 'auto' : 'smooth'\n      });\n\n      updateDots(safePage);\n    }\n\n    function stopAutoplay() {\n      if (autoplay) {\n        clearInterval(autoplay);\n        autoplay = null;\n      }\n    }\n\n    function startAutoplay() {\n      stopAutoplay();\n\n      if (\n        !mobileQuery.matches ||\n        motionQuery.matches ||\n        document.hidden ||\n        root.matches(':hover') ||\n        root.contains(document.activeElement)\n      ) return;\n\n      autoplay = setInterval(function () {\n        const next = (currentPage() + 1) % pageCount;\n        goTo(next);\n      }, 3800);\n    }\n\n    function resumeLater() {\n      clearTimeout(resumeTimer);\n      resumeTimer = setTimeout(startAutoplay, 5000);\n    }\n\n    dots.forEach(function (dot, index) {\n      dot.addEventListener('click', function () {\n        stopAutoplay();\n        goTo(index);\n        resumeLater();\n      });\n    });\n\n    viewport.addEventListener('scroll', function () {\n      clearTimeout(scrollTimer);\n      scrollTimer = setTimeout(function () {\n        updateDots();\n      }, 90);\n    }, { passive: true });\n\n    viewport.addEventListener('touchstart', function () {\n      stopAutoplay();\n      clearTimeout(resumeTimer);\n    }, { passive: true });\n\n    viewport.addEventListener('touchend', resumeLater, {\n      passive: true\n    });\n\n    root.addEventListener('mouseenter', stopAutoplay);\n    root.addEventListener('mouseleave', startAutoplay);\n\n    root.addEventListener('focusin', stopAutoplay);\n    root.addEventListener('focusout', function () {\n      setTimeout(startAutoplay, 0);\n    });\n\n    document.addEventListener('visibilitychange', startAutoplay);\n\n    window.addEventListener('resize', function () {\n      if (!mobileQuery.matches) {\n        viewport.scrollLeft = 0;\n      }\n\n      updateDots();\n      startAutoplay();\n    });\n\n    startAutoplay();\n  }\n\n  initRiyanUSP();\n\n  document.addEventListener('shopify:section:load', initRiyanUSP);\n})();\n</script>"
+          }
+        },
+        "description": {
+          "type": "description",
+          "disabled": true,
+          "settings": {}
+        },
+        "riyan_details_8dY9ih": {
+          "type": "riyan_details",
+          "settings": {
+            "placement": "right",
+            "mobile_placement": "custom",
+            "heading": "Product Details",
+            "content": "{{ product.description }}",
+            "page": "",
+            "open_default": false
+          }
+        },
+        "riyan_details_8ygdQV": {
+          "type": "riyan_details",
+          "settings": {
+            "placement": "right",
+            "mobile_placement": "custom",
+            "heading": "Shipping",
+            "content": "<p>Welcome to VEYZARA Global, where we are committed to delivering a seamless and efficient shopping experience. Please familiarize yourself with our shipping policy to understand the intricacies of order delivery.</p><p><strong>Shipping Methods and Delivery Times:</strong></p><p>Within the contiguous INDIA, we offer the following shipping methods:</p><ul><li><br/><strong>Standard Shipping:</strong><br/><br/>Metros: 3-4 days<br/>Rest of India: 4-7 days<br/><br/></li></ul><p>Please note that delivery times are estimated and may be subject to unforeseen delays beyond our control.</p><p><strong>Shipping Costs:</strong></p><p>Shipping costs are dynamically calculated based on the weight, dimensions, and destination of your order. You will see the exact shipping charges at checkout before completing your purchase. Occasional free shipping promotions on prepaid orders will be clearly indicated on our website.</p><p><strong>Free Shipping:</strong></p><p>Free standard shipping is available for prepaid orders only. This promotion excludes oversized or heavy items requiring special handling.</p><p><strong>Order Processing Time:</strong></p><p>We process orders within 1-2 business days. Once shipped, you will receive a confirmation email containing tracking information.</p><p><strong>Tracking and Order Status:</strong></p><p>Track your order status on our \"Order Tracking\" page. Allow up to 24 hours for tracking information to become available after shipment. For any inquiries, contact our customer support team.</p><p><strong>Returns and Exchanges:</strong></p><p>Your satisfaction is our priority. Refer to our Returns and Exchanges page for detailed instructions. Please note, shipping costs for returns/exchanges are the customer's responsibility, unless due to a product defect or an error on our part.</p><p><strong>Lost or Damaged Shipments:</strong></p><p>If your shipment is lost or arrives damaged, contact our customer support team promptly. We will collaborate with the shipping carrier to resolve the issue. Please provide relevant details and photographs if possible.</p><p><strong>Customer Support:</strong></p><p>For inquiries or assistance with our shipping policy, our customer support team is available at veyzaraglobal@gmail.com.</p><p>Thank you for choosing VEYZARA Global. We are dedicated to providing a professional and enjoyable shopping experience for you.</p>",
+            "page": "",
+            "open_default": false
+          }
+        },
+        "custom_liquid_F6Kczb": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% render \"BT-pincode\" %}"
+          }
+        }
+      },
+      "block_order": [
+        "share",
+        "background_element_MiX3eF",
+        "background_element_dWxVN7",
+        "vendor",
+        "title",
+        "judge_me_reviews_preview_badge_N9an66",
+        "price",
+        "custom_liquid_pF3A9Y",
+        "custom_liquid_Ppq6rx",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "frequently_bought_together",
+        "custom_liquid_VjeUda",
+        "custom_liquid_YJARVC",
+        "description",
+        "riyan_details_8dY9ih",
+        "riyan_details_8ygdQV",
+        "custom_liquid_F6Kczb"
+      ],
+      "settings": {
+        "rp_show_description": true,
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "small",
+        "constrain_to_viewport": true,
+        "media_fit": "cover",
+        "gallery_layout": "thumbnail_slider",
+        "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 12,
+        "padding_bottom": 12,
+        "rp_accent": "#ffffff",
+        "rp_border": "#e8dad7",
+        "rp_surface": "#591c27",
+        "rp_heading": "#ffffff",
+        "rp_muted": "#ffffff",
+        "rp_qty_width": 140,
+        "rp_detail_font": 15,
+        "rp_mobile_detail_font": 13,
+        "rp_hide_view_details": true,
+        "rp_show_breadcrumbs": true,
+        "rp_breadcrumb_home": "Home",
+        "rp_breadcrumb_collection": true,
+        "rp_accordion_style": "cards",
+        "rp_accordion_bg": "#792938",
+        "rp_crumb_color": "#777078",
+        "rp_crumb_size": 11,
+        "rp_accordion_animation": true,
+        "rp_crumb_bg": "#591c27",
+        "rp_crumb_border": "#ebddd8",
+        "rp_crumb_link": "#ffffff",
+        "rp_crumb_active": "#ffffff",
+        "rp_crumb_hover": "#ffffff",
+        "rp_crumb_radius": 30,
+        "rp_crumb_vertical": 14,
+        "rya_primary": "#591c27",
+        "rya_gold": "#b49170"
+      }
+    },
+    "1792650924671cbbf5": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_zKQiir": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_zKQiir"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "<strong>You may also like</strong>",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    },
+    "premium_brand_values_HQcfFP": {
+      "type": "premium-brand-values",
+      "blocks": {
+        "feature_WVwqb7": {
+          "type": "feature",
+          "settings": {
+            "icon": "fabric",
+            "title": "Premium Fabrics",
+            "text": "Carefully selected fabrics chosen for their beautiful feel, graceful fall and lasting comfort."
+          }
+        },
+        "feature_4WrFqE": {
+          "type": "feature",
+          "settings": {
+            "icon": "needle",
+            "title": "Refined Craftsmanship",
+            "text": "Carefully selected fabrics chosen for their beautiful feel, graceful fall and lasting comfort."
+          }
+        },
+        "feature_NMwjBY": {
+          "type": "feature",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Made To Elevate",
+            "text": "Carefully selected fabrics chosen for their beautiful feel, graceful fall and lasting comfort."
+          }
+        }
+      },
+      "block_order": [
+        "feature_WVwqb7",
+        "feature_4WrFqE",
+        "feature_NMwjBY"
+      ],
+      "name": "Premium Brand Values",
+      "settings": {
+        "eyebrow": "THE RIYAAN STANDARD",
+        "heading": "<p>Made beautifully.<br/><em>Worn confidently.</em></p>",
+        "description": "Thoughtfully designed womenswear created with refined fabrics, flattering silhouettes and attention to every detail.",
+        "max_width": 1500,
+        "desktop_columns": "3",
+        "desktop_side_padding": 52,
+        "heading_size": 34,
+        "mobile_heading_size": 30,
+        "heading_weight": "500",
+        "card_heading_size": 18,
+        "card_text_size": 14,
+        "background_color": "#591c27",
+        "text_color": "#fff9f5",
+        "muted_text_color": "#e6d3d4",
+        "accent_color": "#d7b28a",
+        "border_color": "#75424a",
+        "card_background": "#632630",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "mobile_padding_top": 40,
+        "mobile_padding_bottom": 40,
+        "enable_card_hover": true,
+        "show_numbers": true,
+        "glow_opacity": 6,
+        "animate_icons": true,
+        "third_full_mobile": true,
+        "card_radius": 10,
+        "card_gap": 14,
+        "mobile_card_padding": 16
+      }
+    },
+    "disclosures": {
+      "type": "disclosures",
+      "settings": {
+        "heading": "Disclosures",
+        "heading_size": "h2",
+        "open_by_default": false,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 0
+      }
+    },
+    "ryan_sticky_atc_VgXBzH": {
+      "type": "ryan-sticky-atc",
+      "name": "Veyzara Sticky Cart",
+      "settings": {
+        "title_font": "playfair_display_n4",
+        "body_font": "assistant_n4",
+        "title_size": 17,
+        "accent": "#591c27",
+        "gold": "#fa7f09",
+        "background": "#ffffff",
+        "button_text": "Buy Now",
+        "show_image": true,
+        "show_trust": false,
+        "trust_text": "Secure checkout • Crafted for elegance",
+        "scroll_threshold": 200,
+        "z_index": 900
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1792650924671cbbf5",
+    "related-products",
+    "premium_brand_values_HQcfFP",
+    "disclosures",
+    "ryan_sticky_atc_VgXBzH"
+  ]
+}

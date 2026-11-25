@@ -1,0 +1,386 @@
+{%- capture sp_image_with_text_css -%}
+<style>
+  #sp-{{ section.id }} {background: {{ section.settings.sec_bg_color }};}
+  #sp-{{ section.id }} .sp-page-width {max-width: {{ section.settings.section_max_width }}px; width: 100%; padding: 0 20px; margin: 0 auto; }
+  #sp-{{ section.id }} .sp-page-width.sp-full-page-width {max-width: 100%;padding: 0;} 
+  #sp-{{ section.id }}.sp-img-with-txt{padding:{{section.settings.padding_top}}px 0 {{section.settings.padding_bottom}}px 0;} 
+  #sp-{{ section.id }} .sp-button {font-size: {{section.settings.button_size}}px; line-height: 1.65;background: {{section.settings.btn_bg_color}}; color: {{section.settings.btn_text_color}}; padding: 6px 20px; min-width: 140px; display: inline-block; border:1px solid {{section.settings.btn_border_color}};border-radius: {{section.settings.border_radius}}px;text-align: center; cursor:pointer;}
+  #sp-{{ section.id }} .sp-button:hover{background: {{section.settings.btn_hover_bg_color}};color: {{section.settings.btn_hover_text_color}};border:1px solid {{section.settings.btn_hover_border_color}};box-shadow: 0 0 5px 0px {{section.settings.outline_btn_shadow_color}};} 
+  #sp-{{ section.id }} .sp-button.sp-button-outline {color: {{section.settings.outline_btn_text_color}};border-color: {{section.settings.outline_btn_text_color}};background: transparent;}
+  #sp-{{ section.id }} .sp-img-with-txt-heading {font-weight: 500;margin: 0 0 20px;font-size: {{ section.settings.title_font_size }}px;color: {{ section.settings.title_color }};}
+  #sp-{{ section.id }} .sp-img-with-txt-grid {display: flex;flex-wrap:wrap;align-items: center;background: {{section.settings.bg_color}};gap:20px;border-radius: {{ section.settings.section_border_radius }}px;overflow: hidden;padding: {{section.settings.container_padding}}px; }
+  #sp-{{ section.id }} .sp-img-with-txt-grid.sp-img-with-txt-left-media{flex-direction: row;}
+  #sp-{{ section.id }} .sp-img-with-txt-grid.sp-img-with-txt-right-media{flex-direction: row-reverse;}     
+  #sp-{{ section.id }} .sp-img-with-txt-text {line-height: 1.4;margin-bottom: 25px;font-size: {{ section.settings.content_font_size }}px;color: {{ section.settings.content_color }};}
+  #sp-{{ section.id }} .sp-img-with-txt-image {flex: 0 0 50%;position: relative;border-radius: {{section.settings.media_border_radius}}px; overflow: hidden;} 
+  #sp-{{ section.id }} .sp-img-with-txt-image img{position: absolute;top: 0;left: 0;right: 0;bottom: 0;width: 100%;height: 100%;object-fit: cover;object-position: center;}
+  #sp-{{ section.id }} .sp-img-with-txt-image.sp-empty-img {background: grey;opacity: 0.3;}    
+  #sp-{{ section.id }} .sp-img-with-txt-content {flex:0 0 calc(50% - 20px);display: flex; padding: 20px;} 
+  #sp-{{ section.id }} .sp-img-with-txt-content-in.sp-img-with-txt-align-center {text-align: center;}
+  #sp-{{ section.id }} .sp-img-with-txt-content-in.sp-img-with-txt-align-left {text-align: left;} 
+  #sp-{{ section.id }} .sp-img-with-txt-content-in.sp-img-with-txt-align-right {text-align: right;}
+  #sp-{{ section.id }} .sp-img-with-txt-content-in {max-width: 500px;margin: 0 auto;} 
+  #sp-{{ section.id }} .sp-img-with-txt-image.sp-img-small {padding-bottom: 38%;}   
+  #sp-{{ section.id }} .sp-img-with-txt-image.sp-img-medium {padding-bottom: 44%;}  
+  #sp-{{ section.id }} .sp-img-with-txt-image.sp-img-large {padding-bottom: 50%;}    
+  #sp-{{ section.id }} .sp-img-with-txt-image.sp-img-adapt {padding-bottom: unset;}  
+  #sp-{{ section.id }} .sp-img-with-txt-image.sp-img-adapt img {position:relative;}    
+  @media only screen and (max-width: 767px){
+    #sp-{{ section.id }}.sp-img-with-txt{padding:{{section.settings.mob_padding_top}}px 0 {{section.settings.mob_padding_bottom}}px 0;} 
+    #sp-{{ section.id }} .sp-img-with-txt-image {flex: 0 0 100%;}
+    #sp-{{ section.id }} .sp-img-with-txt-content {flex: 0 0 100%;padding:25px 20px;}   
+    #sp-{{ section.id }} .sp-img-with-txt-heading {margin: 0 0 10px;font-size: 26px;}     
+    #sp-{{ section.id }} .sp-img-with-txt-grid{gap:0;} 
+    #sp-{{ section.id }} .sp-img-with-txt-image.sp-img-large {padding-bottom: 120%;}  
+    #sp-{{ section.id }} .sp-img-with-txt-image.sp-img-medium {padding-bottom: 100%;}  
+    #sp-{{ section.id }} .sp-img-with-txt-image.sp-img-small {padding-bottom: 80%;}        
+    #sp-{{ section.id }} .sp-button { font-size: 15px;}
+    #sp-{{ section.id }} .sp-img-with-txt-text {font-size: 16px;}
+  }
+</style> 
+{%- endcapture -%}
+{{- sp_image_with_text_css | strip_newlines -}}
+
+<div id="sp-{{ section.id }}" class="sp-img-with-txt">
+  <div class="sp-page-width {% if section.settings.full_width %}sp-full-page-width{% endif %}">
+    <div class="sp-img-with-txt-grid sp-img-with-txt-{{ section.settings.image_align }}-media">
+      <div class="sp-img-with-txt-image{% unless section.settings.image != blank %} sp-empty-img{% endunless %} sp-img-{{ section.settings.image_size }}">
+        {% if section.settings.image != blank %}
+          <img src="{{ section.settings.image | image_url: width: 660 }}" height="" width="" loading="lazy" alt="{{ section.settings.image.alt }}">
+        {% endif %}
+      </div>
+
+      {% if section.settings.title != blank or section.settings.content != blank or section.settings.btn_txt != blank %}
+        <div class="sp-img-with-txt-content">
+          <div class="sp-img-with-txt-content-in sp-img-with-txt-align-{{ section.settings.text_align }}">
+            {% if section.settings.title != blank %}<h2 class="sp-img-with-txt-heading">{{ section.settings.title }}</h2>{% endif %}
+            {% if section.settings.content != blank %}<div class="sp-img-with-txt-text">{{ section.settings.content }}</div>{% endif %}
+            {% if section.settings.btn_txt != blank and section.settings.btn_link != blank %}
+              <a href="{{ section.settings.btn_link }}" class="sp-button{% if section.settings.btn_outline %} sp-button-outline{% endif %}">{{- section.settings.btn_txt -}}</a>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SH: Image with text",
+  "tag":"section",
+  "class": "sh-section-hub-main",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type":"image_picker",
+      "id":"image",
+      "label": "Image",
+      "info": "Recommend image size 1000x800"
+    },
+    {
+      "type":"select",
+      "id":"image_align",
+      "label": "Position",
+      "options": [
+        { "label": "Left", "value": "left" },
+        { "label": "Right", "value": "right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "image_size",
+      "label": "Height",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "adapt",
+          "label": "Auto"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+      "type":"range",
+      "id":"section_border_radius",
+      "label": "Container border radius",
+      "min": 0,
+      "max": 50,
+      "default": 0,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type":"range",
+      "id":"media_border_radius",
+      "label": "Media border radius",
+      "min": 0,
+      "max": 50,
+      "default": 0,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type":"range",
+      "id":"container_padding",
+      "label": "Container padding",
+      "min": 0,
+      "max": 50,
+      "default": 0,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type":"text",
+      "id":"title",
+      "label": "Heading",
+      "default": "Image with text"
+    },
+    {
+      "type":"richtext",
+      "id":"content",
+      "label": "Content",
+      "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+    },
+    {
+      "type": "text",
+      "id": "btn_txt",
+      "label": "Button label",
+      "default": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button link",
+      "default":"/"
+    },
+    {
+      "type": "checkbox",
+      "id":"btn_outline",
+      "label": "Use outline button",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "outline_btn_text_color",
+      "label": "Outline color",
+      "default": "#121212"
+    },
+    {
+      "type":"range",
+      "id":"border_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 20,
+      "default": 0,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type":"range",
+      "id":"button_size",
+      "label": "Size (Desktop)",
+      "min": 10,
+      "max": 30,
+      "default": 16,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type":"text_alignment",
+      "id":"text_align",
+      "label": "Text alignment"
+    },
+    {
+      "type": "header",
+      "content": "Font size"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "content_font_size",
+      "min": 5,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Content",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "sec_bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "content background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Heading color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "content_color",
+      "label": "Content color",
+      "default": "#121212"
+    },
+    {
+      "type": "paragraph",
+      "content": "Button"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg_color",
+      "label": "Background color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_border_color",
+      "label": "Border color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_bg_color",
+      "label": "Hover background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_text_color",
+      "label": "Hover text color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_border_color",
+      "label": "Hover border color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "outline_btn_shadow_color",
+      "label": "Shadow color",
+      "default": "transparent"
+    },
+    {
+      "type":"header",
+      "content": "Section padding"
+    },
+    {
+      "type": "paragraph",
+      "content": "Desktop"
+    },
+    {
+      "type":"range",
+      "id":"padding_top",
+      "label": "Padding top",
+      "min":0,
+      "max": 100,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type":"range",
+      "id":"padding_bottom",
+      "label": "Padding bottom",
+      "min":0,
+      "max": 100,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type":"range",
+      "id":"mob_padding_top",
+      "label": "Padding top",
+      "min":0,
+      "max": 100,
+      "default": 30,
+      "unit": "px"
+    },
+    {
+      "type":"range",
+      "id":"mob_padding_bottom",
+      "label": "Padding bottom",
+      "min":0,
+      "max": 100,
+      "default": 30,
+      "unit": "px"
+    },
+    {
+      "type":"header",
+      "content": "Section width"
+    },
+    {
+      "type":"checkbox",
+      "id":"full_width",
+      "label":"Full width",
+      "default":false
+    },
+    {
+      "type":"text",
+      "id":"section_max_width",
+      "label": "Width (in px)",
+      "default": "1140",
+      "info":"Will apply when full width is disable"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SH: Image with text"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["footer","header"]
+  }
+}
+{% endschema %}

@@ -1,0 +1,172 @@
+<div class="zip-shipping-checker">
+  <div class="bt-delivery-timeline" aria-label="Estimated delivery timeline">
+    <p class="bt-delivery-timeline__caption">Estimated delivery process</p>
+    <ol class="bt-delivery-timeline__steps" role="list">
+      <li class="bt-delivery-timeline__step bt-delivery-timeline__step--active">
+        <span class="bt-delivery-timeline__marker" aria-hidden="true">✓</span>
+        <span class="bt-delivery-timeline__label">Order Placed</span>
+        <time class="bt-delivery-timeline__date" data-timeline-date="placed"></time>
+      </li>
+      <li class="bt-delivery-timeline__step">
+        <span class="bt-delivery-timeline__marker" aria-hidden="true">↗</span>
+        <span class="bt-delivery-timeline__label">Shipped</span>
+        <time class="bt-delivery-timeline__date" data-timeline-date="shipped"></time>
+      </li>
+      <li class="bt-delivery-timeline__step">
+        <span class="bt-delivery-timeline__marker" aria-hidden="true">□</span>
+        <span class="bt-delivery-timeline__label">Delivered</span>
+        <time class="bt-delivery-timeline__date" data-timeline-date="delivered"></time>
+      </li>
+    </ol>
+    <p class="bt-delivery-timeline__note">Estimated timeline for orders placed today</p>
+  </div>
+</div>
+
+<style>
+  .zip-shipping-checker {
+     max-width: 100%; 
+    {% comment %} max-width: 60rem; {% endcomment %}
+    margin: 2rem 0;
+    /* font-family: Arial, sans-serif; */
+  }
+
+  .bt-delivery-timeline {
+    margin-top: 1.6rem;
+    padding: 1.6rem 1.2rem 1.2rem;
+    border: 1px solid rgba(var(--color-foreground), 0.18);
+    border-radius: 1.2rem;
+    background: rgb(var(--color-background));
+    color: rgb(var(--color-foreground));
+  }
+
+  .bt-delivery-timeline__caption {
+    margin: 0 0 1.4rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .bt-delivery-timeline__steps {
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .bt-delivery-timeline__step {
+    position: relative;
+    display: flex;
+    flex: 1 1 0;
+    min-width: 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+    text-align: center;
+  }
+
+  .bt-delivery-timeline__step:not(:last-child)::after {
+    position: absolute;
+    top: 1.4rem;
+    left: calc(50% + 1.8rem);
+    width: calc(100% - 3.6rem);
+    height: 1px;
+    background: rgba(var(--color-foreground), 0.2);
+    content: '';
+  }
+
+  .bt-delivery-timeline__marker {
+    z-index: 1;
+    display: grid;
+    width: 2.8rem;
+    height: 2.8rem;
+    place-items: center;
+    border: 1px solid rgba(var(--color-foreground), 0.2);
+    border-radius: 50%;
+    background: rgb(var(--color-background));
+    color: rgba(var(--color-foreground), 0.6);
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .bt-delivery-timeline__step--active .bt-delivery-timeline__marker {
+    border-color: rgb(var(--color-foreground));
+    background: rgb(var(--color-foreground));
+    color: rgb(var(--color-background));
+  }
+
+  .bt-delivery-timeline__label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .bt-delivery-timeline__date,
+  .bt-delivery-timeline__note {
+    color: rgba(var(--color-foreground), 0.62);
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+
+  .bt-delivery-timeline__note {
+    margin: 1.2rem 0 0;
+    text-align: center;
+  }
+
+  @media screen and (max-width: 749px) {
+    .bt-delivery-timeline {
+      padding-inline: 0.8rem;
+    }
+
+    .bt-delivery-timeline__label {
+      font-size: 1rem;
+    }
+
+    .bt-delivery-timeline__date {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bt-delivery-timeline__marker {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  function addDays(date, days) {
+    const nextDate = new Date(date);
+    nextDate.setDate(nextDate.getDate() + days);
+    return nextDate;
+  }
+
+  function formatTimelineDate(date) {
+    return new Intl.DateTimeFormat(undefined, {
+      month: 'short',
+      day: 'numeric'
+    }).format(date);
+  }
+
+  function setDeliveryTimeline() {
+    const timeline = document.querySelector('.bt-delivery-timeline');
+    if (!timeline) return;
+
+    const today = new Date();
+    today.setHours(12, 0, 0, 0);
+    const shippedStart = addDays(today, 1);
+    const shippedEnd = addDays(today, 2);
+    const deliveredStart = addDays(today, 5);
+    const deliveredEnd = addDays(today, 7);
+    const shippedText = `${formatTimelineDate(shippedStart)}–${formatTimelineDate(shippedEnd)}`;
+    const deliveredText = `${formatTimelineDate(deliveredStart)}–${formatTimelineDate(deliveredEnd)}`;
+
+    timeline.querySelector('[data-timeline-date="placed"]').textContent = formatTimelineDate(today);
+    timeline.querySelector('[data-timeline-date="shipped"]').textContent = shippedText;
+    timeline.querySelector('[data-timeline-date="delivered"]').textContent = deliveredText;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setDeliveryTimeline();
+  });
+</script>

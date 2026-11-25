@@ -1,0 +1,1549 @@
+{% liquid
+
+  assign section_id = section.id
+
+%}
+
+
+
+<section
+
+  id="pinfo-{{ section_id }}"
+
+  class="pinfo-section"
+
+  style="
+
+    --pinfo-bg: {{ section.settings.background_color }};
+
+    --pinfo-text: {{ section.settings.text_color }};
+
+    --pinfo-muted: {{ section.settings.muted_color }};
+
+    --pinfo-accent: {{ section.settings.accent_color }};
+
+    --pinfo-border: {{ section.settings.border_color }};
+
+  "
+
+>
+
+
+
+  <div class="pinfo-shell">
+
+
+
+    <div class="pinfo-glow pinfo-glow--one"></div>
+
+    <div class="pinfo-glow pinfo-glow--two"></div>
+
+
+
+    <div class="pinfo-inner">
+
+
+
+      <div class="pinfo-heading-area">
+
+
+
+        {% if section.settings.eyebrow != blank %}
+
+          <div class="pinfo-eyebrow">
+
+            <span class="pinfo-eyebrow__line"></span>
+
+            <span>{{ section.settings.eyebrow }}</span>
+
+          </div>
+
+        {% endif %}
+
+
+
+        {% if section.settings.heading != blank %}
+
+          <h2 class="pinfo-heading">
+
+            {{ section.settings.heading }}
+
+          </h2>
+
+        {% endif %}
+
+
+
+      </div>
+
+
+
+      <div class="pinfo-content-area">
+
+
+
+        {% if section.settings.description != blank %}
+
+          <div class="pinfo-description">
+
+            {{ section.settings.description }}
+
+          </div>
+
+        {% endif %}
+
+
+
+        {% if section.settings.show_features %}
+
+          <div class="pinfo-features">
+
+
+
+            {% if section.settings.feature_1 != blank %}
+
+              <div class="pinfo-feature">
+
+                <span class="pinfo-feature__icon">
+
+                  <svg
+
+                    viewBox="0 0 24 24"
+
+                    fill="none"
+
+                    aria-hidden="true"
+
+                  >
+
+                    <path
+
+                      d="M5 12.5L9.2 16.5L19 7"
+
+                      stroke="currentColor"
+
+                      stroke-width="1.6"
+
+                      stroke-linecap="round"
+
+                      stroke-linejoin="round"
+
+                    />
+
+                  </svg>
+
+                </span>
+
+
+
+                <span class="pinfo-feature__text">
+
+                  {{ section.settings.feature_1 }}
+
+                </span>
+
+              </div>
+
+            {% endif %}
+
+
+
+            {% if section.settings.feature_2 != blank %}
+
+              <div class="pinfo-feature">
+
+                <span class="pinfo-feature__icon">
+
+                  <svg
+
+                    viewBox="0 0 24 24"
+
+                    fill="none"
+
+                    aria-hidden="true"
+
+                  >
+
+                    <path
+
+                      d="M5 12.5L9.2 16.5L19 7"
+
+                      stroke="currentColor"
+
+                      stroke-width="1.6"
+
+                      stroke-linecap="round"
+
+                      stroke-linejoin="round"
+
+                    />
+
+                  </svg>
+
+                </span>
+
+
+
+                <span class="pinfo-feature__text">
+
+                  {{ section.settings.feature_2 }}
+
+                </span>
+
+              </div>
+
+            {% endif %}
+
+
+
+            {% if section.settings.feature_3 != blank %}
+
+              <div class="pinfo-feature">
+
+                <span class="pinfo-feature__icon">
+
+                  <svg
+
+                    viewBox="0 0 24 24"
+
+                    fill="none"
+
+                    aria-hidden="true"
+
+                  >
+
+                    <path
+
+                      d="M5 12.5L9.2 16.5L19 7"
+
+                      stroke="currentColor"
+
+                      stroke-width="1.6"
+
+                      stroke-linecap="round"
+
+                      stroke-linejoin="round"
+
+                    />
+
+                  </svg>
+
+                </span>
+
+
+
+                <span class="pinfo-feature__text">
+
+                  {{ section.settings.feature_3 }}
+
+                </span>
+
+              </div>
+
+            {% endif %}
+
+
+
+          </div>
+
+        {% endif %}
+
+
+
+        {% if section.settings.button_label != blank %}
+
+          <div class="pinfo-button-wrap">
+
+            <a
+
+              href="{{ section.settings.button_link | default: '#' }}"
+
+              class="pinfo-button"
+
+            >
+
+              <span>{{ section.settings.button_label }}</span>
+
+
+
+              <svg
+
+                viewBox="0 0 24 24"
+
+                fill="none"
+
+                aria-hidden="true"
+
+              >
+
+                <path
+
+                  d="M5 12H19"
+
+                  stroke="currentColor"
+
+                  stroke-width="1.5"
+
+                  stroke-linecap="round"
+
+                />
+
+                <path
+
+                  d="M14 7L19 12L14 17"
+
+                  stroke="currentColor"
+
+                  stroke-width="1.5"
+
+                  stroke-linecap="round"
+
+                  stroke-linejoin="round"
+
+                />
+
+              </svg>
+
+            </a>
+
+          </div>
+
+        {% endif %}
+
+
+
+      </div>
+
+
+
+    </div>
+
+
+
+  </div>
+
+
+
+</section>
+
+
+
+<style>
+
+  #pinfo-{{ section_id }} {
+
+    position: relative;
+
+    width: 100%;
+
+    font-family: var(--font-body-family);
+
+    overflow: hidden;
+
+
+
+    padding:
+
+      {{ section.settings.section_top_spacing }}px
+
+      {{ section.settings.desktop_side_space }}px
+
+      {{ section.settings.section_bottom_spacing }}px;
+
+
+
+    background:
+
+      {{ section.settings.outer_background }};
+
+  }
+
+
+
+  #pinfo-{{ section_id }} * {
+
+    box-sizing: border-box;
+
+  }
+
+
+
+  #pinfo-{{ section_id }} .pinfo-shell {
+
+    position: relative;
+
+
+
+    max-width: {% if section.settings.width_mode == 'wide' %}none{% else %}{{ section.settings.desktop_max_width }}px{% endif %};
+      width: {{ section.settings.desktop_width_percent }}%;
+      min-width: 0;
+
+
+
+    margin: 0 auto;
+
+
+
+    overflow: hidden;
+    box-shadow: 0 14px 40px rgba(47, 18, 28, .08);
+
+    border-radius:
+
+      {{ section.settings.corner_radius }}px;
+
+
+
+    border:
+
+      1px solid
+
+      var(--pinfo-border);
+
+
+
+    background:
+
+      linear-gradient(
+
+        135deg,
+
+        rgba(255,255,255,.035),
+
+        transparent 40%
+
+      ),
+
+      var(--pinfo-bg);
+
+  }
+
+
+
+  #pinfo-{{ section_id }} .pinfo-shell::before {
+
+    content: '';
+
+
+
+    position: absolute;
+
+
+
+    inset: 10px;
+
+
+
+    border:
+
+      1px solid
+
+      rgba(255,255,255,.06);
+
+
+
+    border-radius:
+
+      calc({{ section.settings.corner_radius }}px - 8px);
+
+
+
+    pointer-events: none;
+
+
+
+    z-index: 1;
+
+  }
+
+
+
+  /* PREMIUM GLOW */
+
+
+
+  #pinfo-{{ section_id }} .pinfo-glow {
+
+    position: absolute;
+
+
+
+    border-radius: 50%;
+
+
+
+    pointer-events: none;
+
+
+
+    filter: blur(2px);
+
+
+
+    opacity: .65;
+
+  }
+
+
+
+  #pinfo-{{ section_id }} .pinfo-glow--one {
+
+    width: 240px;
+
+    height: 240px;
+
+
+
+    top: -170px;
+
+    left: -80px;
+
+
+
+    background:
+
+      radial-gradient(
+
+        circle,
+
+        rgba(255,255,255,.12),
+
+        transparent 68%
+
+      );
+
+  }
+
+
+
+  #pinfo-{{ section_id }} .pinfo-glow--two {
+
+    width: 300px;
+
+    height: 300px;
+
+
+
+    right: -160px;
+
+    bottom: -220px;
+
+
+
+    background:
+
+      radial-gradient(
+
+        circle,
+
+        color-mix(
+
+          in srgb,
+
+          var(--pinfo-accent) 18%,
+
+          transparent
+
+        ),
+
+        transparent 70%
+
+      );
+
+  }
+
+
+
+  /* MAIN LAYOUT */
+
+
+
+  #pinfo-{{ section_id }} .pinfo-inner {
+
+    position: relative;
+
+
+
+    z-index: 2;
+
+
+
+    display: grid;
+
+
+
+    grid-template-columns:
+
+      minmax(260px, .9fr)
+
+      minmax(0, 1.35fr);
+
+
+
+    align-items: center;
+
+
+
+    gap: clamp(28px, 5vw, 70px);
+
+
+
+    min-height: 245px;
+
+
+
+    padding:
+
+      {{ section.settings.inner_padding_vertical }}px
+
+      {{ section.settings.inner_padding_horizontal }}px;
+
+  }
+
+
+
+  /* LEFT */
+
+
+
+  #pinfo-{{ section_id }} .pinfo-heading-area {
+
+    position: relative;
+
+  }
+
+
+
+  #pinfo-{{ section_id }} .pinfo-heading-area::after {
+
+    content: '';
+
+
+
+    position: absolute;
+
+
+
+    top: 50%;
+
+    right: -35px;
+
+
+
+    transform: translateY(-50%);
+
+
+
+    width: 1px;
+
+    height: 110px;
+
+
+
+    background:
+
+      linear-gradient(
+
+        180deg,
+
+        transparent,
+
+        var(--pinfo-border),
+
+        transparent
+
+      );
+
+  }
+
+
+
+  #pinfo-{{ section_id }} .pinfo-eyebrow {
+
+    display: inline-flex;
+
+
+
+    align-items: center;
+
+
+
+    gap: 10px;
+
+
+
+    margin-bottom: 14px;
+
+
+
+    font-size: 10px;
+
+
+
+    line-height: 1;
+
+
+
+    font-weight: 600;
+
+
+
+    letter-spacing: .2em;
+
+
+
+    text-transform: uppercase;
+
+
+
+    color:
+
+      var(--pinfo-accent);
+
+  }
+
+
+
+  #pinfo-{{ section_id }} .pinfo-eyebrow__line {
+
+    width: 28px;
+
+    height: 1px;
+
+
+
+    background:
+
+      var(--pinfo-accent);
+
+
+
+    opacity: .8;
+
+  }
+
+
+
+  #pinfo-{{ section_id }} .pinfo-heading {
+
+    margin: 0;
+
+
+
+    max-width: 430px;
+
+
+
+    font-family: var(--font-heading-family);
+
+
+
+    font-size:
+
+      {{ section.settings.heading_size }}px;
+
+
+
+    line-height: 1;
+
+
+
+    font-weight: 400;
+
+
+
+    letter-spacing: -.035em;
+
+
+
+    color:
+
+      var(--pinfo-text);
+
+  }
+
+
+
+  /* RIGHT CONTENT */
+
+
+
+  #pinfo-{{ section_id }} .pinfo-content-area {
+
+    max-width: 720px;
+
+  }
+
+
+
+  #pinfo-{{ section_id }} .pinfo-description {
+
+    max-width: 690px;
+
+
+
+    font-size:
+
+      {{ section.settings.description_size }}px;
+
+
+
+    line-height: 1.7;
+
+
+
+    letter-spacing: .01em;
+
+
+
+    color:
+
+      var(--pinfo-muted);
+
+  }
+
+
+
+  #pinfo-{{ section_id }} .pinfo-description p {
+
+    margin: 0;
+
+  }
+
+
+
+  #pinfo-{{ section_id }}
+
+  .pinfo-description p + p {
+
+    margin-top: 9px;
+
+  }
+
+
+
+  /* FEATURES */
+
+
+
+  #pinfo-{{ section_id }} .pinfo-features {
+
+    display: flex;
+
+
+
+    align-items: center;
+
+
+
+    flex-wrap: wrap;
+
+
+
+    gap: 12px 25px;
+
+
+
+    margin-top: 23px;
+
+  }
+
+
+
+  #pinfo-{{ section_id }} .pinfo-feature {
+
+    display: inline-flex;
+
+
+
+    align-items: center;
+
+
+
+    gap: 8px;
+
+  }
+
+
+
+  #pinfo-{{ section_id }} .pinfo-feature__icon {
+
+    width: 22px;
+
+    height: 22px;
+
+
+
+    flex: 0 0 22px;
+
+
+
+    display: inline-flex;
+
+
+
+    align-items: center;
+
+
+
+    justify-content: center;
+
+
+
+    border-radius: 50%;
+
+
+
+    border:
+
+      1px solid
+
+      color-mix(
+
+        in srgb,
+
+        var(--pinfo-accent) 55%,
+
+        transparent
+
+      );
+
+
+
+    color:
+
+      var(--pinfo-accent);
+
+  }
+
+
+
+  #pinfo-{{ section_id }}
+
+  .pinfo-feature__icon svg {
+
+    width: 12px;
+
+    height: 12px;
+
+  }
+
+
+
+  #pinfo-{{ section_id }}
+
+  .pinfo-feature__text {
+
+    font-size: 10px;
+
+
+
+    line-height: 1.2;
+
+
+
+    font-weight: 600;
+
+
+
+    letter-spacing: .1em;
+
+
+
+    text-transform: uppercase;
+
+
+
+    color:
+
+      var(--pinfo-text);
+
+  }
+
+
+
+  /* CTA */
+
+
+
+  #pinfo-{{ section_id }} .pinfo-button-wrap {
+
+    margin-top: 24px;
+
+  }
+
+
+
+  #pinfo-{{ section_id }} .pinfo-button {
+
+    display: inline-flex;
+
+
+
+    align-items: center;
+
+
+
+    gap: 14px;
+
+
+
+    padding:
+
+      11px
+
+      0;
+
+
+
+    text-decoration: none;
+
+
+
+    color:
+
+      var(--pinfo-text);
+
+
+
+    border-bottom:
+
+      1px solid
+
+      color-mix(
+
+        in srgb,
+
+        var(--pinfo-accent) 70%,
+
+        transparent
+
+      );
+
+
+
+    font-size: 10px;
+
+
+
+    line-height: 1;
+
+
+
+    font-weight: 600;
+
+
+
+    letter-spacing: .16em;
+
+
+
+    text-transform: uppercase;
+
+
+
+    transition:
+
+      color .25s ease,
+
+      gap .25s ease;
+
+  }
+
+
+
+  #pinfo-{{ section_id }} .pinfo-button svg {
+
+    width: 17px;
+
+    height: 17px;
+
+  }
+
+
+
+  #pinfo-{{ section_id }}
+
+  .pinfo-button:hover {
+
+    gap: 20px;
+
+
+
+    color:
+
+      var(--pinfo-accent);
+
+  }
+
+
+
+  #pinfo-{{ section_id }} .pinfo-button:focus-visible {
+    outline: 2px solid var(--pinfo-accent);
+    outline-offset: 5px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #pinfo-{{ section_id }} *,
+    #pinfo-{{ section_id }} *::before,
+    #pinfo-{{ section_id }} *::after { transition: none !important; animation: none !important; }
+  }
+
+  /* TABLET */
+
+
+
+  @media screen and (max-width: 989px) {
+
+
+
+    #pinfo-{{ section_id }} .pinfo-inner {
+
+      grid-template-columns:
+
+        1fr 1.3fr;
+
+
+
+      gap: 45px;
+
+
+
+      padding:
+
+        45px
+
+        42px;
+
+    }
+
+
+
+    #pinfo-{{ section_id }}
+
+    .pinfo-heading-area::after {
+
+      right: -23px;
+
+    }
+
+  }
+
+  /* MOBILE */
+
+ @media screen and (max-width: 749px) {
+    #pinfo-{{ section_id }} {
+      padding: {{ section.settings.mobile_section_top }}px {{ section.settings.mobile_side_space }}px {{ section.settings.mobile_section_bottom }}px;
+    }
+
+    #pinfo-{{ section_id }} .pinfo-shell {
+      width: {{ section.settings.mobile_width_percent }}%;
+      max-width: 100%;
+
+      border-radius:{{ section.settings.mobile_corner_radius }}px;
+    }
+    #pinfo-{{ section_id }} .pinfo-shell::before {
+      inset: 7px;
+      border-radius:calc({{ section.settings.mobile_corner_radius }}px - 5px);
+    }
+    #pinfo-{{ section_id }} .pinfo-inner {
+      display: block;
+      min-height: 0;
+     padding:{{ section.settings.mobile_inner_padding }}px {{ section.settings.mobile_horizontal_padding }}px;
+
+    }
+    #pinfo-{{ section_id }}
+    .pinfo-heading-area::after {
+      display: none;
+    }
+    #pinfo-{{ section_id }}
+    .pinfo-heading-area {
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+      border-bottom:1px solid var(--pinfo-border);
+      }
+    #pinfo-{{ section_id }} .pinfo-eyebrow {
+      margin-bottom: 11px;
+      font-size: 8px;
+    }
+    #pinfo-{{ section_id }}
+    .pinfo-eyebrow__line {
+      width: 22px;
+    }
+    #pinfo-{{ section_id }} .pinfo-heading {
+      max-width: 100%;
+      /* font-size:{{ section.settings.mobile_heading_size }}px; */
+      font-size:25px;
+      line-height: 1.05;
+    }
+
+    #pinfo-{{ section_id }} .pinfo-description {
+      font-size:{{ section.settings.mobile_description_size }}px;
+      line-height: 1.65;
+    }
+    #pinfo-{{ section_id }} .pinfo-features {
+      display: grid;
+      grid-template-columns:1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    #pinfo-{{ section_id }} .pinfo-feature {
+      gap: 7px;
+    }
+    #pinfo-{{ section_id }}
+    .pinfo-feature:last-child {
+      grid-column: span 2;
+    }
+    #pinfo-{{ section_id }}
+    .pinfo-feature__text {
+      font-size: 8px;
+      letter-spacing: .08em;
+    }
+   #pinfo-{{ section_id }}
+    .pinfo-feature__icon {
+      width: 20px;
+      height: 20px;
+      flex-basis: 20px;
+    }
+    #pinfo-{{ section_id }} .pinfo-button-wrap {
+      margin-top: 19px;
+    }
+ }
+
+</style>
+
+
+
+{% schema %}
+{
+  "name": "Compact premium info",
+  "tag": "section",
+  "class": "section-compact-premium-info",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section width controls"
+    },
+    {
+      "type": "select",
+      "id": "width_mode",
+      "label": "Desktop width mode",
+      "options": [
+        {
+          "value": "contained",
+          "label": "Contained width"
+        },
+        {
+          "value": "wide",
+          "label": "Wide / full width"
+        }
+      ],
+      "default": "contained"
+    },
+    {
+      "type": "range",
+      "id": "desktop_max_width",
+      "label": "Desktop max width",
+      "min": 800,
+      "max": 1800,
+      "step": 20,
+      "unit": "px",
+      "default": 1380
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 70,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "desktop_side_space",
+      "label": "Desktop side margin",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mobile_width_percent",
+      "label": "Mobile width",
+      "min": 80,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "mobile_side_space",
+      "label": "Mobile side margin",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "mobile_horizontal_padding",
+      "label": "Mobile inner side padding",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "OUR STANDARD"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Premium Quality"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Thoughtfully selected fabrics, refined silhouettes and considered details come together in pieces designed to feel beautiful, effortless and timeless.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_features",
+      "label": "Show quality points",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "feature_1",
+      "label": "Quality point 1",
+      "default": "Premium Fabrics"
+    },
+    {
+      "type": "text",
+      "id": "feature_2",
+      "label": "Quality point 2",
+      "default": "Refined Details"
+    },
+    {
+      "type": "text",
+      "id": "feature_3",
+      "label": "Quality point 3",
+      "default": "Timeless Design"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Discover Our Collection"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "outer_background",
+      "label": "Outer background",
+      "default": "#FCF8F6"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#591C27"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Heading color",
+      "default": "#FFF9F4"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Description color",
+      "default": "#EEDFD4"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#E7C6AF"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#743646"
+    },
+    {
+      "type": "header",
+      "content": "Desktop typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 38,
+      "max": 70,
+      "step": 2,
+      "unit": "px",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Desktop layout"
+    },
+    {
+      "type": "range",
+      "id": "inner_padding_vertical",
+      "label": "Inner vertical padding",
+      "min": 35,
+      "max": 75,
+      "step": 5,
+      "unit": "px",
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "inner_padding_horizontal",
+      "label": "Inner horizontal padding",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "corner_radius",
+      "label": "Section corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "section_top_spacing",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "section_bottom_spacing",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Heading size",
+      "min": 28,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "mobile_description_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 17,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "mobile_inner_padding",
+      "label": "Inner vertical padding",
+      "min": 25,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 35
+    },
+    {
+      "type": "range",
+      "id": "mobile_corner_radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_section_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mobile_section_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Compact premium info"
+    }
+  ]
+}
+{% endschema %}

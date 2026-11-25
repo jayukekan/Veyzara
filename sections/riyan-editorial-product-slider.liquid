@@ -1,0 +1,607 @@
+{% comment %}
+  Riyan Premium Products — GP Wishlist Edition
+  Uses GroPulse app embed auto-injection on .card--media; no duplicate icon is rendered.
+{% endcomment %}
+{% liquid
+  assign sid = 'ry-products-' | append: section.id
+  assign manual_mode = false
+  if section.settings.product_source == 'manual'
+    assign manual_mode = true
+  endif
+  assign selected_collection = section.settings.collection
+%}
+<section id="{{ sid }}" class="ryp" style="--ryp-bg:{{ section.settings.background }};--ryp-card:{{ section.settings.card_background }};--ryp-text:{{ section.settings.text_color }};--ryp-muted:{{ section.settings.muted_color }};--ryp-accent:{{ section.settings.accent }};--ryp-edge:{{ section.settings.border_color }};--ryp-gap:{{ section.settings.desktop_gap }}px;--ryp-mobile-gap:{{ section.settings.mobile_gap }}px;--ryp-radius:{{ section.settings.image_radius }}px;--ryp-ratio:{{ section.settings.image_ratio }};--ryp-fit:{{ section.settings.image_fit }};--ryp-width:{{ section.settings.page_width }}px;--ryp-side:{{ section.settings.desktop_side_padding }}px;--ryp-title-bg:{{ section.settings.title_background }};--ryp-pt:{{ section.settings.padding_top }}px;--ryp-pb:{{ section.settings.padding_bottom }}px;">
+  <div class="ryp__container">
+    <header class="ryp__header">
+      <div class="ryp__header-copy">
+        {% if section.settings.eyebrow != blank %}<span class="ryp__eyebrow"><span class="ryp__eyebrow-line"></span>{{ section.settings.eyebrow | escape }}</span>{% endif %}
+        {% if section.settings.heading != blank %}<h2 class="ryp__heading">{{ section.settings.heading | escape }}</h2>{% endif %}
+        {% if section.settings.subheading != blank %}<p class="ryp__subheading">{{ section.settings.subheading | escape }}</p>{% endif %}
+      </div>
+      {% if section.settings.show_view_all and selected_collection != blank %}
+        <a class="ryp__all" href="{{ selected_collection.url }}">{{ section.settings.view_all_text | escape }}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h16m-7-7 7 7-7 7"/></svg></a>
+      {% endif %}
+    </header>
+    <div class="ryp__grid">
+      {% if manual_mode %}
+        {% for block in section.blocks limit: 24 %}
+          {% assign product = block.settings.product %}
+          {% if product != blank %}
+
+          <article class="ryp__card"{% if manual_mode %} {{ block.shopify_attributes }}{% endif %}>
+            <div class="ryp__media card--media" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle | escape }}">
+              <a href="{{ product.url }}" class="ryp__media-link" aria-label="{{ product.title | escape }}">
+                {% if product.featured_image != blank %}
+                  {% assign image_loading = 'lazy' %}
+                  {% if forloop.index <= 4 %}{% assign image_loading = 'eager' %}{% endif %}
+                  {{ product.featured_image | image_url: width: 1100 | image_tag: loading: image_loading, widths: '180, 280, 360, 480, 650, 850, 1100', sizes: '(min-width: 990px) 24vw, (min-width: 750px) 32vw, 48vw', class: 'ryp__image' }}
+                  {% if section.settings.second_image and product.images.size > 1 %}
+                    {{ product.images[1] | image_url: width: 1100 | image_tag: loading: 'lazy', widths: '180, 280, 360, 480, 650, 850, 1100', sizes: '(min-width: 990px) 24vw, (min-width: 750px) 32vw, 48vw', class: 'ryp__image ryp__image--secondary' }}
+                  {% endif %}
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag: 'ryp__placeholder' }}
+                {% endif %}
+                {% if section.settings.show_hover_cta %}
+                  <span class="ryp__image-cta">Explore Style <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h16m-7-7 7 7-7 7"/></svg></span>
+                {% endif %}
+              </a>
+            </div>
+            <div class="ryp__info">
+              {% if section.settings.show_vendor and product.vendor != blank %}<span class="ryp__vendor">{{ product.vendor | escape }}</span>{% endif %}
+              <h3 class="ryp__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+              {% if section.settings.show_price %}
+                <div class="ryp__price">
+                  {% assign card_variant = product.selected_or_first_available_variant %}<span class="ryp__current">{{ card_variant.price | money }}</span>
+                  {% if card_variant.compare_at_price > card_variant.price %}<s class="ryp__compare">{{ card_variant.compare_at_price | money }}</s>{% endif %}
+                </div>
+              {% endif %}
+              {% if section.settings.show_badges %}
+                {% unless product.available %}
+                  <div class="ryp__badge-row"><span class="ryp__badge ryp__badge--soldout">Sold out</span></div>
+                {% else %}
+                  {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+                    <div class="ryp__badge-row"><span class="ryp__badge">Special price</span></div>
+                  {% endif %}
+                {% endunless %}
+              {% endif %}
+            </div>
+          </article>
+          {% endif %}
+        {% endfor %}
+      {% elsif selected_collection != blank %}
+        {% for product in selected_collection.products limit: section.settings.products_count %}
+
+          <article class="ryp__card"{% if manual_mode %} {{ block.shopify_attributes }}{% endif %}>
+            <div class="ryp__media card--media" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle | escape }}">
+              <a href="{{ product.url }}" class="ryp__media-link" aria-label="{{ product.title | escape }}">
+                {% if product.featured_image != blank %}
+                  {% assign image_loading = 'lazy' %}
+                  {% if forloop.index <= 4 %}{% assign image_loading = 'eager' %}{% endif %}
+                  {{ product.featured_image | image_url: width: 1100 | image_tag: loading: image_loading, widths: '180, 280, 360, 480, 650, 850, 1100', sizes: '(min-width: 990px) 24vw, (min-width: 750px) 32vw, 48vw', class: 'ryp__image' }}
+                  {% if section.settings.second_image and product.images.size > 1 %}
+                    {{ product.images[1] | image_url: width: 1100 | image_tag: loading: 'lazy', widths: '180, 280, 360, 480, 650, 850, 1100', sizes: '(min-width: 990px) 24vw, (min-width: 750px) 32vw, 48vw', class: 'ryp__image ryp__image--secondary' }}
+                  {% endif %}
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag: 'ryp__placeholder' }}
+                {% endif %}
+                {% if section.settings.show_hover_cta %}
+                  <span class="ryp__image-cta">Explore Style <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h16m-7-7 7 7-7 7"/></svg></span>
+                {% endif %}
+              </a>
+            </div>
+            <div class="ryp__info">
+              {% if section.settings.show_vendor and product.vendor != blank %}<span class="ryp__vendor">{{ product.vendor | escape }}</span>{% endif %}
+              <h3 class="ryp__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+              {% if section.settings.show_price %}
+                <div class="ryp__price">
+                  {% assign card_variant = product.selected_or_first_available_variant %}<span class="ryp__current">{{ card_variant.price | money }}</span>
+                  {% if card_variant.compare_at_price > card_variant.price %}<s class="ryp__compare">{{ card_variant.compare_at_price | money }}</s>{% endif %}
+                </div>
+              {% endif %}
+              {% if section.settings.show_badges %}
+                {% unless product.available %}
+                  <div class="ryp__badge-row"><span class="ryp__badge ryp__badge--soldout">Sold out</span></div>
+                {% else %}
+                  {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+                    <div class="ryp__badge-row"><span class="ryp__badge">Special price</span></div>
+                  {% endif %}
+                {% endunless %}
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      {% else %}
+        {% for i in (1..4) %}
+          <article class="ryp__card ryp__card--demo">
+            <div class="ryp__media">{{ 'product-1' | placeholder_svg_tag: 'ryp__placeholder' }}</div>
+            <div class="ryp__info"><h3 class="ryp__title">Your beautiful collection</h3><div class="ryp__price">{{ 199900 | money }}</div></div>
+          </article>
+        {% endfor %}
+      {% endif %}
+    </div>
+    {% if section.settings.show_view_all and selected_collection != blank %}<div class="ryp__all-mobile"><a class="ryp__all" href="{{ selected_collection.url }}">{{ section.settings.view_all_text | escape }} <span aria-hidden="true">→</span></a></div>{% endif %}
+  </div>
+</section>
+<style>
+#{{ sid }}{background:var(--ryp-bg);color:var(--ryp-text);padding:var(--ryp-pt) 0 var(--ryp-pb)}
+#{{ sid }} *,#{{ sid }} *::before,#{{ sid }} *::after{box-sizing:border-box}
+#{{ sid }} .ryp__container{width:min(calc(100% - (var(--ryp-side) * 2)),var(--ryp-width));margin:auto}
+#{{ sid }} .ryp__header{display:flex;align-items:end;justify-content:space-between;gap:18px;margin:0 0 30px}
+#{{ sid }} .ryp__eyebrow{color:var(--ryp-accent);display:flex;align-items:center;gap:9px;font-size:10px;font-weight:650;letter-spacing:.18em;text-transform:uppercase;margin:0 0 8px}
+#{{ sid }} .ryp__eyebrow-line{display:block;height:1px;width:25px;background:var(--ryp-accent);opacity:.65}
+#{{ sid }} .ryp__heading{font:var(--font-heading-weight,400) {{ section.settings.heading_size }}px/1.15 var(--font-heading-family,Georgia,serif);letter-spacing:-.025em;margin:0;color:var(--ryp-text)}
+#{{ sid }} .ryp__subheading{font-size:13px;line-height:1.6;color:var(--ryp-muted);margin:9px 0 0}
+#{{ sid }} .ryp__all{display:inline-flex;gap:12px;align-items:center;justify-content:center;white-space:nowrap;text-decoration:none;text-transform:uppercase;letter-spacing:.11em;font-size:10px;font-weight:650;padding:0 0 8px;color:var(--ryp-accent);border-bottom:1px solid var(--ryp-accent)}
+#{{ sid }} .ryp__all svg{width:17px;height:17px;transition:transform .3s}
+#{{ sid }} .ryp__all:hover svg{transform:translateX(4px)}
+#{{ sid }} .ryp__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px var(--ryp-gap)}
+#{{ sid }} .ryp__card{min-width:0;position:relative;transition:transform .4s ease,box-shadow .4s ease;border-radius:var(--ryp-radius)}
+#{{ sid }} .ryp__media-link{display:block;position:relative;width:100%;height:100%;text-decoration:none;color:inherit}
+#{{ sid }} .ryp__media{position:relative;overflow:hidden;isolation:isolate;aspect-ratio:var(--ryp-ratio);border-radius:var(--ryp-radius);background:var(--ryp-card);border:1px solid var(--ryp-edge);transition:box-shadow .4s ease,border-color .4s ease}
+#{{ sid }} .ryp__image,#{{ sid }} .ryp__placeholder{display:block;position:absolute;width:100%;height:100%;inset:0;object-fit:var(--ryp-fit);transition:transform .65s cubic-bezier(.2,.7,.2,1),opacity .45s ease}
+#{{ sid }} .ryp__image--secondary{opacity:0}
+#{{ sid }} .ryp__badge-row{display:flex;align-items:center;margin-top:8px;min-height:22px}
+#{{ sid }} .ryp__badge{position:static;display:inline-flex;align-items:center;min-height:21px;padding:4px 9px;background:color-mix(in srgb,var(--ryp-accent) 7%,white);border:1px solid color-mix(in srgb,var(--ryp-accent) 25%,white);border-radius:3px;font-size:9px;line-height:1.2;letter-spacing:.10em;font-weight:650;color:var(--ryp-accent);text-transform:uppercase;white-space:nowrap}
+#{{ sid }} .ryp__badge--soldout{color:var(--ryp-muted);background:#f5f2f1;border-color:#e5dedd}
+#{{ sid }} .ryp__image-cta{position:absolute;z-index:2;bottom:12px;left:12px;right:12px;display:flex;justify-content:center;align-items:center;gap:8px;color:var(--ryp-accent);background:rgba(255,255,255,.96);padding:13px 8px;font-size:10px;letter-spacing:.12em;font-weight:650;text-transform:uppercase;transform:translateY(calc(100% + 15px));transition:transform .35s ease}
+#{{ sid }} .ryp__image-cta svg{width:15px;height:15px}
+#{{ sid }} .ryp__info{padding:{{ section.settings.info_padding }}px 7px 10px;background:var(--ryp-title-bg);border-radius:0 0 var(--ryp-radius) var(--ryp-radius);transition:background .3s ease}
+#{{ sid }} .ryp__vendor{display:block;margin:0 0 5px;color:var(--ryp-muted);letter-spacing:.12em;text-transform:uppercase;font-size:9px}
+#{{ sid }} .ryp__title{font-family:var(--font-body-family,Arial,sans-serif);font-size:{{ section.settings.title_size }}px;font-weight:{{ section.settings.title_weight }};line-height:1.45;letter-spacing:.005em;margin:0 0 5px;display:-webkit-box;-webkit-line-clamp:{{ section.settings.title_lines }};-webkit-box-orient:vertical;overflow:hidden;min-height:calc(1.45em * {{ section.settings.title_lines }});}
+#{{ sid }} .ryp__title a{text-decoration:none;color:inherit}
+#{{ sid }} .ryp__title a:hover{color:var(--ryp-accent)}
+#{{ sid }} .ryp__price{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px;line-height:1.5;font-weight:600;color:var(--ryp-accent)}
+#{{ sid }} .ryp__compare{color:var(--ryp-muted);font-size:12px}
+#{{ sid }} .ryp__all-mobile{display:none}
+#{{ sid }} .ryp__card:hover .ryp__media{box-shadow:0 12px 35px rgba(89,28,39,.12);border-color:var(--ryp-accent)}
+#{{ sid }} .ryp__card:hover .ryp__title a{color:var(--ryp-accent)}
+#{{ sid }} .ryp__media:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;border:1px solid rgba(255,255,255,.20);margin:6px;opacity:0;transition:opacity .3s ease}
+#{{ sid }} .ryp__card:hover .ryp__media:after{opacity:1}
+@media(hover:hover){#{{ sid }} .ryp__card:hover .ryp__image:not(.ryp__image--secondary){transform:scale(1.045)}#{{ sid }} .ryp__card:hover .ryp__image--secondary{opacity:1;transform:scale(1.045)}#{{ sid }} .ryp__card:hover .ryp__image-cta{transform:translateY(0)}}
+@media(min-width:750px) and (max-width:989px){#{{ sid }} .ryp__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:749px){
+#{{ sid }}{padding:{{ section.settings.mobile_padding_top }}px 0 {{ section.settings.mobile_padding_bottom }}px}
+#{{ sid }} .ryp__container{width:calc(100% - {{ section.settings.mobile_side_padding | times: 2 }}px)}
+#{{ sid }} .ryp__header{margin-bottom:20px}
+#{{ sid }} .ryp__heading{font-size:{{ section.settings.mobile_heading_size }}px}
+#{{ sid }} .ryp__eyebrow{font-size:9px}
+#{{ sid }} .ryp__subheading{font-size:12px}
+#{{ sid }} .ryp__header>.ryp__all{display:none}
+#{{ sid }} .ryp__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px var(--ryp-mobile-gap)}
+#{{ sid }} .ryp__badge-row{margin-top:6px;min-height:19px}
+#{{ sid }} .ryp__badge{padding:3px 6px;min-height:18px;font-size:8px;letter-spacing:.065em}
+#{{ sid }} .ryp__image-cta{display:none}
+#{{ sid }} .ryp__info{padding:10px 2px 6px}
+#{{ sid }} .ryp__title{font-size:{{ section.settings.mobile_title_size }}px;margin-bottom:4px}
+#{{ sid }} .ryp__vendor{font-size:8px}
+#{{ sid }} .ryp__price{font-size:12px;gap:5px}
+#{{ sid }} .ryp__compare{font-size:10px}
+#{{ sid }} .ryp__all-mobile{display:flex;justify-content:center;margin-top:28px}
+}
+@media(prefers-reduced-motion:reduce){#{{ sid }} *,#{{ sid }} *::before,#{{ sid }} *::after{transition:none!important}}
+
+/* RIYAN CREATION — EDITORIAL LUXURY COLLECTION REFINEMENT */
+#{{ sid }} {
+  --ryp-luxe-shadow: 0 16px 42px rgba(53,24,32,.075);
+}
+#{{ sid }} .ryp__header { padding-bottom: 20px; border-bottom: 1px solid var(--ryp-edge); margin-bottom: 28px; }
+#{{ sid }} .ryp__eyebrow { font-size: 10px; letter-spacing: .22em; font-weight: 600; }
+#{{ sid }} .ryp__eyebrow-line { width: 31px; }
+#{{ sid }} .ryp__heading { font-family: var(--font-heading-family, Georgia, serif); font-weight: 400; letter-spacing: -.035em; line-height: 1.1; }
+#{{ sid }} .ryp__all { font-size: 10px; letter-spacing: .14em; border-bottom: 1px solid currentColor; transition: opacity .2s ease; }
+#{{ sid }} .ryp__all:hover { opacity: .72; }
+#{{ sid }} .ryp__card { border-radius: 0; transform: none; }
+#{{ sid }} .ryp__media { border-radius: max(5px, var(--ryp-radius)); border: 1px solid var(--ryp-edge); background: var(--ryp-card); box-shadow: none; }
+#{{ sid }} .ryp__image { object-position: center top; }
+#{{ sid }} .ryp__info { padding: 15px 2px 12px; border-radius: 0; background: transparent; }
+#{{ sid }} .ryp__vendor { letter-spacing: .15em; font-size: 9px; }
+#{{ sid }} .ryp__title { font-family: var(--font-body-family, Arial, sans-serif); font-size: clamp(13px, 1.05vw, 16px); font-weight: 500; line-height: 1.5; letter-spacing: .005em; margin-bottom: 8px; min-height: 0; }
+#{{ sid }} .ryp__title a { transition: color .2s ease; }
+#{{ sid }} .ryp__price { font-size: 15px; gap: 8px; font-weight: 650; letter-spacing: .005em; }
+#{{ sid }} .ryp__compare { font-size: 12px; font-weight: 400; opacity: .8; }
+#{{ sid }} .ryp__badge-row { margin-top: 10px; min-height: 0; }
+#{{ sid }} .ryp__badge { position: static; border: 1px solid rgba(89,28,39,.18); border-radius: 2px; background: #fbf3f4; color: var(--ryp-accent); padding: 5px 9px; font-size: 9px; letter-spacing: .13em; font-weight: 600; line-height: 1.25; }
+#{{ sid }} .ryp__badge--soldout { color: #777; background: #f4f2f1; border-color: #e6e1df; }
+#{{ sid }} .ryp__image-cta { left: 10px; right: 10px; bottom: 10px; border-radius: 3px; font-weight: 600; box-shadow: 0 4px 18px rgba(0,0,0,.07); }
+@media (hover:hover) {
+  #{{ sid }} .ryp__card:hover .ryp__media { border-color: var(--ryp-edge); box-shadow: var(--ryp-luxe-shadow); }
+  #{{ sid }} .ryp__card:hover .ryp__image:not(.ryp__image--secondary) { transform: scale(1.025); }
+  #{{ sid }} .ryp__card:hover .ryp__image--secondary { transform: scale(1.025); }
+}
+@media (max-width:749px) {
+  #{{ sid }} .ryp__header { margin-bottom: 17px; padding-bottom: 14px; }
+  #{{ sid }} .ryp__eyebrow { font-size: 8px; letter-spacing: .18em; }
+  #{{ sid }} .ryp__heading { font-size: {{ section.settings.mobile_heading_size }}px; }
+  #{{ sid }} .ryp__grid { row-gap: 24px; }
+  #{{ sid }} .ryp__info { padding: 10px 1px 6px; }
+  #{{ sid }} .ryp__title { font-size: {{ section.settings.mobile_title_size }}px; line-height: 1.45; margin-bottom: 5px; }
+  #{{ sid }} .ryp__price { font-size: 12px; gap: 5px; }
+  #{{ sid }} .ryp__compare { font-size: 10px; }
+  #{{ sid }} .ryp__badge-row { margin-top: 8px; }
+  #{{ sid }} .ryp__badge { font-size: 8px; padding: 4px 6px; letter-spacing: .075em; }
+}
+
+
+/* Riyan / GP Wishlist: single app-controlled button per product image.
+   The real GroPulse wishlist widget handles state and persistence. */
+#{{ sid }} .ryp__media.card--media { position:relative; isolation:isolate; overflow:hidden; }
+#{{ sid }} .ryp__media.card--media > .ryp__media-link { position:relative; z-index:1; }
+#{{ sid }} .ryp__media.card--media :is(.gp-wishlist-button, .gp-wishlist-button-container, .gp-wishlist-btn, [class*="gropulse-wishlist"], [class*="gp-wishlist"]) {
+  z-index:6;
+}
+#{{ sid }} .ryp__media.card--media :is(.gp-wishlist-button, .gp-wishlist-btn) {
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  width:40px !important;
+  height:40px !important;
+  min-width:40px !important;
+  min-height:40px !important;
+  padding:0 !important;
+  border:1px solid rgba(89,28,39,.11) !important;
+  border-radius:50% !important;
+  background:#fffcf9 !important;
+  color:#591c27 !important;
+  box-shadow:0 4px 16px rgba(45,20,27,.09) !important;
+  cursor:pointer;
+  transition:background .22s ease,border-color .22s ease,box-shadow .22s ease,transform .22s ease !important;
+}
+#{{ sid }} .ryp__media.card--media :is(.gp-wishlist-button, .gp-wishlist-btn):hover {
+  background:#fff4f1 !important;
+  border-color:rgba(89,28,39,.30) !important;
+  box-shadow:0 6px 20px rgba(45,20,27,.13) !important;
+  transform:translateY(-1px);
+}
+#{{ sid }} .ryp__media.card--media :is(.gp-wishlist-button, .gp-wishlist-btn).active,
+#{{ sid }} .ryp__media.card--media :is(.gp-wishlist-button, .gp-wishlist-btn)[aria-pressed="true"] {
+  background:#f7e9e8 !important;
+  border-color:rgba(89,28,39,.28) !important;
+  color:#591c27 !important;
+}
+#{{ sid }} .ryp__media.card--media :is(.gp-wishlist-button, .gp-wishlist-btn) :is(svg, .gp-wishlist-button-icon) {
+  width:20px !important;
+  height:20px !important;
+  color:#591c27 !important;
+  stroke:#591c27 !important;
+}
+#{{ sid }} .ryp__media.card--media .gp-wishlist-button.active svg,
+#{{ sid }} .ryp__media.card--media .gp-wishlist-button[aria-pressed="true"] svg {
+  fill:#591c27 !important;
+  stroke:#591c27 !important;
+}
+#{{ sid }} .ryp__media.card--media :is(.gp-wishlist-button, .gp-wishlist-btn):focus-visible {
+  outline:2px solid #591c27 !important;
+  outline-offset:3px;
+}
+@media(max-width:749px){
+  #{{ sid }} .ryp__media.card--media :is(.gp-wishlist-button, .gp-wishlist-btn) {
+    width:35px !important;height:35px !important;min-width:35px !important;min-height:35px !important;
+  }
+  #{{ sid }} .ryp__media.card--media :is(.gp-wishlist-button, .gp-wishlist-btn) :is(svg, .gp-wishlist-button-icon) {
+    width:18px !important;height:18px !important;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Riyan Premium Products",
+  "tag": "section",
+  "class": "section-riyan-products",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product selection"
+    },
+    {
+      "type": "select",
+      "id": "product_source",
+      "label": "Product source",
+      "options": [
+        {
+          "value": "collection",
+          "label": "Choose collection"
+        },
+        {
+          "value": "manual",
+          "label": "Select individual products"
+        }
+      ],
+      "default": "collection"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_count",
+      "label": "Number of collection products",
+      "min": 4,
+      "max": 24,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Headings"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "CURATED FOR YOU"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "New Arrivals"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Desktop heading size",
+      "min": 20,
+      "max": 72,
+      "step": 1,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 18,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 33
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Description",
+      "default": "Discover your next favourite look."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show collection link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "Collection link label",
+      "default": "View collection"
+    },
+    {
+      "type": "header",
+      "content": "Product card"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image aspect ratio",
+      "options": [
+        {
+          "value": "3 / 4",
+          "label": "Fashion portrait"
+        },
+        {
+          "value": "4 / 5",
+          "label": "Portrait"
+        },
+        {
+          "value": "2 / 3",
+          "label": "Tall portrait"
+        },
+        {
+          "value": "1 / 1",
+          "label": "Square"
+        }
+      ],
+      "default": "3 / 4"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image fit",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Fill"
+        },
+        {
+          "value": "contain",
+          "label": "Show full image"
+        }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "checkbox",
+      "id": "second_image",
+      "label": "Second image on hover",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badges",
+      "label": "Show sale and sold out",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hover_cta",
+      "label": "Show hover label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Show prices",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Desktop product title size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "default": 15
+    },
+    {"type":"select","id":"title_weight","label":"Product title weight","options":[{"value":"400","label":"Regular"},{"value":"500","label":"Medium"},{"value":"600","label":"Semi bold"}],"default":"500"},
+    {"type":"select","id":"title_lines","label":"Product title lines","options":[{"value":"1","label":"One line"},{"value":"2","label":"Two lines"}],"default":"2"},
+    {"type":"range","id":"mobile_title_size","label":"Mobile title size","min":10,"max":18,"step":1,"unit":"px","default":12},
+    {"type":"range","id":"info_padding","label":"Title area top padding","min":8,"max":24,"step":2,"unit":"px","default":12},
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Image corner radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Section background",
+      "default": "#FFFFFF"
+    },
+    {"type":"color","id":"title_background","label":"Product information background","default":"#FFFFFF"},
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Image background",
+      "default": "#F7F3F0"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#2A2326"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text",
+      "default": "#766A6D"
+    },
+    {
+      "type": "color",
+      "id": "accent",
+      "label": "Burgundy accent",
+      "default": "#591C27"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Image border",
+      "default": "#E9E2E0"
+    },
+    {
+      "type": "header",
+      "content": "Layout and spacing"
+    },
+    {
+      "type": "range",
+      "id": "page_width",
+      "label": "Content width",
+      "min": 1000,
+      "max": 1800,
+      "step": 20,
+      "default": 1440
+    },
+    {"type":"range","id":"desktop_side_padding","label":"Desktop side margin","min":0,"max":100,"step":4,"unit":"px","default":24},
+    {"type":"range","id":"mobile_side_padding","label":"Mobile side margin","min":8,"max":32,"step":2,"unit":"px","default":14},
+    {
+      "type": "range",
+      "id": "desktop_gap",
+      "label": "Desktop column gap",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "label": "Mobile column gap",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Selected product",
+      "limit": 24,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Choose product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Riyan Premium Products"
+    }
+  ]
+}
+{% endschema %}

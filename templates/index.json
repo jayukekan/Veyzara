@@ -1,0 +1,1115 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "sh_hero_slideshow_jermDJ": {
+      "type": "sh-hero-slideshow",
+      "blocks": {
+        "image_slide_dWFXwq": {
+          "type": "image_slide",
+          "settings": {
+            "image": "shopify://shop_images/Untitled_Design_62__jpg.jpg",
+            "mob_image": "shopify://shop_images/Untitled_Design_63__jpg.jpg",
+            "heading": "",
+            "subheading": "",
+            "button_label": "",
+            "button_link": "shopify://collections/necklace",
+            "btn_outline": false,
+            "outline_btn_text_color": "#000000",
+            "border_radius": 0,
+            "desktop_content_position": "middle-center",
+            "desktop_content_alignment": "center",
+            "show_text_box": false,
+            "mobile_content_position": "middle",
+            "mobile_content_alignment": "center",
+            "heading_font_size": 5,
+            "content_font_size": 18,
+            "mobile_heading_font_size": 28,
+            "mobile_content_font_size": 14,
+            "opacity": 0,
+            "overlay_color": "#000000",
+            "heading_color": "#000000",
+            "content_color": "#000000",
+            "btn_bg_color": "#000000",
+            "btn_text_color": "#ffffff",
+            "btn_border_color": "#000000",
+            "btn_hover_bg_color": "#ffffff",
+            "btn_hover_text_color": "#000000",
+            "btn_hover_border_color": "#000000",
+            "outline_btn_shadow_color": "#000000",
+            "box_bg_color": "#ffffff"
+          }
+        },
+        "image_slide_mwreKP": {
+          "type": "image_slide",
+          "settings": {
+            "image": "shopify://shop_images/Untitled_Design_64__jpg.jpg",
+            "mob_image": "shopify://shop_images/Untitled_Design_65__jpg.jpg",
+            "heading": "",
+            "subheading": "",
+            "button_label": "",
+            "button_link": "shopify://collections/bracelets",
+            "btn_outline": false,
+            "outline_btn_text_color": "#000000",
+            "border_radius": 0,
+            "desktop_content_position": "middle-center",
+            "desktop_content_alignment": "center",
+            "show_text_box": false,
+            "mobile_content_position": "middle",
+            "mobile_content_alignment": "center",
+            "heading_font_size": 5,
+            "content_font_size": 18,
+            "mobile_heading_font_size": 28,
+            "mobile_content_font_size": 14,
+            "opacity": 0,
+            "overlay_color": "#000000",
+            "heading_color": "#000000",
+            "content_color": "#000000",
+            "btn_bg_color": "#000000",
+            "btn_text_color": "#ffffff",
+            "btn_border_color": "#000000",
+            "btn_hover_bg_color": "#ffffff",
+            "btn_hover_text_color": "#000000",
+            "btn_hover_border_color": "#000000",
+            "outline_btn_shadow_color": "#000000",
+            "box_bg_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "image_slide_dWFXwq",
+        "image_slide_mwreKP"
+      ],
+      "name": "SH: Hero slideshow",
+      "settings": {
+        "slide_height": "adapt",
+        "auto_rotate": true,
+        "change_slides_speed": 5,
+        "show_arrows": false,
+        "show_pagination": true,
+        "pagination_type": "dots",
+        "show_text_below_mob": false,
+        "dots_color": "#ffffff",
+        "arrow_color": "#000000",
+        "arrow_bg_color": "#ffffff",
+        "arrow_border_color": "#000000",
+        "arrow_size": 16,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "mob_padding_top": 0,
+        "mob_padding_bottom": 0,
+        "section_max_width": "1500"
+      }
+    },
+    "premium_fashion_marquee_mwC6Pk": {
+      "type": "premium-fashion-marquee",
+      "blocks": {
+        "text_HkhBQH": {
+          "type": "text",
+          "settings": {
+            "text": "THE VEYZARA EDIT",
+            "highlight": false
+          }
+        },
+        "image_6NQnFH": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/WhatsAppImage2026-10-25at6.39.08PM_2.jpg"
+          }
+        },
+        "text_C7cLy6": {
+          "type": "text",
+          "settings": {
+            "text": "MODERN FEMININITY",
+            "highlight": false
+          }
+        },
+        "separator_dU4zMG": {
+          "type": "separator",
+          "settings": {
+            "style": "star"
+          }
+        },
+        "text_Je9JrM": {
+          "type": "text",
+          "settings": {
+            "text": "GRACEFUL EVERYDAY",
+            "highlight": false
+          }
+        },
+        "image_EwPaEW": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/WhatsAppImage2026-10-24at6.38.59PM_1.jpg"
+          }
+        },
+        "text_QKrf7w": {
+          "type": "text",
+          "settings": {
+            "text": "OCCASION-READY STYLE",
+            "highlight": true
+          }
+        },
+        "image_cVDm4r": {
+          "type": "image",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "text_HkhBQH",
+        "image_6NQnFH",
+        "text_C7cLy6",
+        "separator_dU4zMG",
+        "text_Je9JrM",
+        "image_EwPaEW",
+        "text_QKrf7w",
+        "image_cVDm4r"
+      ],
+      "disabled": true,
+      "name": "Premium fashion marquee",
+      "settings": {
+        "background_color": "#ffffff",
+        "text_color": "#222329",
+        "accent_color": "#591c27",
+        "speed": 35,
+        "reverse": false,
+        "pause_on_hover": true,
+        "enable_fade": true,
+        "fade_width": 100,
+        "desktop_font_size": 70,
+        "font_weight": "700",
+        "letter_spacing": -3,
+        "desktop_image_width": 120,
+        "desktop_image_height": 120,
+        "image_radius": 26,
+        "item_gap": 45,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "mobile_font_size": 50,
+        "mobile_letter_spacing": -4,
+        "mobile_image_width": 80,
+        "mobile_image_height": 80,
+        "mobile_image_radius": 18,
+        "mobile_item_gap": 25,
+        "mobile_padding_top": 15,
+        "mobile_padding_bottom": 15
+      }
+    },
+    "riyan_premium_categories_WkXpQa": {
+      "type": "riyan-premium-categories",
+      "blocks": {
+        "category_6iPtAG": {
+          "type": "category",
+          "settings": {
+            "collection": "bracelets",
+            "title": "",
+            "subtitle": "",
+            "link": "",
+            "badge": "",
+            "category_icon": "lotus",
+            "show_overlay": true
+          }
+        },
+        "category_jmQiBr": {
+          "type": "category",
+          "settings": {
+            "collection": "earrings",
+            "title": "",
+            "subtitle": "",
+            "link": "",
+            "badge": "",
+            "category_icon": "lotus",
+            "show_overlay": true
+          }
+        },
+        "category_AL4wjj": {
+          "type": "category",
+          "settings": {
+            "collection": "necklace",
+            "title": "",
+            "subtitle": "",
+            "link": "",
+            "badge": "",
+            "category_icon": "lotus",
+            "show_overlay": true
+          }
+        },
+        "category_dqaync": {
+          "type": "category",
+          "settings": {
+            "collection": "rings",
+            "title": "",
+            "subtitle": "",
+            "link": "",
+            "badge": "",
+            "category_icon": "lotus",
+            "show_overlay": true
+          }
+        }
+      },
+      "block_order": [
+        "category_6iPtAG",
+        "category_jmQiBr",
+        "category_AL4wjj",
+        "category_dqaync"
+      ],
+      "name": "Premium Categories",
+      "settings": {
+        "eyebrow": "EXPLORE VEYZARA GLOBAL",
+        "heading": "Shop The Veyzara Edition",
+        "heading_size": 33,
+        "mobile_heading_size": 22,
+        "subheading": "",
+        "view_all_label": "Explore All Styles",
+        "view_all_link": "shopify://collections",
+        "desktop_columns": 4,
+        "desktop_gap": 16,
+        "image_ratio": "1 / 1",
+        "card_radius": 20,
+        "show_icon": true,
+        "show_shop_link": false,
+        "shop_text": "Explore",
+        "mobile_layout": "grid",
+        "mobile_columns": "2",
+        "mobile_card_width": 70,
+        "mobile_gap": 10,
+        "section_bg": "#ffffff",
+        "card_bg": "#fffdf9",
+        "heading_color": "#000000",
+        "text_color": "#5c4740",
+        "accent_color": "#591c27",
+        "border_color": "#e8d9cb",
+        "page_width": 1500,
+        "show_decorative_lines": true,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "mobile_padding_top": 20,
+        "mobile_padding_bottom": 20
+      }
+    },
+    "sh_hero_slideshow_r4NUqF": {
+      "type": "sh-hero-slideshow",
+      "blocks": {
+        "image_slide_fLPcye": {
+          "type": "image_slide",
+          "settings": {
+            "heading": "",
+            "subheading": "",
+            "button_label": "",
+            "button_link": "shopify://products/black-georgette-anarkali-dress",
+            "btn_outline": false,
+            "outline_btn_text_color": "#000000",
+            "border_radius": 0,
+            "desktop_content_position": "middle-center",
+            "desktop_content_alignment": "center",
+            "show_text_box": false,
+            "mobile_content_position": "middle",
+            "mobile_content_alignment": "center",
+            "heading_font_size": 5,
+            "content_font_size": 18,
+            "mobile_heading_font_size": 28,
+            "mobile_content_font_size": 14,
+            "opacity": 0,
+            "overlay_color": "#000000",
+            "heading_color": "#000000",
+            "content_color": "#000000",
+            "btn_bg_color": "#000000",
+            "btn_text_color": "#ffffff",
+            "btn_border_color": "#000000",
+            "btn_hover_bg_color": "#ffffff",
+            "btn_hover_text_color": "#000000",
+            "btn_hover_border_color": "#000000",
+            "outline_btn_shadow_color": "#000000",
+            "box_bg_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "image_slide_fLPcye"
+      ],
+      "disabled": true,
+      "name": "SH: Hero slideshow",
+      "settings": {
+        "slide_height": "adapt",
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "show_arrows": false,
+        "show_pagination": true,
+        "pagination_type": "dots",
+        "show_text_below_mob": false,
+        "dots_color": "#ffffff",
+        "arrow_color": "#000000",
+        "arrow_bg_color": "#ffffff",
+        "arrow_border_color": "#000000",
+        "arrow_size": 16,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "mob_padding_top": 0,
+        "mob_padding_bottom": 0,
+        "section_max_width": "1500"
+      }
+    },
+    "luxury_womens_editorial_LkwPhJ": {
+      "type": "luxury-womens-editorial",
+      "name": "Women's Fashion Edit",
+      "settings": {
+        "topline": "VEYZARA GLOBAL / MODERN FEMININITY",
+        "edition": "THE WARDROBE EDIT / 2026",
+        "meta_text": "THE VEYZARA SIGNATURE EDIT",
+        "footer_note": "Considered pieces. Unforgettable presence.",
+        "section_number": "1",
+        "collection": "earrings",
+        "eyebrow": "THE CURATED WARDROBE",
+        "heading": "The VEYZARA Signature Edit",
+        "heading_size": 30,
+        "mobile_heading_size": 22,
+        "description": "<p>Graceful silhouettes and thoughtful details for everyday elegance and memorable occasions.</p>",
+        "product_limit": 4,
+        "show_view_all": true,
+        "view_all_text": "Explore collection",
+        "enable_gp_wishlist": true,
+        "image_hover": true,
+        "show_quick_view": true,
+        "show_vendor": false,
+        "show_sale": true,
+        "show_new": false,
+        "show_sold_out": true,
+        "show_compare": true,
+        "show_swatches": false,
+        "max_swatches": 5,
+        "image_ratio": "1/1",
+        "mobile_image_ratio": "1/1",
+        "image_fit": "cover",
+        "desktop_slider": false,
+        "page_width": 1500,
+        "gap": 20,
+        "radius": 12,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "mobile_padding_top": 20,
+        "mobile_padding_bottom": 20,
+        "bg": "#ffffff",
+        "tile": "#f2ece7",
+        "ink": "#000000",
+        "muted": "#746c6a",
+        "accent": "#591c27"
+      }
+    },
+    "sh_hero_slideshow_LBGA6d": {
+      "type": "sh-hero-slideshow",
+      "blocks": {
+        "image_slide_zj4RC8": {
+          "type": "image_slide",
+          "settings": {
+            "heading": "",
+            "subheading": "",
+            "button_label": "",
+            "button_link": "shopify://products/material-fox-georgette-linning-western",
+            "btn_outline": false,
+            "outline_btn_text_color": "#000000",
+            "border_radius": 0,
+            "desktop_content_position": "middle-center",
+            "desktop_content_alignment": "center",
+            "show_text_box": false,
+            "mobile_content_position": "middle",
+            "mobile_content_alignment": "center",
+            "heading_font_size": 5,
+            "content_font_size": 18,
+            "mobile_heading_font_size": 28,
+            "mobile_content_font_size": 14,
+            "opacity": 0,
+            "overlay_color": "#000000",
+            "heading_color": "#000000",
+            "content_color": "#000000",
+            "btn_bg_color": "#000000",
+            "btn_text_color": "#ffffff",
+            "btn_border_color": "#000000",
+            "btn_hover_bg_color": "#ffffff",
+            "btn_hover_text_color": "#000000",
+            "btn_hover_border_color": "#000000",
+            "outline_btn_shadow_color": "#000000",
+            "box_bg_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "image_slide_zj4RC8"
+      ],
+      "disabled": true,
+      "name": "SH: Hero slideshow",
+      "settings": {
+        "slide_height": "adapt",
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "show_arrows": false,
+        "show_pagination": true,
+        "pagination_type": "dots",
+        "show_text_below_mob": false,
+        "dots_color": "#ffffff",
+        "arrow_color": "#000000",
+        "arrow_bg_color": "#ffffff",
+        "arrow_border_color": "#000000",
+        "arrow_size": 16,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "mob_padding_top": 0,
+        "mob_padding_bottom": 0,
+        "section_max_width": "1500"
+      }
+    },
+    "riyan_premium_fashion_compare_hnhUh7": {
+      "type": "riyan-premium-fashion-compare",
+      "blocks": {
+        "compare_look_V9dTmk": {
+          "type": "compare_look",
+          "settings": {
+            "product": "crystal-double-line-tennis-bracelet",
+            "tagline": "LOOK 01",
+            "title": "",
+            "image_label": "Graceful Everyday",
+            "link": ""
+          }
+        },
+        "compare_look_jpUffa": {
+          "type": "compare_look",
+          "settings": {
+            "product": "✨-golden-heart-charm-bracelet-💛",
+            "tagline": "LOOK 02",
+            "title": "",
+            "image_label": "Celebration Ready",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "compare_look_V9dTmk",
+        "compare_look_jpUffa"
+      ],
+      "disabled": true,
+      "name": "Riyan Fashion Compare",
+      "settings": {
+        "eyebrow": "THE VEYZARA STYLE EDIT",
+        "heading": "Two Moods. One Signature Elegance.",
+        "heading_size": 56,
+        "mobile_heading_size": 40,
+        "description": "Compare expressive VEYZARA looks and find the silhouette that feels most like you.",
+        "show_price": true,
+        "button_label": "Explore the collection",
+        "button_link": "",
+        "show_hint": true,
+        "section_width": 1500,
+        "desktop_image_height": 550,
+        "tablet_image_height": 470,
+        "mobile_image_height": 390,
+        "image_fit": "cover",
+        "corner_radius": 16,
+        "mobile_corner_radius": 12,
+        "background": "#fffcfa",
+        "text_color": "#292027",
+        "muted_color": "#88777b",
+        "accent_color": "#591c27",
+        "border_color": "#e9dfdf",
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "mobile_padding_top": 28,
+        "mobile_padding_bottom": 28
+      }
+    },
+    "luxury_womens_editorial_AVVpqb": {
+      "type": "luxury-womens-editorial",
+      "name": "Women's Fashion Edit",
+      "settings": {
+        "topline": "VEYZARA GLOBAL / MODERN FEMININITY",
+        "edition": "THE WARDROBE EDIT / 2026",
+        "meta_text": "THE VEYZARA NEW ADDITION",
+        "footer_note": "Considered pieces. Unforgettable presence.",
+        "section_number": "1",
+        "collection": "shop",
+        "eyebrow": "THE CURATED WARDROBE",
+        "heading": "The VEYZARA new addition",
+        "heading_size": 30,
+        "mobile_heading_size": 22,
+        "description": "<p>Graceful silhouettes and thoughtful details for everyday elegance and memorable occasions.</p>",
+        "product_limit": 4,
+        "show_view_all": true,
+        "view_all_text": "Explore collection",
+        "enable_gp_wishlist": true,
+        "image_hover": true,
+        "show_quick_view": true,
+        "show_vendor": false,
+        "show_sale": true,
+        "show_new": false,
+        "show_sold_out": true,
+        "show_compare": true,
+        "show_swatches": false,
+        "max_swatches": 5,
+        "image_ratio": "1/1",
+        "mobile_image_ratio": "1/1",
+        "image_fit": "cover",
+        "desktop_slider": false,
+        "page_width": 1500,
+        "gap": 20,
+        "radius": 12,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "mobile_padding_top": 20,
+        "mobile_padding_bottom": 20,
+        "bg": "#ffffff",
+        "tile": "#f2ece7",
+        "ink": "#000000",
+        "muted": "#746c6a",
+        "accent": "#591c27"
+      }
+    },
+    "premium_quality_story_DYXdnV": {
+      "type": "premium-quality-story",
+      "name": "Premium quality story",
+      "settings": {
+        "width_mode": "contained",
+        "desktop_max_width": 1500,
+        "desktop_width_percent": 100,
+        "desktop_side_space": 20,
+        "mobile_width_percent": 100,
+        "mobile_side_space": 12,
+        "mobile_horizontal_padding": 24,
+        "eyebrow": "THE VEYZARA STANDARD",
+        "heading": "Designed with Intention",
+        "description": "<p>Every piece begins with a commitment to quality. From thoughtfully selected fabrics to carefully considered silhouettes, our collections are created to feel as beautiful as they look.</p><p>Refined details, effortless fits and timeless design come together to create clothing made for modern women—and made to be worn beyond one season.</p>",
+        "show_features": true,
+        "feature_1": "Premium Fabrics",
+        "feature_2": "Thoughtful Details",
+        "feature_3": "Timeless Design",
+        "button_label": "Explore Collection",
+        "button_link": "shopify://collections",
+        "outer_background": "#ffffff",
+        "background_color": "#591c27",
+        "text_color": "#f7eee6",
+        "muted_color": "#eedfd4",
+        "accent_color": "#e6c3a7",
+        "border_color": "#9b5a39",
+        "heading_size": 40,
+        "description_size": 16,
+        "inner_padding_vertical": 40,
+        "inner_padding_horizontal": 50,
+        "corner_radius": 20,
+        "section_top_spacing": 20,
+        "section_bottom_spacing": 20,
+        "mobile_heading_size": 44,
+        "mobile_description_size": 14,
+        "mobile_inner_padding": 35,
+        "mobile_corner_radius": 16,
+        "mobile_section_top": 20,
+        "mobile_section_bottom": 20
+      }
+    },
+    "riyan_editorial_product_slider_k7W63N": {
+      "type": "riyan-editorial-product-slider",
+      "name": "Riyan Editorial Products",
+      "settings": {
+        "product_source": "collection",
+        "collection": "necklace",
+        "products_count": 4,
+        "eyebrow": "NEW FROM VEYZARA GLOBAL",
+        "heading": "The Latest Edit",
+        "heading_size": 30,
+        "mobile_heading_size": 22,
+        "subheading": "",
+        "show_view_all": true,
+        "view_all_text": "View all",
+        "image_ratio": "4 / 5",
+        "image_fit": "cover",
+        "second_image": true,
+        "show_badges": true,
+        "show_hover_cta": true,
+        "show_vendor": false,
+        "show_price": true,
+        "title_size": 16,
+        "title_weight": "500",
+        "title_lines": "1",
+        "mobile_title_size": 13,
+        "info_padding": 14,
+        "image_radius": 16,
+        "background": "#ffffff",
+        "title_background": "#ffffff",
+        "card_background": "#f7f3f0",
+        "text_color": "#29232a",
+        "muted_color": "#756c70",
+        "accent": "#591c27",
+        "border_color": "#e9e2e0",
+        "page_width": 1500,
+        "desktop_side_padding": 16,
+        "mobile_side_padding": 12,
+        "desktop_gap": 20,
+        "mobile_gap": 12,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "mobile_padding_top": 20,
+        "mobile_padding_bottom": 20
+      }
+    },
+    "1792650407800400b2": {
+      "type": "apps",
+      "disabled": true,
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "premium_image_content_heVkt8": {
+      "type": "premium-image-content",
+      "name": "Luxury Image Story",
+      "settings": {
+        "eyebrow": "MADE BY VEYZARA FOR MODERN WOMEN",
+        "heading": "Effortless by Design",
+        "subheading": "Style that feels as beautiful as it looks.",
+        "description": "<p>Thoughtfully designed silhouettes, beautiful fabrics and effortless comfort come together in pieces made for every moment of your day.</p>",
+        "show_points": true,
+        "point_1": "Premium Fabrics",
+        "point_2": "Flattering Fits",
+        "point_3": "Timeless Style",
+        "button_label": "Discover Our Product",
+        "button_link": "shopify://collections/all",
+        "image": "shopify://shop_images/WhatsAppImage2026-10-24at6.40.31PM.jpg",
+        "image_position": "left",
+        "image_label": "THE NEW EDIT",
+        "caption": "Designed with intention",
+        "show_number": false,
+        "editorial_number": "01 / 03",
+        "image_fit": "cover",
+        "image_focus": "center center",
+        "accent": "#591c27",
+        "section_bg": "#ffffff",
+        "card_bg": "#fffcfa",
+        "heading_color": "#231b1d",
+        "body_color": "#6d6264",
+        "border_color": "#e8dedc",
+        "heading_size": 34,
+        "heading_weight": "600",
+        "subheading_size": 14,
+        "description_size": 16,
+        "max_width": 1500,
+        "column_gap": 50,
+        "card_padding": 35,
+        "image_height": 460,
+        "card_radius": 20,
+        "image_radius": 16,
+        "button_radius": 20,
+        "padding_top": 10,
+        "padding_bottom": 10,
+        "mobile_heading_size": 36,
+        "mobile_subheading_size": 16,
+        "mobile_description_size": 14,
+        "mobile_image_height": 280,
+        "mobile_card_padding": 20,
+        "mobile_card_radius": 16,
+        "mobile_image_radius": 14,
+        "mobile_padding_top": 10,
+        "mobile_padding_bottom": 10
+      }
+    },
+    "riyan_editorial_product_slider_pFGE4e": {
+      "type": "riyan-editorial-product-slider",
+      "name": "Riyan Editorial Products",
+      "settings": {
+        "product_source": "collection",
+        "collection": "rings",
+        "products_count": 4,
+        "eyebrow": "NEW FROM VEYZARA GLOBAL",
+        "heading": "The Latest Edit",
+        "heading_size": 30,
+        "mobile_heading_size": 22,
+        "subheading": "",
+        "show_view_all": true,
+        "view_all_text": "View all",
+        "image_ratio": "4 / 5",
+        "image_fit": "cover",
+        "second_image": true,
+        "show_badges": true,
+        "show_hover_cta": true,
+        "show_vendor": false,
+        "show_price": true,
+        "title_size": 16,
+        "title_weight": "500",
+        "title_lines": "1",
+        "mobile_title_size": 13,
+        "info_padding": 14,
+        "image_radius": 16,
+        "background": "#ffffff",
+        "title_background": "#ffffff",
+        "card_background": "#f7f3f0",
+        "text_color": "#29232a",
+        "muted_color": "#756c70",
+        "accent": "#591c27",
+        "border_color": "#e9e2e0",
+        "page_width": 1500,
+        "desktop_side_padding": 16,
+        "mobile_side_padding": 12,
+        "desktop_gap": 20,
+        "mobile_gap": 12,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "mobile_padding_top": 20,
+        "mobile_padding_bottom": 20
+      }
+    },
+    "riyan_premium_style_journey_tgAnUC": {
+      "type": "riyan-premium-style-journey",
+      "blocks": {
+        "look_TVBtMh": {
+          "type": "look",
+          "settings": {
+            "tab_title": "Georgette Kurta Set",
+            "tab_subtitle": "Beautifully understated",
+            "image_position": "center center",
+            "mobile_image_position": "center center",
+            "image_label": "THE SIGNATURE EDIT",
+            "eyebrow": "CURATED FOR YOU",
+            "heading": "Elegance in Every Detail",
+            "description": "Thoughtful silhouettes and refined details for the way you love to dress.",
+            "link_text": "EXPLORE THE EDIT",
+            "link": ""
+          }
+        },
+        "look_AG8nEB": {
+          "type": "look",
+          "settings": {
+            "tab_title": "Georgette Lined Gown",
+            "tab_subtitle": "Beautifully understated",
+            "image_position": "center center",
+            "mobile_image_position": "center center",
+            "image_label": "THE SIGNATURE EDIT",
+            "eyebrow": "CURATED FOR YOU",
+            "heading": "Elegance in Every Detail",
+            "description": "Thoughtful silhouettes and refined details for the way you love to dress.",
+            "link_text": "EXPLORE THE EDIT",
+            "link": ""
+          }
+        },
+        "look_eVg7PJ": {
+          "type": "look",
+          "settings": {
+            "tab_title": "Rayon Slub Embroid Dress",
+            "tab_subtitle": "Beautifully understated",
+            "image_position": "center center",
+            "mobile_image_position": "center center",
+            "image_label": "THE SIGNATURE EDIT",
+            "eyebrow": "CURATED FOR YOU",
+            "heading": "Elegance in Every Detail",
+            "description": "Thoughtful silhouettes and refined details for the way you love to dress.",
+            "link_text": "EXPLORE THE EDIT",
+            "link": ""
+          }
+        },
+        "look_LA8hGb": {
+          "type": "look",
+          "settings": {
+            "tab_title": "Georgette Belted Maxi Dress",
+            "tab_subtitle": "Beautifully understated",
+            "image_position": "center center",
+            "mobile_image_position": "center center",
+            "image_label": "THE SIGNATURE EDIT",
+            "eyebrow": "CURATED FOR YOU",
+            "heading": "Elegance in Every Detail",
+            "description": "Thoughtful silhouettes and refined details for the way you love to dress.",
+            "link_text": "EXPLORE THE EDIT",
+            "link": ""
+          }
+        },
+        "look_p8ntgr": {
+          "type": "look",
+          "settings": {
+            "tab_title": "Red Embroidered Lehenga Set",
+            "tab_subtitle": "Beautifully understated",
+            "image_position": "center center",
+            "mobile_image_position": "center center",
+            "image_label": "THE SIGNATURE EDIT",
+            "eyebrow": "CURATED FOR YOU",
+            "heading": "Elegance in Every Detail",
+            "description": "Thoughtful silhouettes and refined details for the way you love to dress.",
+            "link_text": "EXPLORE THE EDIT",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "look_TVBtMh",
+        "look_AG8nEB",
+        "look_eVg7PJ",
+        "look_LA8hGb",
+        "look_p8ntgr"
+      ],
+      "disabled": true,
+      "name": "Riyan Style Journey",
+      "settings": {
+        "kicker": "THE VEYZARA EDIT",
+        "heading": "The Art of",
+        "heading_size": 52,
+        "mobile_heading_size": 39,
+        "intro": "Modern femininity, timeless detail. Explore the styles that make every moment feel extraordinary.",
+        "menu_label": "EXPLORE THE COLLECTION",
+        "menu_note": "Discover your next favourite look.",
+        "image_height": "adapt",
+        "desktop_height": 400,
+        "image_fit": "contain",
+        "mobile_image_height": "adapt",
+        "mobile_height": 400,
+        "mobile_image_fit": "contain",
+        "image_background": "#f0e9e5",
+        "mobile_image_background": "#f0e9e5",
+        "radius": 4,
+        "bg": "#ffffff",
+        "surface": "#ffffff",
+        "ink": "#2c2225",
+        "muted": "#766b6e",
+        "accent": "#7a263a",
+        "line": "#ded5d5",
+        "max_width": 1500,
+        "top_space": 20,
+        "bottom_space": 20,
+        "mobile_top": 20,
+        "mobile_bottom": 20
+      }
+    },
+    "179326739826b92718": {
+      "type": "apps",
+      "disabled": true,
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "luxury_faq_TLpGWX": {
+      "type": "luxury-faq",
+      "blocks": {
+        "faq_dYjEf4": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I care for my jewellery?",
+            "answer": "<p>To keep your VEYZARA jewellery looking beautiful, avoid direct contact with water, perfumes, and harsh chemicals. Gently wipe each piece with a soft, dry cloth and store it separately in a cool, dry place.</p>"
+          }
+        },
+        "faq_JqtqHf": {
+          "type": "faq",
+          "settings": {
+            "question": "Is VEYZARA jewellery suitable for everyday wear?",
+            "answer": "<p>Absolutely! Our collection features elegant, lightweight, and versatile designs that complement your everyday outfits as well as special occasions. Handle your jewellery with care to maintain its shine.</p>"
+          }
+        },
+        "faq_frL39U": {
+          "type": "faq",
+          "settings": {
+            "question": "When will my order arrive?",
+            "answer": "<p>Delivery times may vary depending on your location. Once your order is shipped, you'll receive tracking information so you can follow your package until it reaches your doorstep.</p>"
+          }
+        },
+        "faq_fwgkRD": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I return or exchange my jewellery?",
+            "answer": "<p>Returns and exchanges are subject to our store policies. If you receive a damaged or incorrect product, please contact our support team with your order details and relevant photographs for assistance.</p>"
+          }
+        },
+        "faq_xP4bWa": {
+          "type": "faq",
+          "settings": {
+            "question": "How can I contact VEYZARA for assistance?",
+            "answer": "<p>We're here to make your shopping experience effortless. For questions about products, orders, shipping, or returns, simply reach out through our Contact Us page. Our team will be happy to assist you.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_dYjEf4",
+        "faq_JqtqHf",
+        "faq_frL39U",
+        "faq_fwgkRD",
+        "faq_xP4bWa"
+      ],
+      "name": "Riyan Luxury FAQ",
+      "settings": {
+        "compact_rows": true,
+        "editorial_label": "VEYZARA GLOBAL / THE STUDIO",
+        "show_giant_letter": true,
+        "giant_letter": "V",
+        "eyebrow": "THE DETAILS",
+        "heading": "Every sparkle, explained.",
+        "description": "<p>Everything you need to know about our jewellery, care, delivery, and your order.</p>",
+        "show_signature": true,
+        "signature_text": "Thoughtfully chosen. Beautifully delivered.",
+        "list_label": "Frequently asked",
+        "show_count": true,
+        "count_label": "questions",
+        "show_top_line": true,
+        "show_help_box": false,
+        "help_title": "Need personal assistance?",
+        "help_text": "Our team is here to help with sizing, orders and product questions.",
+        "help_link_label": "Contact our team",
+        "help_link": "shopify://pages/contact",
+        "open_first": false,
+        "single_open": true,
+        "show_numbers": true,
+        "show_bottom_note": true,
+        "bottom_note": "Still unsure? Our team will be happy to guide you.",
+        "accent_color": "#591c27",
+        "background_color": "#ffffff",
+        "card_color": "#fffdfc",
+        "text_color": "#251a1d",
+        "muted_color": "#75686b",
+        "border_color": "#e7dddb",
+        "heading_size": 36,
+        "description_size": 14,
+        "question_size": 16,
+        "answer_size": 14,
+        "max_width": 1500,
+        "column_gap": 50,
+        "intro_padding": 40,
+        "intro_min_height": 380,
+        "sticky_offset": 110,
+        "question_height": 70,
+        "question_horizontal_padding": 24,
+        "card_radius": 18,
+        "padding_top": 30,
+        "padding_bottom": 30,
+        "mobile_heading_size": 28,
+        "mobile_description_size": 13,
+        "mobile_question_size": 15,
+        "mobile_answer_size": 13,
+        "mobile_intro_padding": 25,
+        "mobile_card_radius": 16,
+        "mobile_padding_top": 20,
+        "mobile_padding_bottom": 20,
+        "dark_intro": true,
+        "show_divider": true,
+        "show_faq_index": true
+      }
+    },
+    "17926512211434b564": {
+      "type": "apps",
+      "blocks": {
+        "instafeed_app_block_KY9Bzx": {
+          "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
+          "settings": {
+            "title": "@veyzaraglobal",
+            "title_color": "",
+            "title_size_v2": 25,
+            "alignment": "center",
+            "instafeed_margin_top": 0,
+            "instafeed_margin_bottom": 0,
+            "instafeed_margin_sides": 0,
+            "show_instagram_link": false,
+            "link_alignment": "left",
+            "link_color": "#000000",
+            "background_color": "",
+            "feed_id": "",
+            "html_area": ""
+          }
+        }
+      },
+      "block_order": [
+        "instafeed_app_block_KY9Bzx"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "riyan_animated_usp_final_dX3jWj": {
+      "type": "riyan-animated-usp-final",
+      "blocks": {
+        "usp_wkYh3D": {
+          "type": "usp",
+          "settings": {
+            "icon": "flower",
+            "title": "Occasion-Ready Styles",
+            "description": "Elegant looks for your special moments."
+          }
+        },
+        "usp_AgFWqG": {
+          "type": "usp",
+          "settings": {
+            "icon": "dress",
+            "title": "Beautiful Details",
+            "description": "Embroidery and graceful silhouettes."
+          }
+        },
+        "usp_4iwKjk": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Prepaid Shipping",
+            "description": "Free on eligible prepaid orders."
+          }
+        },
+        "usp_k9QWry": {
+          "type": "usp",
+          "settings": {
+            "icon": "payment",
+            "title": "Easy Payments",
+            "description": "COD and online payment options."
+          }
+        }
+      },
+      "block_order": [
+        "usp_wkYh3D",
+        "usp_AgFWqG",
+        "usp_4iwKjk",
+        "usp_k9QWry"
+      ],
+      "name": "Riyan Animated USP",
+      "settings": {
+        "eyebrow": "THE VEYZARA PROMISE",
+        "heading": "<p>The VEYZARA Experience</p>",
+        "description": "Thoughtful details, beautiful styles, and shopping made easy.",
+        "max_width": 1600,
+        "desktop_columns": "4",
+        "desktop_side_padding": 52,
+        "heading_size": 30,
+        "mobile_heading_size": 24,
+        "heading_weight": "500",
+        "card_heading_size": 18,
+        "card_text_size": 14,
+        "background_color": "#faf7f3",
+        "text_color": "#2e0300",
+        "muted_text_color": "#746469",
+        "accent_color": "#a67c67",
+        "border_color": "#591c27",
+        "card_background": "#fffefc",
+        "padding_top": 30,
+        "padding_bottom": 30,
+        "mobile_padding_top": 25,
+        "mobile_padding_bottom": 25,
+        "enable_card_hover": true,
+        "show_numbers": true,
+        "glow_opacity": 6,
+        "animate_icons": true,
+        "third_full_mobile": true,
+        "card_radius": 10,
+        "card_gap": 14,
+        "mobile_card_padding": 14
+      }
+    }
+  },
+  "order": [
+    "sh_hero_slideshow_jermDJ",
+    "premium_fashion_marquee_mwC6Pk",
+    "riyan_premium_categories_WkXpQa",
+    "sh_hero_slideshow_r4NUqF",
+    "luxury_womens_editorial_LkwPhJ",
+    "sh_hero_slideshow_LBGA6d",
+    "riyan_premium_fashion_compare_hnhUh7",
+    "luxury_womens_editorial_AVVpqb",
+    "premium_quality_story_DYXdnV",
+    "riyan_editorial_product_slider_k7W63N",
+    "1792650407800400b2",
+    "premium_image_content_heVkt8",
+    "riyan_editorial_product_slider_pFGE4e",
+    "riyan_premium_style_journey_tgAnUC",
+    "179326739826b92718",
+    "luxury_faq_TLpGWX",
+    "17926512211434b564",
+    "riyan_animated_usp_final_dX3jWj"
+  ]
+}

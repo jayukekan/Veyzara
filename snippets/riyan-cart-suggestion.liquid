@@ -1,0 +1,169 @@
+
+{% comment %}
+  =====================================================
+  RIYAN CREATION — PREMIUM CART PRODUCT SUGGESTION
+  Compatible with Shopify Dawn 16.x
+
+  File:
+  snippets/riyan-cart-suggestion.liquid
+
+  Usage:
+  {% render 'riyan-cart-suggestion',
+    product: suggested_product
+  %}
+
+  Features:
+  - Premium recommendation card
+  - Responsive product images
+  - Product discount badges
+  - Compare-at price
+  - Shopify currency formatting
+  - AJAX Add to Bag for single-variant products
+  - Select Size for multi-variant products
+  - Sold-out handling
+  - Accessible labels
+  =====================================================
+{% endcomment %}
+
+{%- liquid
+  assign riyan_product = product
+  assign riyan_variant = nil
+  assign riyan_discount_percent = 0
+  assign riyan_has_discount = false
+
+  if riyan_product != blank
+    assign riyan_variant = riyan_product.selected_or_first_available_variant
+
+    if riyan_variant != blank
+      assign riyan_price = riyan_variant.price
+      assign riyan_compare_price = riyan_variant.compare_at_price
+
+      if riyan_compare_price > riyan_price
+        assign riyan_has_discount = true
+        assign riyan_discount_difference = riyan_compare_price | minus: riyan_price
+        assign riyan_discount_percent = riyan_discount_difference | times: 100.0 | divided_by: riyan_compare_price | round
+      endif
+    endif
+  endif
+-%}
+
+{%- if riyan_product != blank and riyan_variant != blank -%}
+
+  <article
+    class="riyan-recommendation-card"
+    data-riyan-product-id="{{ riyan_product.id }}"
+  >
+
+    <!-- PRODUCT IMAGE -->
+
+    <a
+      href="{{ riyan_product.url }}"
+      class="riyan-recommendation-image"
+      aria-label="View {{ riyan_product.title | escape }}"
+    >
+
+      {%- if riyan_product.featured_image != blank -%}
+
+        {{
+          riyan_product.featured_image
+          | image_url: width: 400
+          | image_tag:
+            loading: 'lazy',
+            widths: '160, 220, 320, 400',
+            sizes: '(max-width: 749px) 130px, 150px',
+            alt: riyan_product.title
+        }}
+
+      {%- else -%}
+
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg riyan-recommendation-placeholder' }}
+
+      {%- endif -%}
+
+      {%- if riyan_has_discount -%}
+
+        <span class="riyan-recommendation-badge">
+          {{ riyan_discount_percent }}% OFF
+        </span>
+
+      {%- endif -%}
+
+    </a>
+
+    <!-- PRODUCT INFORMATION -->
+
+    <div class="riyan-recommendation-details">
+
+      <a
+        href="{{ riyan_product.url }}"
+        class="riyan-recommendation-name"
+      >
+        {{ riyan_product.title | escape }}
+      </a>
+
+      <!-- PRICE -->
+
+      <div class="riyan-recommendation-price">
+
+        <strong class="riyan-recommendation-current-price">
+          {{ riyan_price | money }}
+        </strong>
+
+        {%- if riyan_has_discount -%}
+
+          <s class="riyan-recommendation-compare-price">
+            {{ riyan_compare_price | money }}
+          </s>
+
+        {%- endif -%}
+
+      </div>
+
+      <!-- ACTION -->
+
+      {%- if riyan_product.available and riyan_variant.available -%}
+
+        {%- if riyan_product.has_only_default_variant -%}
+
+          <button
+            type="button"
+            class="riyan-recommendation-add"
+            data-riyan-add
+            data-variant-id="{{ riyan_variant.id }}"
+            data-quantity="1"
+            aria-label="Add {{ riyan_product.title | escape }} to bag"
+          >
+            <span aria-hidden="true">+</span>
+            <span>ADD TO BAG</span>
+          </button>
+
+        {%- else -%}
+
+          <a
+            href="{{ riyan_product.url }}"
+            class="riyan-recommendation-select"
+            aria-label="Select options for {{ riyan_product.title | escape }}"
+          >
+            SELECT SIZE
+            <span aria-hidden="true">→</span>
+          </a>
+
+        {%- endif -%}
+
+      {%- else -%}
+
+        <button
+          type="button"
+          class="riyan-recommendation-add riyan-recommendation-soldout"
+          disabled
+        >
+          SOLD OUT
+        </button>
+
+      {%- endif -%}
+
+    </div>
+
+  </article>
+
+{%- endif -%}

@@ -1,0 +1,213 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "riyan_premium_banner_xkdiXd": {
+      "type": "riyan-premium-banner",
+      "disabled": true,
+      "name": "Riyan Premium Banner",
+      "settings": {
+        "layout": "framed",
+        "full_width": true,
+        "max_width": 1600,
+        "side_gutter": 24,
+        "frame_padding": 14,
+        "inner_radius": 2,
+        "radius": 0,
+        "desktop_mode": "adapt",
+        "desktop_height": 500,
+        "desktop_fit": "contain",
+        "desktop_position": "center center",
+        "hover_zoom": false,
+        "mobile_full_width": true,
+        "mobile_gutter": 12,
+        "mobile_frame_padding": 6,
+        "mobile_radius": 0,
+        "mobile_mode": "adapt",
+        "mobile_height": 520,
+        "mobile_fit": "contain",
+        "mobile_position": "center center",
+        "show_breadcrumbs": false,
+        "show_info": true,
+        "show_kicker": true,
+        "kicker": "THE VEYZARA EDIT",
+        "editorial_font": true,
+        "heading_size": 46,
+        "mobile_heading_size": 31,
+        "show_description": false,
+        "description_size": 13,
+        "show_count": true,
+        "show_explore": true,
+        "explore_text": "Shop the edit",
+        "show_divider": true,
+        "info_top": 32,
+        "info_bottom": 24,
+        "mobile_info_top": 22,
+        "mobile_info_bottom": 18,
+        "show_overlay": false,
+        "overlay_eyebrow": "VEYZARA GLOBAL",
+        "overlay_copy": "A considered edit of effortless elegance.",
+        "overlay_opacity": 40,
+        "overlay_heading_size": 60,
+        "mobile_overlay_heading_size": 33,
+        "overlay_text_color": "#ffffff",
+        "show_overlay_button": false,
+        "button_text": "Explore collection",
+        "show_corner_label": false,
+        "corner_label": "VEYZARA STUDIO",
+        "background": "#ffffff",
+        "frame_color": "#f7f1ec",
+        "image_background": "#f7f3ef",
+        "text_color": "#29231f",
+        "muted_color": "#77706e",
+        "accent_color": "#8e675b",
+        "border_color": "#e9e0dc",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "mobile_padding_top": 0,
+        "mobile_padding_bottom": 0
+      }
+    },
+    "riyan_couture_circle_categories_LXd9CF": {
+      "type": "riyan-couture-circle-categories",
+      "blocks": {
+        "category_MMDBbp": {
+          "type": "category",
+          "settings": {
+            "collection": "bracelets",
+            "image": "shopify://shop_images/WhatsApp_Image_2026-10-16_at_2.20.40_AM.jpg",
+            "label": "",
+            "note": "Discover",
+            "link": ""
+          }
+        },
+        "category_JgFazc": {
+          "type": "category",
+          "settings": {
+            "collection": "earrings",
+            "label": "",
+            "note": "Discover",
+            "link": ""
+          }
+        },
+        "category_RXxF63": {
+          "type": "category",
+          "settings": {
+            "collection": "necklace",
+            "label": "",
+            "note": "Discover",
+            "link": ""
+          }
+        },
+        "category_KJ3k8E": {
+          "type": "category",
+          "settings": {
+            "collection": "rings",
+            "label": "",
+            "note": "Discover",
+            "link": ""
+          }
+        },
+        "category_Uge437": {
+          "type": "category",
+          "settings": {
+            "collection": "shop",
+            "image": "shopify://shop_images/WhatsAppImage2026-10-25at6.39.08PM_1.jpg",
+            "label": "",
+            "note": "Discover",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_MMDBbp",
+        "category_JgFazc",
+        "category_RXxF63",
+        "category_KJ3k8E",
+        "category_Uge437"
+      ],
+      "disabled": true,
+      "name": "Riyan Circle Categories",
+      "settings": {
+        "eyebrow": "CURATED FOR YOU",
+        "title": "Explore by Style",
+        "description": "",
+        "serif": true,
+        "title_size": 38,
+        "mobile_title_size": 28,
+        "desktop_visible": 5,
+        "circle_size": 200,
+        "mobile_visible": "3",
+        "mobile_circle_size": 110,
+        "gap": 24,
+        "mobile_gap": 16,
+        "ring_width": 1,
+        "ring_gap": 2,
+        "fit": "cover",
+        "label_serif": true,
+        "label_size": 16,
+        "mobile_label_size": 13,
+        "show_note": false,
+        "arrows": false,
+        "show_progress": true,
+        "mobile_arrows": false,
+        "center_when_few": false,
+        "bg": "#ffffff",
+        "ink": "#321f25",
+        "muted": "#81777a",
+        "accent": "#895b60",
+        "ring": "#e9dedd",
+        "frame_bg": "#ffffff",
+        "image_bg": "#f5f0ee",
+        "max_width": 1500,
+        "padding_top": 8,
+        "padding_bottom": 8,
+        "mobile_padding_top": 8,
+        "mobile_padding_bottom": 8
+      }
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": false,
+        "color_scheme": ""
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "custom_css": [],
+      "settings": {
+        "products_per_page": 12,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "padding_top": 12,
+        "padding_bottom": 12
+      }
+    }
+  },
+  "order": [
+    "riyan_premium_banner_xkdiXd",
+    "riyan_couture_circle_categories_LXd9CF",
+    "banner",
+    "product-grid"
+  ]
+}

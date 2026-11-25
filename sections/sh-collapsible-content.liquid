@@ -1,0 +1,552 @@
+{%- capture sh_collapsible_content_css -%}
+  <style>
+    #sh-{{ section.id }}.sh-collapsible-content-section { padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;background: {{ section.settings.bg_color }}; }
+    #sh-{{ section.id }} .sh-page-width {max-width: {{section.settings.section_max_width}}px;width: 100%;padding: 0 20px;margin: 0 auto;}
+    #sh-{{ section.id }} .sh-page-width.sh-full-page-width {max-width: 100%;}
+    #sh-{{ section.id }} .sh-collapsible-content-section-heading { font-size: {{ section.settings.title_size }}px;font-weight: 500;margin: 0 0 20px;color: {{section.settings.title_color}};}
+    #sh-{{ section.id }} .sh-collapsible-content-title {margin-bottom: 30px;}
+    #sh-{{ section.id }} .sh-collapsible-content-section-desc p{margin:0;font-size: {{ section.settings.content_size }}px;line-height: 1.4;color: {{section.settings.content_color}};}
+    #sh-{{ section.id }} .sh-collapsible-content-section-wrap {margin-bottom:30px;}
+      #sh-{{ section.id }} .sh-collapsible-content-section-wrap .sh-collapsible-content-section-rows {border-bottom: 1px solid {{section.settings.border_color}}; background: {{section.settings.coll_inactive_bg_color}};margin-bottom: {{section.settings.coll_row_spacing}}px;border-radius: {{section.settings.coll_border_radius}}px;
+      {% if section.settings.enable_padding %}
+        padding-inline: 18px;
+      {% endif %}
+    }
+    #sh-{{ section.id }} .sh-collapsible-content-section-wrap .sh-collapsible-content-section-rows:last-child {margin-bottom: 0px;}
+    #sh-{{ section.id }} .sh-collapsible-content-section-wrap .sh-collapsible-content-section-rows.sp-active {background: {{section.settings.coll_active_bg_color}};}
+    #sh-{{ section.id }} .sh-collapsible-content-section-wrap button {font-family: inherit;position: relative;display: flex;gap: 14px;text-align: left;width: 100%;padding: 18px 0;font-size: {{ section.settings.row_question_size }}px;font-weight: 400;border: none;background: none;outline: none;cursor: pointer;letter-spacing: inherit;}
+    #sh-{{ section.id }} .sh-collapsible-content-section-wrap button .sh-collapsible-content-section-que {padding: 0 3em 0 0;display: block;line-height: 1.4;color: {{section.settings.question_color}};font-weight: 500;}
+    #sh-{{ section.id }} .sh-collapsible-content-section-wrap button .sh-collapsible-content-icon {display: inline-block;position: absolute;top: 18px;right: 0;width: 22px;height: 22px;border: 1px solid;border-radius: 22px;color: {{section.settings.question_color}};}
+    #sh-{{ section.id }} .sh-collapsible-content-section-wrap button .sh-collapsible-content-icon::before {display: block;position: absolute;content: '';top: 9px;left: 5px;width: 10px;height: 2px;background: currentColor;color: {{section.settings.question_color}};}
+    #sh-{{ section.id }} .sh-collapsible-content-section-wrap button .sh-collapsible-content-icon::after {display: block;position: absolute;content: '';top: 5px;left: 9px;width: 2px;height: 10px;background: currentColor;color: {{section.settings.question_color}};}
+    #sh-{{ section.id }} .sh-collapsible-content-section-wrap button[aria-expanded='true'] .sh-collapsible-content-icon::after {width: 0;}
+    #sh-{{ section.id }} .sh-collapsible-content-section-wrap button[aria-expanded='true'] + .sh-collapsible-content-section-ans {grid-template-rows: 1fr;}
+    #sh-{{ section.id }} .sh-collapsible-content-section-wrap .sh-collapsible-content-section-ans {display: grid;grid-template-rows: 0fr;transition: grid-template-rows .3s ease;}
+    #sh-{{ section.id }} .sh-collapsible-content-section-wrap .sh-collapsible-content-section-ans p {font-size: {{ section.settings.row_answer_size }}px;line-height: 1.4;margin: 10px 0 25px;color: {{section.settings.answer_color}}}
+    #sh-{{ section.id }} .sh-button {font-size: {{section.settings.button_size}}px; line-height: 1.65;background: {{section.settings.btn_bg_color}}; color: {{section.settings.btn_text_color}}; padding: 6px 20px; min-width: 140px; display: inline-block; border:1px solid {{section.settings.btn_border_color}};border-radius: {{section.settings.border_radius}}px;text-align: center; cursor:pointer;}
+    #sh-{{ section.id }} .sh-button:hover{background: {{section.settings.btn_hover_bg_color}};color: {{section.settings.btn_hover_text_color}};border:1px solid {{section.settings.btn_hover_border_color}};box-shadow: 0 0 5px 0px {{section.settings.outline_btn_shadow_color}};} 
+    #sh-{{ section.id }} .sh-button.sh-button-outline {color: {{section.settings.outline_btn_text_color}};border-color: {{section.settings.outline_btn_text_color}};background: transparent;}
+    #sh-{{ section.id }} .sh-button-align-left{text-align:left;}
+    #sh-{{ section.id }} .sh-button-align-center{text-align:center;}
+    #sh-{{ section.id }} .sh-button-align-right{text-align:right;}
+    #sh-{{ section.id }} .sh-collapsible-content-section-wrap button svg {display: block; width: {{section.settings.coll_icon_size}}px;height: auto;flex-shrink: 0;}
+    #sh-{{ section.id }} .sh-collapsible-content-section-wrap button img {display: block; width: auto;max-height: {{section.settings.coll_icon_size}}px;flex-shrink: 0;}
+    #sh-{{ section.id }} .sh-collapsible-content-section-ans-inner {overflow: hidden;}
+    
+    @media only screen and (max-width: 767px){
+      #sh-{{ section.id }} .sh-collapsible-content-section-wrap .sh-collapsible-content-section-ans p {margin: 0 0 15px;font-size:14px; }
+      #sh-{{ section.id }}.sh-collapsible-content-section {padding: {{ section.settings.mob_padding_top }}px 0 {{ section.settings.mob_padding_bottom }}px;}
+      #sh-{{ section.id }} .sh-collapsible-content-section-heading{font-size: 26px; margin: 0 0 10px;}
+      #sh-{{ section.id }} .sh-collapsible-content-section-desc p{font-size: 14px;} 
+      #sh-{{ section.id }} .sh-collapsible-content-section-wrap button{font-size: 16px;}     
+      #sh-{{ section.id }} .sh-collapsible-content-button .sh-button{font-size: 15px;}     
+      #sh-{{ section.id }} .sh-collapsible-content-title {margin-bottom: 20px;} 
+      #sh-{{ section.id }} .sh-collapsible-content-section-wrap button svg {width: 18px;}
+      #sh-{{ section.id }} .sh-collapsible-content-section-wrap button img {max-height: 18px;}
+    }
+  </style>
+{%- endcapture -%}
+{{- sh_collapsible_content_css | strip_newlines -}}
+ 
+{% if section.blocks.size > 0 %}
+  <div id="sh-{{ section.id }}" class="sh-collapsible-content-section">
+    <div class="sh-page-width {% if section.settings.full_width %}sh-full-page-width{% endif %}">  
+      {% if section.settings.title != blank or section.settings.content != blank %}
+        <div class="sh-collapsible-content-title sh-title-align-{{ section.settings.content_align }}">
+          {% if section.settings.title != blank %}
+            <h2 class="sh-collapsible-content-section-heading">{{ section.settings.title }}</h2>
+          {% endif %}
+          {% if section.settings.content != blank %}
+            <div class="sh-collapsible-content-section-desc sh-section-desc">{{ section.settings.content }}</div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <div class="sh-collapsible-content-section-wrap">
+        {% assign sh_index = 0 %}
+        {% for block in section.blocks %}
+          {% if block.settings.title != blank and block.settings.ans != blank %}
+            <div class="sh-collapsible-content-section-rows{% if sh_index == 0 and section.settings.open_first_collapsible_row %} sp-active{% endif %}">
+              <button id="sh-collapsible-content-button-1" {% if sh_index == 0 and section.settings.open_first_collapsible_row %}aria-expanded="true" {% else %}aria-expanded="false"{% endif %}>
+               {% comment %} <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="m29.911 13.75-6.229 6.072 1.471 8.576a1 1 0 0 1-1.451 1.054L16 25.403l-7.701 4.048a1 1 0 0 1-1.451-1.054l1.471-8.576-6.23-6.071a1 1 0 0 1 .555-1.706l8.609-1.25 3.85-7.802c.337-.683 1.457-.683 1.794 0l3.85 7.802 8.609 1.25a1.002 1.002 0 0 1 .555 1.706z" fill="#000000" opacity="1" data-original="#000000" class=""></path></g></svg>  {% endcomment %}
+                {% if block.settings.icon_type == 'svg' and block.settings.icon_svg != blank %}
+                  {{ block.settings.icon_svg }}
+                {% elsif block.settings.icon_image != blank %}
+                  <img src="{{ block.settings.icon_image | image_url: width: section.settings.icon_image.width }}" width="" height="" loading="lazy" alt="{{ block.settings.icon_image.alt }}">
+                {% endif %}
+                <span class="sh-collapsible-content-section-que">{{ block.settings.title }}</span>
+                <span class="sh-collapsible-content-icon" aria-hidden="true"></span>
+              </button>
+              <div class="sh-collapsible-content-section-ans">
+                <div class="sh-collapsible-content-section-ans-inner">
+                  {{ block.settings.ans }}
+                </div>
+              </div>
+            </div>
+            {% assign sh_index = sh_index | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {% if section.settings.btn_txt != blank and section.settings.btn_link != blank %}
+        <div class="sh-collapsible-content-button sh-button-align-{{ section.settings.button_alignment }}">
+          <a href="{{ section.settings.btn_link }}" class="sh-button{% if section.settings.btn_outline %} sh-button-outline{% endif %}">{{- section.settings.btn_txt -}}</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <script>
+    if(document.querySelector("#sh-{{ section.id }}")){
+      let faqItems = document.querySelector("#sh-{{ section.id }}").querySelectorAll('.sh-collapsible-content-section-wrap button');
+      faqItems.forEach((faqItem) => faqItem.addEventListener('click', toggleFaqsAccordion));
+
+      function toggleFaqsAccordion() {
+        let faqItemsNew = document.querySelector("#sh-{{ section.id }}").querySelectorAll('.sh-collapsible-content-section-wrap button');
+        const faqItemToggle = this.getAttribute('aria-expanded');
+
+        faqItemsNew.forEach((item) => {
+          item.setAttribute('aria-expanded', 'false');
+          item.closest('.sh-collapsible-content-section-rows').classList.remove('sp-active');
+        });
+
+        if (faqItemToggle === 'false') {
+          this.setAttribute('aria-expanded', 'true');
+          this.closest('.sh-collapsible-content-section-rows').classList.add('sp-active');
+        }
+      }
+    }
+  </script>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "SH: Collapsible content",
+    "tag":"section",
+    "class": "sh-section-hub-main",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default":"Frequently questions asked"
+      },
+      {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content",
+        "default": "<p>Have questions about our products, or services? Find answers to the most common inquiries here.</p>"
+      },
+      {
+        "type":"text_alignment",
+        "id":"content_align",
+        "label": "Text alignment",
+        "default": "center"
+      },
+      {
+        "type": "checkbox",
+        "id": "open_first_collapsible_row",
+        "default": true,
+        "label": "Open first collapsible row"
+      },
+      {
+        "type": "range",
+        "id": "coll_border_radius",
+        "min": 0,
+        "max": 22,
+        "step": 1,
+        "unit": "px",
+        "label": "Border radius",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "coll_row_spacing",
+        "min": 0,
+        "max": 22,
+        "step": 1,
+        "unit": "px",
+        "label": "Row spacing",
+        "default": 0
+      },
+      {
+        "type": "checkbox",
+        "id":"enable_padding",
+        "label": "Enable inline padding",
+        "default": false
+      },
+      {
+        "type": "paragraph",
+        "content": "Button"
+      },
+      {
+        "type": "text",
+        "id": "btn_txt",
+        "label": "Label",
+        "default": "Button label"
+      },
+      {
+        "type": "url",
+        "id": "btn_link",
+        "label": "Link",
+        "default":"/"
+      },
+      {
+        "type": "checkbox",
+        "id":"btn_outline",
+        "label": "Use outline button",
+        "default": false
+      },
+      {
+        "type": "color",
+        "id": "outline_btn_text_color",
+        "label": "Outline color",
+        "default": "#121212"
+      },
+      {
+        "type":"range",
+        "id":"border_radius",
+        "label": "Border radius",
+        "min": 0,
+        "max": 20,
+        "default": 0,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "type":"range",
+        "id":"button_size",
+        "label": "Size (Desktop)",
+        "min": 10,
+        "max": 30,
+        "default": 16,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "type": "text_alignment",
+        "id": "button_alignment",
+        "label": "Alignment",
+        "default": "center"
+      },
+      {
+        "type": "header",
+        "content": "Font size"
+      },
+      {
+        "type": "range",
+        "id": "title_size",
+        "min": 5,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Heading",
+        "default": 30
+      },
+      {
+        "type": "range",
+        "id": "content_size",
+        "min": 5,
+        "max": 30,
+        "step": 1, 
+        "unit": "px",
+        "label": "Content",
+        "default": 16
+      },
+      {
+        "type": "paragraph",
+        "content": "Collapsible rows"
+      },
+      {
+        "type": "range",
+        "id": "row_question_size",
+        "min": 5,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "label": "Heading",
+        "default": 18 
+      },
+      {
+        "type": "range",
+        "id": "row_answer_size",
+        "min": 5,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "label": "Content",
+        "default": 15
+      },
+      {
+        "type":"range",
+        "id":"coll_icon_size",
+        "label": "Icon / Image Size (Desktop)",
+        "min": 10,
+        "max": 50,
+        "default": 20,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "title_color",
+        "label": "Heading color",
+        "default": "#121212"
+      },
+      {
+        "type": "color",
+        "id": "content_color",
+        "label": "Content color",
+        "default": "#121212"
+      },
+      {
+        "type": "paragraph",
+        "content": "Collapsible rows"
+      },
+      {
+        "type": "color",
+        "id": "coll_inactive_bg_color",
+        "label": "Background color (Inactive)",
+        "default": "transparent"
+      },
+      {
+        "type": "color",
+        "id": "coll_active_bg_color",
+        "label": "Background color (Active)",
+        "default": "transparent"
+      },
+      {
+        "type": "color",
+        "id": "question_color",
+        "label": "Heading color",
+        "default": "#121212"
+      },
+      {
+        "type": "color",
+        "id": "answer_color",
+        "label": "Content color",
+        "default": "#121212"
+      },
+      {
+        "type": "color",
+        "id": "border_color",
+        "label": "Border color",
+        "default": "#d9d9d9"
+      },
+      {
+        "type": "paragraph",
+        "content": "Button"
+      },
+      {
+        "type": "color",
+        "id": "btn_bg_color",
+        "label": "Background color",
+        "default": "#121212"
+      },
+      {
+        "type": "color",
+        "id": "btn_text_color",
+        "label": "Text color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "btn_border_color",
+        "label": "Border color",
+        "default": "#121212"
+      },
+      {
+        "type": "color",
+        "id": "btn_hover_bg_color",
+        "label": "Hover background color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "btn_hover_text_color",
+        "label": "Hover text color",
+        "default": "#121212"
+      },
+      {
+        "type": "color",
+        "id": "btn_hover_border_color",
+        "label": "Hover border color",
+        "default": "#121212"
+      },
+      {
+        "type": "color",
+        "id": "outline_btn_shadow_color",
+        "label": "Shadow color",
+        "default": "transparent"
+      },
+      {
+        "type": "header",
+        "content": "Section padding"
+      },
+      {
+        "type": "paragraph",
+        "content": "Desktop"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 40
+      },
+      {
+        "type": "paragraph",
+        "content": "Mobile"
+      },
+      {
+        "type": "range",
+        "id": "mob_padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 30
+      },
+      {
+        "type": "range",
+        "id": "mob_padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 30
+      },
+      {
+        "type": "header",
+        "content": "Section width"
+      },
+      {
+        "type":"checkbox",
+        "id":"full_width",
+        "label":"Full width",
+        "default":false
+      },
+      {
+        "type": "text",
+        "id": "section_max_width",
+        "label": "Width (in px)",
+        "default": "1140",
+        "info":"Will apply when full width is disable"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "collapsible_row",
+        "name": "Collapsible row",
+        "limit": 25,
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "What is your return policy?"
+          },
+          {
+            "type": "richtext",
+            "id": "ans",
+            "label": "Content",
+            "default": "<p>We offer a hassle-free return policy. If you're not satisfied with your purchase, you can return it within 30 days for a full refund or exchange. Please refer to our Returns & Exchanges page for detailed instructions.</p>"
+          },
+          {
+            "type": "select",
+            "id": "icon_type",
+            "label": "Icon type",
+            "options": [ 
+                {"label": "Image", "value": "image"},
+                {"label": "SVG (code)", "value": "svg"}
+            ],
+            "default": "image"
+          },
+          {
+            "type": "image_picker",
+            "id": "icon_image",
+            "label": "Icon",
+            "visible_if": "{{ block.settings.icon_type == 'image' }}"
+          },
+          {
+            "type": "html",
+            "id": "icon_svg",
+            "label": "Icon (SVG)",
+            "info": "Paste SVG code here",
+            "visible_if": "{{ block.settings.icon_type == 'svg' }}"
+          },
+        ]
+      }
+    ],
+    "presets":[
+      {
+        "name": "SH: Collapsible content",
+        "blocks": [
+          {
+            "type": "collapsible_row",
+            "settings": {
+              "title": "What is your return policy?",
+              "ans": "<p>We offer a hassle-free return policy. If you’re not satisfied with your purchase, you can return it within 30 days for a full refund or exchange. Please refer to our Returns & Exchanges page for detailed instructions.</p>"
+            }
+          },
+          {
+            "type": "collapsible_row",
+            "settings": {
+              "title": "How do I track my order?",
+              "ans": "<p>Tracking your order is easy! Once your order is shipped, we’ll send you a confirmation email with a tracking number. You can use this number to track your order’s status on our Order Tracking page.</p>"
+            }
+          },
+          {
+            "type": "collapsible_row",
+            "settings": {
+              "title": "What payment methods do you accept?",
+              "ans": "<p>We accept major credit cards (Visa, MasterCard, American Express) and PayPal for secure and convenient payments.</p>"
+            }
+          },
+          {
+            "type": "collapsible_row",
+            "settings": {
+              "title": "Do you offer international shipping?",
+              "ans": "<p>Yes, we offer international shipping to most countries. Shipping fees and delivery times may vary based on your location. Please refer to our Shipping Information page for more details.</p>"
+            }
+          },
+          {
+            "type": "collapsible_row",
+            "settings": {
+              "title": "How can I contact your customer support?",
+              "ans": "<p>You can reach our friendly customer support team through our Contact Us page, where you’ll find a contact form and our email address. We’re here to assist you with any questions or concerns you may have.</p>"
+            }
+          }
+        ]
+      }
+    ],
+    "disabled_on": {
+      "groups": ["footer","header"]
+    }
+  }
+{% endschema %}

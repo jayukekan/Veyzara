@@ -1,0 +1,593 @@
+{% comment %}
+  Premium People Pick Product Grid/Slider
+  Dawn compatible
+  Desktop: 4 products
+  Mobile: 2 x 2 style
+{% endcomment %}
+
+{% liquid
+  assign section_collection = section.settings.collection
+  assign products_to_show = section.settings.products_to_show
+%}
+
+<section
+  id="people-pick-{{ section.id }}"
+  class="pp-section"
+  style="
+    --pp-bg: {{ section.settings.background_color }};
+    --pp-text: {{ section.settings.text_color }};
+    --pp-muted: {{ section.settings.muted_text_color }};
+    --pp-card-bg: {{ section.settings.card_background }};
+    --pp-border: {{ section.settings.border_color }};
+    --pp-accent: {{ section.settings.accent_color }};
+    --pp-gap: {{ section.settings.card_gap }}px;
+    --pp-radius: {{ section.settings.image_radius }}px;
+    --pp-title-size: {{ section.settings.heading_size }}px;
+    --pp-card-title-size: {{ section.settings.product_title_size }}px;
+    --pp-price-size: {{ section.settings.price_size }}px;
+    --pp-img-height: {{ section.settings.image_height }}px;
+  "
+>
+  <div class="pp-shell">
+    {% if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.description != blank %}
+      <header class="pp-head {% if section.settings.center_text %}is-center{% endif %}">
+        {% if section.settings.eyebrow != blank %}
+          <div class="pp-eyebrow">{{ section.settings.eyebrow }}</div>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <h2 class="pp-heading">{{ section.settings.heading }}</h2>
+        {% endif %}
+
+        {% if section.settings.description != blank %}
+          <div class="pp-description rte">{{ section.settings.description }}</div>
+        {% endif %}
+      </header>
+    {% endif %}
+
+    <div class="pp-slider-wrap">
+      <div class="pp-track" data-pp-track>
+        {% if section_collection != blank and section_collection.products_count > 0 %}
+          {% for product in section_collection.products limit: products_to_show %}
+            <article class="pp-card">
+              <a href="{{ product.url }}" class="pp-image-link" aria-label="{{ product.title | escape }}">
+                <div class="pp-image-box">
+                  {% if product.featured_image != blank %}
+                    {{
+                      product.featured_image
+                      | image_url: width: 1200
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '360, 540, 720, 900, 1200',
+                        sizes: '(min-width: 990px) 25vw, 50vw',
+                        class: 'pp-image',
+                        alt: product.featured_image.alt | default: product.title
+                    }}
+                  {% else %}
+                    {{ 'product-1' | placeholder_svg_tag: 'pp-placeholder' }}
+                  {% endif %}
+
+                  {% if section.settings.show_badge and product.compare_at_price_max > product.price %}
+                    {% assign saving = product.compare_at_price_max | minus: product.price %}
+                    {% assign saving_percent = saving | times: 100.0 | divided_by: product.compare_at_price_max | round %}
+                    <span class="pp-badge">-{{ saving_percent }}%</span>
+                  {% endif %}
+                </div>
+              </a>
+
+              <div class="pp-info">
+                {% if section.settings.show_vendor and product.vendor != blank %}
+                  <div class="pp-vendor">{{ product.vendor }}</div>
+                {% endif %}
+
+                <a href="{{ product.url }}" class="pp-title" title="{{ product.title | escape }}">
+                  {{ product.title }}
+                </a>
+
+                <div class="pp-price-row">
+                  {% if product.price_varies %}
+                    <span class="pp-price-prefix">{{ section.settings.from_text }}</span>
+                  {% endif %}
+                  <span class="pp-price">{{ product.price | money }}</span>
+
+                  {% if section.settings.show_compare_price and product.compare_at_price_max > product.price %}
+                    <span class="pp-compare">{{ product.compare_at_price_max | money }}</span>
+                  {% endif %}
+                </div>
+
+                {% if section.settings.show_swatches %}
+                  {% assign color_option_index = nil %}
+                  {% for option in product.options_with_values %}
+                    {% assign option_name = option.name | downcase %}
+                    {% if option_name == 'color' or option_name == 'colour' %}
+                      {% assign color_option_index = forloop.index0 %}
+                    {% endif %}
+                  {% endfor %}
+
+                  {% if color_option_index != nil %}
+                    <div class="pp-swatches">
+                      {% assign rendered_colors = '' %}
+                      {% for variant in product.variants %}
+                        {% assign swatch_value = variant.options[color_option_index] %}
+                        {% assign swatch_key = swatch_value | handleize %}
+                        {% unless rendered_colors contains swatch_key %}
+                          {% assign rendered_colors = rendered_colors | append: swatch_key | append: ',' %}
+                          <span
+                            class="pp-swatch"
+                            title="{{ swatch_value | escape }}"
+                            style="--swatch-color: {{ swatch_value | escape }};"
+                          ></span>
+                        {% endunless %}
+                        {% if forloop.index >= section.settings.max_swatches %}
+                          {% break %}
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                {% endif %}
+              </div>
+            </article>
+          {% endfor %}
+        {% else %}
+          {% for i in (1..4) %}
+            <article class="pp-card">
+              <div class="pp-image-box">
+                {{ 'product-' | append: i | placeholder_svg_tag: 'pp-placeholder' }}
+              </div>
+              <div class="pp-info">
+                <span class="pp-title">Premium product title</span>
+                <div class="pp-price-row"><span class="pp-price">Rs. 9,999 INR</span></div>
+              </div>
+            </article>
+          {% endfor %}
+        {% endif %}
+      </div>
+
+      {% if section.settings.show_arrows %}
+        <button class="pp-arrow pp-prev" type="button" data-pp-prev aria-label="Previous products">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5 8 12l6.5 7"/></svg>
+        </button>
+        <button class="pp-arrow pp-next" type="button" data-pp-next aria-label="Next products">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5 6.5 7-6.5 7"/></svg>
+        </button>
+      {% endif %}
+    </div>
+
+    {% if section.settings.show_view_all and section_collection != blank %}
+      <div class="pp-view-all-wrap {% if section.settings.center_text %}is-center{% endif %}">
+        <a class="pp-view-all" href="{{ section_collection.url }}">
+          {{ section.settings.view_all_text }}
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4"/></svg>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  #people-pick-{{ section.id }} {
+    background: var(--pp-bg);
+    color: var(--pp-text);
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  #people-pick-{{ section.id }} * { box-sizing: border-box; }
+
+  #people-pick-{{ section.id }} .pp-shell {
+    width: min(100%, {{ section.settings.page_width }}px);
+    margin: 0 auto;
+    padding: 0 {{ section.settings.side_padding }}px;
+  }
+
+  #people-pick-{{ section.id }} .pp-head {
+    margin-bottom: {{ section.settings.heading_bottom_space }}px;
+  }
+
+  #people-pick-{{ section.id }} .pp-head.is-center { text-align: center; }
+
+  #people-pick-{{ section.id }} .pp-eyebrow {
+    margin-bottom: 12px;
+    color: var(--pp-muted);
+    font-size: {{ section.settings.eyebrow_size }}px;
+    line-height: 1.2;
+    font-weight: 500;
+    letter-spacing: {{ section.settings.eyebrow_letter_spacing }}em;
+    text-transform: uppercase;
+  }
+
+  #people-pick-{{ section.id }} .pp-heading {
+    margin: 0;
+    color: var(--pp-text);
+    font-size: var(--pp-title-size);
+    line-height: 1.05;
+    font-weight: {{ section.settings.heading_weight }};
+    letter-spacing: {{ section.settings.heading_letter_spacing }}em;
+    text-transform: {% if section.settings.uppercase_heading %}uppercase{% else %}none{% endif %};
+  }
+
+  #people-pick-{{ section.id }} .pp-description {
+    max-width: 620px;
+    margin: 12px auto 0;
+    color: var(--pp-muted);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  #people-pick-{{ section.id }} .pp-slider-wrap {
+    position: relative;
+  }
+
+  #people-pick-{{ section.id }} .pp-track {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: var(--pp-gap);
+  }
+
+  #people-pick-{{ section.id }} .pp-card {
+    min-width: 0;
+  }
+
+  #people-pick-{{ section.id }} .pp-image-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #people-pick-{{ section.id }} .pp-image-box {
+    position: relative;
+    height: var(--pp-img-height);
+    overflow: hidden;
+    border-radius: var(--pp-radius);
+    background: var(--pp-card-bg);
+    border: 1px solid var(--pp-border);
+  }
+
+  #people-pick-{{ section.id }} .pp-image,
+  #people-pick-{{ section.id }} .pp-placeholder {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: {{ section.settings.image_fit }};
+    object-position: {{ section.settings.image_position }};
+    transition: transform .7s cubic-bezier(.2,.7,.2,1);
+  }
+
+  #people-pick-{{ section.id }} .pp-card:hover .pp-image {
+    transform: scale(1.035);
+  }
+
+  #people-pick-{{ section.id }} .pp-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    padding: 6px 9px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.95);
+    color: #111;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .06em;
+  }
+
+  #people-pick-{{ section.id }} .pp-info {
+    padding-top: {{ section.settings.info_top_space }}px;
+  }
+
+  #people-pick-{{ section.id }} .pp-vendor {
+    margin-bottom: 5px;
+    color: var(--pp-muted);
+    font-size: 10px;
+    line-height: 1.2;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  #people-pick-{{ section.id }} .pp-title {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    color: var(--pp-text);
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: var(--pp-card-title-size);
+    line-height: 1.35;
+    font-weight: {{ section.settings.product_title_weight }};
+    letter-spacing: {{ section.settings.product_title_letter_spacing }}em;
+    text-transform: {% if section.settings.uppercase_product_title %}uppercase{% else %}none{% endif %};
+  }
+
+  #people-pick-{{ section.id }} .pp-price-row {
+    margin-top: 7px;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  #people-pick-{{ section.id }} .pp-price,
+  #people-pick-{{ section.id }} .pp-price-prefix {
+    color: var(--pp-text);
+    font-size: var(--pp-price-size);
+    line-height: 1.2;
+    font-weight: 650;
+  }
+
+  #people-pick-{{ section.id }} .pp-compare {
+    color: var(--pp-muted);
+    font-size: calc(var(--pp-price-size) - 1px);
+    text-decoration: line-through;
+  }
+
+  #people-pick-{{ section.id }} .pp-swatches {
+    margin-top: 10px;
+    display: flex;
+    gap: 7px;
+    align-items: center;
+  }
+
+  #people-pick-{{ section.id }} .pp-swatch {
+    width: {{ section.settings.swatch_size }}px;
+    height: {{ section.settings.swatch_size }}px;
+    border-radius: 50%;
+    background: var(--swatch-color);
+    border: 2px solid var(--pp-bg);
+    box-shadow: 0 0 0 1px rgba(18,18,18,.28);
+  }
+
+  #people-pick-{{ section.id }} .pp-arrow {
+    position: absolute;
+    top: calc(var(--pp-img-height) / 2);
+    z-index: 5;
+    width: {{ section.settings.arrow_size }}px;
+    height: {{ section.settings.arrow_size }}px;
+    border: 1px solid rgba(0,0,0,.11);
+    border-radius: 50%;
+    background: rgba(255,255,255,.96);
+    color: #111;
+    box-shadow: 0 10px 28px rgba(0,0,0,.08);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-50%);
+  }
+
+  #people-pick-{{ section.id }} .pp-arrow svg {
+    width: 19px;
+    height: 19px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  #people-pick-{{ section.id }} .pp-prev { left: -8px; }
+  #people-pick-{{ section.id }} .pp-next { right: -8px; }
+
+  #people-pick-{{ section.id }} .pp-view-all-wrap { margin-top: 28px; }
+  #people-pick-{{ section.id }} .pp-view-all-wrap.is-center { text-align: center; }
+
+  #people-pick-{{ section.id }} .pp-view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--pp-text);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 4px;
+  }
+
+  #people-pick-{{ section.id }} .pp-view-all svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+  }
+
+  @media screen and (max-width: 989px) {
+    #people-pick-{{ section.id }} {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    #people-pick-{{ section.id }} .pp-shell {
+      padding: 0 {{ section.settings.mobile_side_padding }}px;
+    }
+
+    #people-pick-{{ section.id }} .pp-track {
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: {{ section.settings.mobile_card_gap }}px;
+    }
+
+    #people-pick-{{ section.id }} .pp-arrow {
+      display: none !important;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #people-pick-{{ section.id }} {
+      --pp-img-height: {{ section.settings.mobile_image_height }}px;
+      --pp-title-size: {{ section.settings.mobile_heading_size }}px;
+      --pp-card-title-size: {{ section.settings.mobile_product_title_size }}px;
+      --pp-price-size: {{ section.settings.mobile_price_size }}px;
+    }
+
+    #people-pick-{{ section.id }} .pp-head {
+      margin-bottom: {{ section.settings.mobile_heading_bottom_space }}px;
+    }
+
+    #people-pick-{{ section.id }} .pp-eyebrow {
+      font-size: {{ section.settings.mobile_eyebrow_size }}px;
+      margin-bottom: 9px;
+    }
+
+    #people-pick-{{ section.id }} .pp-info {
+      padding-top: 10px;
+    }
+
+    #people-pick-{{ section.id }} .pp-title {
+      font-size: {{ section.settings.mobile_product_title_size }}px;
+    }
+
+    #people-pick-{{ section.id }} .pp-price-row {
+      margin-top: 5px;
+      gap: 5px;
+    }
+
+    #people-pick-{{ section.id }} .pp-swatches {
+      margin-top: 8px;
+    }
+  }
+</style>
+
+<script>
+(() => {
+  const section = document.getElementById('people-pick-{{ section.id }}');
+  if (!section) return;
+
+  const track = section.querySelector('[data-pp-track]');
+  const prev = section.querySelector('[data-pp-prev]');
+  const next = section.querySelector('[data-pp-next]');
+
+  if (!track || !prev || !next) return;
+
+  const cardWidth = () => {
+    const card = track.querySelector('.pp-card');
+    if (!card) return 0;
+    const styles = getComputedStyle(track);
+    const gap = parseFloat(styles.columnGap || styles.gap || 0);
+    return card.getBoundingClientRect().width + gap;
+  };
+
+  prev.addEventListener('click', () => {
+    track.scrollBy({ left: -cardWidth(), behavior: 'smooth' });
+  });
+
+  next.addEventListener('click', () => {
+    track.scrollBy({ left: cardWidth(), behavior: 'smooth' });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Premium People Pick",
+  "tag": "section",
+  "class": "section-premium-people-pick",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Small heading", "default": "EXPLORE TOP-RATED PRODUCTS" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "PEOPLE PICK" },
+    { "type": "richtext", "id": "description", "label": "Description" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "products_to_show", "min": 4, "max": 12, "step": 1, "label": "Products to show", "default": 8 },
+    { "type": "checkbox", "id": "center_text", "label": "Center heading content", "default": true },
+
+    { "type": "header", "content": "Product card" },
+    { "type": "checkbox", "id": "show_vendor", "label": "Show vendor", "default": false },
+    { "type": "checkbox", "id": "show_compare_price", "label": "Show compare-at price", "default": true },
+    { "type": "checkbox", "id": "show_badge", "label": "Show sale badge", "default": false },
+    { "type": "checkbox", "id": "show_swatches", "label": "Show colour swatches", "default": true },
+    { "type": "range", "id": "max_swatches", "min": 2, "max": 8, "step": 1, "label": "Maximum swatches", "default": 5 },
+    { "type": "range", "id": "swatch_size", "min": 12, "max": 22, "step": 1, "unit": "px", "label": "Swatch size", "default": 15 },
+    { "type": "text", "id": "from_text", "label": "Variable price prefix", "default": "From" },
+
+    { "type": "header", "content": "Images" },
+    { "type": "range", "id": "image_height", "min": 280, "max": 560, "step": 10, "unit": "px", "label": "Desktop image height", "default": 400 },
+    { "type": "range", "id": "mobile_image_height", "min": 180, "max": 360, "step": 10, "unit": "px", "label": "Mobile image height", "default": 250 },
+    { "type": "range", "id": "image_radius", "min": 0, "max": 24, "step": 2, "unit": "px", "label": "Image radius", "default": 8 },
+    { "type": "select", "id": "image_fit", "label": "Image fit", "default": "cover", "options": [
+      { "value": "cover", "label": "Cover" },
+      { "value": "contain", "label": "Contain" }
+    ]},
+    { "type": "select", "id": "image_position", "label": "Image position", "default": "center center", "options": [
+      { "value": "center center", "label": "Center" },
+      { "value": "center top", "label": "Top" },
+      { "value": "center bottom", "label": "Bottom" }
+    ]},
+
+    { "type": "header", "content": "Desktop layout" },
+    { "type": "range", "id": "page_width", "min": 1100, "max": 1800, "step": 50, "unit": "px", "label": "Section width", "default": 1500 },
+    { "type": "range", "id": "side_padding", "min": 10, "max": 70, "step": 5, "unit": "px", "label": "Side padding", "default": 30 },
+    { "type": "range", "id": "card_gap", "min": 10, "max": 40, "step": 2, "unit": "px", "label": "Product gap", "default": 24 },
+    { "type": "range", "id": "info_top_space", "min": 8, "max": 20, "step": 2, "unit": "px", "label": "Space below image", "default": 12 },
+
+    { "type": "header", "content": "Mobile layout" },
+    { "type": "range", "id": "mobile_side_padding", "min": 8, "max": 24, "step": 2, "unit": "px", "label": "Mobile side padding", "default": 14 },
+    { "type": "range", "id": "mobile_card_gap", "min": 8, "max": 20, "step": 2, "unit": "px", "label": "Mobile card gap", "default": 12 },
+
+    { "type": "header", "content": "Typography" },
+    { "type": "range", "id": "eyebrow_size", "min": 9, "max": 15, "step": 1, "unit": "px", "label": "Small heading size", "default": 11 },
+    { "type": "range", "id": "mobile_eyebrow_size", "min": 9, "max": 13, "step": 1, "unit": "px", "label": "Mobile small heading size", "default": 10 },
+    { "type": "select", "id": "eyebrow_letter_spacing", "label": "Small heading spacing", "default": "0.18", "options": [
+      { "value": "0.08", "label": "Small" },
+      { "value": "0.12", "label": "Medium" },
+      { "value": "0.18", "label": "Wide" }
+    ]},
+    { "type": "range", "id": "heading_size", "min": 20, "max": 44, "step": 2, "unit": "px", "label": "Heading size", "default": 28 },
+    { "type": "range", "id": "mobile_heading_size", "min": 18, "max": 32, "step": 2, "unit": "px", "label": "Mobile heading size", "default": 24 },
+    { "type": "select", "id": "heading_weight", "label": "Heading weight", "default": "500", "options": [
+      { "value": "400", "label": "Regular" },
+      { "value": "500", "label": "Medium" },
+      { "value": "600", "label": "Semi bold" }
+    ]},
+    { "type": "select", "id": "heading_letter_spacing", "label": "Heading spacing", "default": "0.10", "options": [
+      { "value": "0", "label": "None" },
+      { "value": "0.04", "label": "Subtle" },
+      { "value": "0.10", "label": "Premium" }
+    ]},
+    { "type": "checkbox", "id": "uppercase_heading", "label": "Uppercase heading", "default": true },
+
+    { "type": "range", "id": "product_title_size", "min": 11, "max": 18, "step": 1, "unit": "px", "label": "Product title size", "default": 14 },
+    { "type": "range", "id": "mobile_product_title_size", "min": 10, "max": 15, "step": 1, "unit": "px", "label": "Mobile product title size", "default": 12 },
+    { "type": "select", "id": "product_title_weight", "label": "Product title weight", "default": "500", "options": [
+      { "value": "400", "label": "Regular" },
+      { "value": "500", "label": "Medium" },
+      { "value": "600", "label": "Semi bold" }
+    ]},
+    { "type": "select", "id": "product_title_letter_spacing", "label": "Product title spacing", "default": "0.02", "options": [
+      { "value": "0", "label": "None" },
+      { "value": "0.02", "label": "Subtle" },
+      { "value": "0.05", "label": "Wide" }
+    ]},
+    { "type": "checkbox", "id": "uppercase_product_title", "label": "Uppercase product title", "default": true },
+    { "type": "range", "id": "price_size", "min": 11, "max": 18, "step": 1, "unit": "px", "label": "Price size", "default": 14 },
+    { "type": "range", "id": "mobile_price_size", "min": 10, "max": 15, "step": 1, "unit": "px", "label": "Mobile price size", "default": 12 },
+
+    { "type": "header", "content": "Slider arrows" },
+    { "type": "checkbox", "id": "show_arrows", "label": "Show arrows", "default": false },
+    { "type": "range", "id": "arrow_size", "min": 42, "max": 60, "step": 2, "unit": "px", "label": "Arrow size", "default": 50 },
+
+    { "type": "header", "content": "View all" },
+    { "type": "checkbox", "id": "show_view_all", "label": "Show view all", "default": false },
+    { "type": "text", "id": "view_all_text", "label": "View all text", "default": "View all products" },
+
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "min": 20, "max": 120, "step": 5, "unit": "px", "label": "Desktop top padding", "default": 60 },
+    { "type": "range", "id": "padding_bottom", "min": 20, "max": 120, "step": 5, "unit": "px", "label": "Desktop bottom padding", "default": 60 },
+    { "type": "range", "id": "mobile_padding_top", "min": 20, "max": 80, "step": 5, "unit": "px", "label": "Mobile top padding", "default": 40 },
+    { "type": "range", "id": "mobile_padding_bottom", "min": 20, "max": 80, "step": 5, "unit": "px", "label": "Mobile bottom padding", "default": 40 },
+    { "type": "range", "id": "heading_bottom_space", "min": 20, "max": 60, "step": 5, "unit": "px", "label": "Heading bottom space", "default": 30 },
+    { "type": "range", "id": "mobile_heading_bottom_space", "min": 15, "max": 45, "step": 5, "unit": "px", "label": "Mobile heading bottom space", "default": 25 },
+
+    { "type": "header", "content": "Colours" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#FFFFFF" },
+    { "type": "color", "id": "card_background", "label": "Image background", "default": "#F6F3EE" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#181818" },
+    { "type": "color", "id": "muted_text_color", "label": "Secondary text", "default": "#6A6A6A" },
+    { "type": "color", "id": "border_color", "label": "Border", "default": "#ECE8E2" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#9A5A37" }
+  ],
+  "presets": [
+    { "name": "Premium People Pick" }
+  ]
+}
+{% endschema %}

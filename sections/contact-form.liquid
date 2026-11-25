@@ -1,0 +1,366 @@
+{{ 'section-contact-form.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="contact-page color-{{ section.settings.color_scheme }} gradient">
+  <div class="contact-page__grid page-width section-{{ section.id }}-padding">
+    <div class="contact-page__panel contact-page__form-panel">
+      {%- if section.settings.heading != blank -%}
+        <h1 class="contact-page__heading inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+          {{ section.settings.heading }}
+        </h1>
+      {%- else -%}
+        <h1 class="visually-hidden">{{ 'templates.contact.form.title' | t }}</h1>
+      {%- endif -%}
+      {%- if section.settings.response_time != blank -%}
+        <p class="contact-page__intro">{{ section.settings.response_time | escape }}</p>
+      {%- endif -%}
+    {%- liquid
+      assign contact_form_class = 'isolate'
+      if settings.animations_reveal_on_scroll
+        assign contact_form_class = 'isolate scroll-trigger animate--slide-in'
+      endif
+    -%}
+    {%- form 'contact', id: 'ContactForm', class: contact_form_class -%}
+      {%- if form.posted_successfully? -%}
+        <h2 class="form-status form-status-list form__message" tabindex="-1" autofocus>
+          {{- 'icon-success.svg' | inline_asset_content -}}
+          {{ 'templates.contact.form.post_success' | t }}
+        </h2>
+      {%- elsif form.errors -%}
+        <div class="form__message">
+          <h2 class="form-status caption-large text-body" role="alert" tabindex="-1" autofocus>
+            {{- 'icon-error.svg' | inline_asset_content -}}
+            {{ 'templates.contact.form.error_heading' | t }}
+          </h2>
+        </div>
+        <ul class="form-status-list caption-large" role="list">
+          <li>
+            <a href="#ContactForm-email" class="link">
+              {{ form.errors.translated_fields.email | capitalize }}
+              {{ form.errors.messages.email }}
+            </a>
+          </li>
+        </ul>
+      {%- endif -%}
+      <div class="contact-page__fields">
+        <div class="contact-page__field">
+          <input
+            class="contact-page__input"
+            autocomplete="name"
+            type="text"
+            id="ContactForm-name"
+            name="contact[{{ 'templates.contact.form.name' | t }}]"
+            value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+            placeholder="Full name"
+          >
+          <label class="visually-hidden" for="ContactForm-name">{{ 'templates.contact.form.name' | t }}</label>
+        </div>
+        <div class="contact-page__field">
+          <input
+            autocomplete="email"
+            type="email"
+            id="ContactForm-email"
+            class="contact-page__input"
+            name="contact[email]"
+            spellcheck="false"
+            autocapitalize="off"
+            value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+            aria-required="true"
+            {% if form.errors contains 'email' %}
+              aria-invalid="true"
+              aria-describedby="ContactForm-email-error"
+            {% endif %}
+            placeholder="Email"
+          >
+          <label class="visually-hidden" for="ContactForm-email">
+            {{- 'templates.contact.form.email' | t }}
+            <span aria-hidden="true">*</span></label
+          >
+          {%- if form.errors contains 'email' -%}
+            <small class="contact__field-error" id="ContactForm-email-error">
+              <span class="visually-hidden">{{ 'accessibility.error' | t }}</span>
+              <span class="form__message">
+                <span class="svg-wrapper">
+                  {{- 'icon-error.svg' | inline_asset_content -}}
+                </span>
+                {{- form.errors.translated_fields.email | capitalize }}
+                {{ form.errors.messages.email -}}
+              </span>
+            </small>
+          {%- endif -%}
+        </div>
+      </div>
+      <div class="contact-page__field">
+        <input
+          type="tel"
+          id="ContactForm-phone"
+          class="contact-page__input"
+          autocomplete="tel"
+          name="contact[{{ 'templates.contact.form.phone' | t }}]"
+          pattern="[0-9\-]*"
+          value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+          placeholder="Phone"
+        >
+        <label class="visually-hidden" for="ContactForm-phone">{{ 'templates.contact.form.phone' | t }}</label>
+      </div>
+      <div class="contact-page__field">
+        <textarea
+          rows="10"
+          id="ContactForm-body"
+          class="contact-page__input contact-page__textarea"
+          name="contact[{{ 'templates.contact.form.comment' | t }}]"
+          placeholder="Message"
+        >
+          {{- form.body -}}
+        </textarea>
+        <label class="visually-hidden" for="ContactForm-body">
+          {{- 'templates.contact.form.comment' | t -}}
+        </label>
+      </div>
+      <div class="contact-page__submit">
+        <button type="submit" class="button contact-page__submit-button">
+          {{ 'templates.contact.form.send' | t }}
+        </button>
+      </div>
+      {%- if section.settings.consent_text != blank -%}
+        <p class="contact-page__consent">{{ section.settings.consent_text | escape }}</p>
+      {%- endif -%}
+    {%- endform -%}
+    </div>
+
+    <aside class="contact-page__panel contact-page__details" aria-labelledby="ContactDetails-{{ section.id }}">
+      <h2 id="ContactDetails-{{ section.id }}" class="contact-page__heading {{ section.settings.heading_size }}">
+        {{ section.settings.contact_info_heading | escape }}
+      </h2>
+      {%- if section.settings.contact_info_text != blank -%}
+        <p class="contact-page__intro">{{ section.settings.contact_info_text | escape }}</p>
+      {%- endif -%}
+
+      <div class="contact-page__channels">
+        {%- if section.settings.email != blank -%}
+          <div class="contact-page__channel">
+            <span class="contact-page__channel-icon">{% render 'contact-channel-icon', icon: 'email' %}</span>
+            <div>
+              <p class="contact-page__channel-label">Email</p>
+              <a href="mailto:{{ section.settings.email | escape }}">{{ section.settings.email | escape }}</a>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.phone != blank -%}
+          {%- assign whatsapp_number = section.settings.whatsapp | default: section.settings.phone | remove: ' ' | remove: '+' | remove: '-' | remove: '(' | remove: ')' -%}
+          <div class="contact-page__channel">
+            <span class="contact-page__channel-icon">{% render 'contact-channel-icon', icon: 'whatsapp' %}</span>
+            <div>
+              <p class="contact-page__channel-label">WhatsApp</p>
+              <a href="https://wa.me/{{ whatsapp_number | escape }}" target="_blank" rel="noopener noreferrer">
+                {{ section.settings.phone | escape }}
+              </a>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.location != blank -%}
+          <div class="contact-page__channel">
+            <span class="contact-page__channel-icon">{% render 'contact-channel-icon', icon: 'location' %}</span>
+            <div>
+              <p class="contact-page__channel-label">Location</p>
+              <p class="contact-page__channel-value">{{ section.settings.location | escape }}</p>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.whatsapp_button_label != blank and section.settings.phone != blank -%}
+        <a class="contact-page__whatsapp-button" href="https://wa.me/{{ whatsapp_number | escape }}" target="_blank" rel="noopener noreferrer">
+          {{ section.settings.whatsapp_button_label | escape }}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.support_note != blank or section.settings.brand_signature != blank or section.settings.brand_tagline != blank -%}
+        <div class="contact-page__signature">
+          {%- if section.settings.support_note != blank -%}
+            <p class="contact-page__support-note">{{ section.settings.support_note | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.brand_signature != blank -%}
+            <p class="contact-page__brand-signature">{{ section.settings.brand_signature | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.brand_tagline != blank -%}
+            <p class="contact-page__brand-tagline">{{ section.settings.brand_tagline | escape }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </aside>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.contact-form.name",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "t:sections.contact-form.settings.title.default",
+      "label": "t:sections.contact-form.settings.title.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        },
+        {
+          "value": "hxl",
+          "label": "t:sections.all.heading_size.options__4.label"
+        },
+        {
+          "value": "hxxl",
+          "label": "t:sections.all.heading_size.options__5.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "response_time",
+      "label": "Response time",
+      "default": "We usually reply within 24 hours on business days."
+    },
+    {
+      "type": "text",
+      "id": "consent_text",
+      "label": "Consent note",
+      "default": "By submitting, you agree to be contacted via email or phone for support."
+    },
+    {
+      "type": "header",
+      "content": "Direct contact details"
+    },
+    {
+      "type": "text",
+      "id": "contact_info_heading",
+      "label": "Heading",
+      "default": "Reach us directly"
+    },
+    {
+      "type": "text",
+      "id": "contact_info_text",
+      "label": "Text",
+      "default": "Use any of the following channels for quick support."
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email",
+      "default": "riyanc9714@gmail.com"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Display phone number",
+      "default": "+91 99047 09714"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp",
+      "label": "WhatsApp number with country code",
+      "default": "919904709714"
+    },
+    {
+      "type": "text",
+      "id": "location",
+      "label": "Location",
+      "default": "India"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_button_label",
+      "label": "WhatsApp button label",
+      "default": "Chat on WhatsApp"
+    },
+    {
+      "type": "textarea",
+      "id": "support_note",
+      "label": "Support note",
+      "default": "Our team is happy to help you with your queries and make your shopping experience smooth and beautiful."
+    },
+    {
+      "type": "text",
+      "id": "brand_signature",
+      "label": "Brand signature",
+      "default": "VEYZARA Global"
+    },
+    {
+      "type": "text",
+      "id": "brand_tagline",
+      "label": "Brand tagline",
+      "default": "Wear your mood. Own your style. ♡"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.contact-form.presets.name"
+    }
+  ]
+}
+{% endschema %}

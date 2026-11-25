@@ -1,0 +1,243 @@
+.contact-page .form__message {
+  align-items: flex-start;
+}
+
+.contact-page .icon-success {
+  margin-top: 0.2rem;
+}
+
+.contact-page__grid {
+  display: grid;
+  gap: 3.2rem;
+}
+
+.contact-page__panel {
+  min-width: 0;
+  padding: clamp(2.4rem, 4vw, 4.2rem);
+  border: 0.1rem solid rgba(var(--color-foreground), 0.14);
+  border-radius: 2.4rem;
+  background: rgba(var(--color-foreground), 0.025);
+  box-shadow: 0 2rem 4rem rgba(var(--color-foreground), 0.05);
+}
+
+.contact-page__heading {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.contact-page__intro {
+  margin: 1.2rem 0 3.2rem;
+  color: rgba(var(--color-foreground), 0.72);
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+.contact-page__field + .contact-page__field {
+  margin-top: 1.6rem;
+}
+
+.contact-page__input {
+  display: block;
+  width: 100%;
+  min-height: 6.4rem;
+  padding: 1.8rem 2.4rem;
+  border: 0.1rem solid rgb(var(--color-foreground));
+  border-radius: 3.2rem;
+  background: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  font: inherit;
+  font-size: 1.6rem;
+  box-shadow: none;
+}
+
+.contact-page__input::placeholder {
+  color: rgba(var(--color-foreground), 0.7);
+  opacity: 1;
+}
+
+.contact-page__input:focus-visible {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.7);
+  outline-offset: 0.2rem;
+}
+
+.contact-page__textarea {
+  min-height: 15.6rem;
+  resize: vertical;
+  border-radius: 2.4rem;
+}
+
+.contact-page__submit {
+  margin-top: 2.4rem;
+}
+
+.contact-page__submit-button {
+  width: 100%;
+  min-height: 6.2rem;
+  border-radius: 3.2rem;
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+.contact-page__consent {
+  margin: 2.2rem 0 0;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.contact-page__channels {
+  display: grid;
+  gap: 1.6rem;
+}
+
+.contact-page__channel {
+  display: grid;
+  grid-template-columns: 5.6rem minmax(0, 1fr);
+  align-items: center;
+  gap: 1.8rem;
+  min-height: 10.6rem;
+  padding: 2rem 2.2rem;
+  border: 0.1rem solid rgba(var(--color-foreground), 0.14);
+  border-radius: 1.8rem;
+  background: rgb(var(--color-background));
+}
+
+.contact-page__channel-icon {
+  display: inline-flex;
+  width: 5.6rem;
+  height: 5.6rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(var(--color-foreground), 0.06);
+}
+
+.contact-page__channel-icon svg {
+  width: 2.2rem;
+  height: 2.2rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.contact-page__channel-label {
+  margin: 0 0 0.8rem;
+  color: rgba(var(--color-foreground), 0.7);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.contact-page__channel a,
+.contact-page__channel-value {
+  margin: 0;
+  color: rgb(var(--color-foreground));
+  font-size: 1.6rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  text-underline-offset: 0.4rem;
+}
+
+.contact-page__whatsapp-button {
+  display: flex;
+  min-height: 6.2rem;
+  margin-top: 2.2rem;
+  align-items: center;
+  justify-content: center;
+  border: 0.1rem solid #48ad4d;
+  border-radius: 3.2rem;
+  color: rgb(var(--color-foreground));
+  font-size: 1.7rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.contact-page__whatsapp-button:hover {
+  background: #48ad4d;
+  color: #fff;
+}
+
+.contact-page__signature {
+  margin-top: 2.4rem;
+  padding-top: 2.2rem;
+  border-top: 0.1rem solid rgba(var(--color-foreground), 0.14);
+  text-align: center;
+}
+
+.contact-page__support-note {
+  max-width: 56rem;
+  margin: 0 auto 1.8rem;
+  color: rgba(var(--color-foreground), 0.72);
+  font-size: 1.4rem;
+  font-style: italic;
+  line-height: 1.65;
+}
+
+.contact-page__brand-signature {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.contact-page__brand-tagline {
+  margin: 0.6rem 0 0;
+  font-size: 1.3rem;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+@media screen and (min-width: 990px) {
+  .contact-page__grid {
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    align-items: stretch;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .contact-page__grid {
+    gap: 2rem;
+  }
+
+  .contact-page__panel {
+    padding: 2.2rem 1.8rem;
+    border-radius: 1.8rem;
+  }
+
+  .contact-page__intro {
+    margin-bottom: 2.4rem;
+    font-size: 1.4rem;
+  }
+
+  .contact-page__input {
+    min-height: 5.6rem;
+    padding: 1.5rem 1.8rem;
+  }
+
+  .contact-page__channel {
+    grid-template-columns: 4.8rem minmax(0, 1fr);
+    min-height: 9rem;
+    padding: 1.6rem;
+  }
+
+  .contact-page__channel-icon {
+    width: 4.8rem;
+    height: 4.8rem;
+  }
+
+  .contact-page__signature {
+    margin-top: 2rem;
+    padding-top: 1.8rem;
+  }
+
+  .contact-page__support-note {
+    font-size: 1.3rem;
+  }
+}

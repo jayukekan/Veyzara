@@ -1,0 +1,185 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "bt_whatsapp_GH77rW": {
+      "type": "BT-whatsapp",
+      "name": "KS - WhatsApp Chat",
+      "settings": {
+        "whatsapp_number": "919462817548",
+        "primary_color": "#25D366",
+        "secondary_color": "#095e54",
+        "bg_color": "#ece5dd",
+        "text_color": "#121212",
+        "btn_position": "right",
+        "btn_text": "Chat with us",
+        "show_btn_text": true,
+        "btn_z_index": "2",
+        "show_dialog": true,
+        "dialog_header_img": "shopify://shop_images/WhatsApp_Image_2026-11-07_at_1.53.19_PM-removebg-preview_02cdd10d-221c-4887-8b11-63d69d259ca9.png",
+        "dialog_name": "Veyzara",
+        "dialog_subtitle": "Typically replies within minutes.",
+        "dialog_msg": "<p>Hi there 👋<br/>How can I help you?</p>",
+        "dialog_input_label": "Type a message..."
+      }
+    },
+    "riyan_atelier_luxury_footer_v2_VVQghU": {
+      "type": "riyan-atelier-luxury-footer-v2",
+      "blocks": {
+        "menu_hkRibb": {
+          "type": "menu",
+          "settings": {
+            "heading": "Explore",
+            "menu": "main-menu"
+          }
+        },
+        "menu_EUL6et": {
+          "type": "menu",
+          "settings": {
+            "heading": "Customer Care",
+            "menu": "footer"
+          }
+        },
+        "contact_RjaMWn": {
+          "type": "contact",
+          "settings": {
+            "heading": "Here to Help",
+            "intro": "Questions about a style or an order? Reach out to us.",
+            "email": "veyzaraglobal@gmail.com",
+            "phone": "+91 9462817548",
+            "whatsapp": "919462817548"
+          }
+        }
+      },
+      "block_order": [
+        "menu_hkRibb",
+        "menu_EUL6et",
+        "contact_RjaMWn"
+      ],
+      "name": "Riyan Atelier Footer",
+      "settings": {
+        "logo_width": 210,
+        "brand_name": "VEYZARA GLOBAL",
+        "brand_eyebrow": "WEAR YOUR MOOD. OWN YOUR STYLE.",
+        "tagline": "SMOOTH, BEAUTIFUL, DISTINCTLY YOU",
+        "brand_description": "Discover expressive women's fashion from VEYZARA Global—beautiful styles created for every mood, moment and version of you.",
+        "instagram": "https://www.instagram.com/veyzaraglobal?psln=ZHk1cXdhZ3hidzQ5",
+        "facebook": "",
+        "pinterest": "",
+        "youtube": "",
+        "show_newsletter": true,
+        "newsletter_eyebrow": "THE VEYZARA EDIT",
+        "newsletter_title": "A Little Style in Your Inbox",
+        "newsletter_description": "Be first to discover new arrivals, edits and exclusive updates.",
+        "email_placeholder": "Enter your email address",
+        "newsletter_button": "Subscribe",
+        "newsletter_note": "New collections, beautiful details and style inspiration.",
+        "show_editorial_note": true,
+        "editorial_eyebrow": "THE VEYZARA PHILOSOPHY",
+        "editorial_quote": "Timeless pieces.\nBeautiful moments.",
+        "show_service_strip": false,
+        "service_one": "Thoughtful shopping",
+        "service_two": "Secure checkout",
+        "service_three": "Made for memorable moments",
+        "max_width": 1500,
+        "padding_top": 10,
+        "padding_bottom": 10,
+        "mobile_padding_top": 16,
+        "column_spacing": 40,
+        "brand_font_size": 30,
+        "newsletter_font_size": 30,
+        "newsletter_heading_color": "#ffffff",
+        "body_font_size": 14,
+        "menu_heading_size": 15,
+        "menu_link_size": 13,
+        "mobile_menu_link_size": 12,
+        "mobile_menu_heading_size": 12,
+        "heading_font_style": "serif",
+        "bg": "#591c27",
+        "surface": "#fffdf9",
+        "ink": "#ffffff",
+        "muted": "#ffffff",
+        "accent": "#ffffff",
+        "line": "#e8dad7",
+        "service_bg": "#421b27",
+        "input_bg": "#34141e",
+        "button_bg": "#e2b9a5",
+        "button_text": "#34141e",
+        "show_developer_credit": true,
+        "developer_credit_label": "Designed & Developed by",
+        "developer_credit_name": "Blueslag Technologies",
+        "developer_credit_url": "https://blueslag.com/",
+        "show_big_brand": true,
+        "show_policies": false,
+        "show_payments": false
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "image_qcgxtA": {
+          "type": "image",
+          "settings": {
+            "image_width": 160,
+            "alignment": ""
+          }
+        },
+        "link_list_7cfAxf": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Quick links",
+            "menu": ""
+          }
+        },
+        "link_list_yUnDc9": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Quick links",
+            "menu": "footer"
+          }
+        },
+        "brand_information_RDKJLd": {
+          "type": "brand_information",
+          "settings": {
+            "show_social": true
+          }
+        }
+      },
+      "block_order": [
+        "image_qcgxtA",
+        "link_list_7cfAxf",
+        "link_list_yUnDc9",
+        "brand_information_RDKJLd"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-2",
+        "newsletter_enable": true,
+        "newsletter_heading": "Subscribe to our emails",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "show_policy": true,
+        "margin_top": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "bt_whatsapp_GH77rW",
+    "riyan_atelier_luxury_footer_v2_VVQghU",
+    "footer"
+  ]
+}

@@ -1,0 +1,186 @@
+{% comment %}
+  Riyan Creation | Premium product variant picker
+  Preserves Dawn variant-selects and product-variant-options behavior.
+  Inputs: product, block, product_form_id
+{% endcomment %}
+
+{%- unless product.has_only_default_variant -%}
+  <variant-selects
+    id="variant-selects-{{ section.id }}"
+    class="ry-atelier-variants"
+    data-section="{{ section.id }}"
+    data-product-handle="{{ product.handle }}"
+    data-product-title="{{ product.title | escape }}"
+    data-product-id="{{ product.id }}"
+    data-currency-code="{{ cart.currency.iso_code }}"
+    {% # theme-check-disable %}
+    data-selected-price-amount="{{ product.selected_or_first_available_variant.price | default: 0 | money_amount | escape }}"
+    {% # theme-check-enable %}
+    {{ block.shopify_attributes }}
+  >
+    {%- for option in product.options_with_values -%}
+      {%- liquid
+        assign swatch_count = option.values | map: 'swatch' | compact | size
+        assign picker_type = block.settings.picker_type
+        if swatch_count > 0 and block.settings.swatch_shape != 'none'
+          if block.settings.picker_type == 'dropdown'
+            assign picker_type = 'swatch_dropdown'
+          else
+            assign picker_type = 'swatch'
+          endif
+        endif
+        assign option_name_downcase = option.name | downcase
+        assign is_size_option = false
+        if option_name_downcase contains 'size' or option_name_downcase contains 'taille'
+          assign is_size_option = true
+        endif
+      -%}
+
+      {%- if picker_type == 'swatch' -%}
+        <fieldset class="js product-form__input product-form__input--swatch ry-atelier-option">
+          <legend class="form__label ry-atelier-label">
+            <span>{{ option.name | escape }}</span>
+            <span class="ry-atelier-selected" data-selected-value>{{ option.selected_value }}</span>
+          </legend>
+          {% render 'product-variant-options', product: product, option: option, block: block, picker_type: picker_type %}
+        </fieldset>
+      {%- elsif picker_type == 'button' -%}
+        <fieldset class="js product-form__input product-form__input--pill ry-atelier-option{% if is_size_option %} ry-atelier-option--size{% endif %}">
+          <legend class="form__label ry-atelier-label">
+            <span>{% if is_size_option %}Choose your size{% else %}{{ option.name | escape }}{% endif %}</span>
+            <span class="ry-atelier-current">{{ option.selected_value | escape }}</span>
+          </legend>
+          <div class="ry-atelier-choices">
+            {% render 'product-variant-options', product: product, option: option, block: block, picker_type: picker_type %}
+          </div>
+        </fieldset>
+      {%- else -%}
+        <div class="product-form__input product-form__input--dropdown ry-atelier-option">
+          <label class="form__label ry-atelier-label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+            <span>{{ option.name | escape }}</span>
+          </label>
+          <div class="select ry-atelier-select">
+            {%- if picker_type == 'swatch_dropdown' -%}
+              <span data-selected-value class="dropdown-swatch">
+                {% render 'swatch', swatch: option.selected_value.swatch, shape: block.settings.swatch_shape %}
+              </span>
+            {%- endif -%}
+            <select
+              id="Option-{{ section.id }}-{{ forloop.index0 }}"
+              class="select__select"
+              name="options[{{ option.name | escape }}]"
+              form="{{ product_form_id }}"
+            >
+              {% render 'product-variant-options', product: product, option: option, block: block, picker_type: picker_type %}
+            </select>
+            <span class="svg-wrapper">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    <script type="application/json" data-selected-variant>
+      {{ product.selected_or_first_available_variant | json }}
+    </script>
+  </variant-selects>
+
+  <style>
+    /* Scoped to this product section, without modifying option radio names/values. */
+    #variant-selects-{{ section.id }} {
+      --ry-v-wine: #591c27;
+      --ry-v-gold: #b89472;
+      --ry-v-border: #e4d4ca;
+      --ry-v-ivory: #fcf8f5;
+      display: block;
+      width: 100%;
+      font-family: inherit;
+    }
+    #variant-selects-{{ section.id }} *,
+    #variant-selects-{{ section.id }} *::before,
+    #variant-selects-{{ section.id }} *::after { box-sizing: border-box; }
+    #variant-selects-{{ section.id }} .ry-atelier-option { min-width: 0; max-width: 100%; margin: 0 0 14px; padding: 0; }
+    #variant-selects-{{ section.id }} .ry-atelier-label {
+      display: flex; align-items: baseline; flex-wrap: wrap; gap: 9px;
+      width: 100%; margin: 0 0 11px; padding: 0;
+      color: var(--ry-v-wine); font-size: 13px; font-weight: 700;
+      letter-spacing: .15px; line-height: 1.4;
+    }
+    #variant-selects-{{ section.id }} .ry-atelier-current,
+    #variant-selects-{{ section.id }} .ry-atelier-selected {
+      color: #907a70; font-size: 11px; font-weight: 500;
+    }
+    #variant-selects-{{ section.id }} .ry-atelier-current:before { content: '—'; padding-right: 8px; color: var(--ry-v-gold); }
+    #variant-selects-{{ section.id }} .ry-atelier-choices {
+      display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+    }
+    #variant-selects-{{ section.id }} .product-form__input--pill .ry-atelier-choices > input[type='radio'] {
+      position: absolute; width: 1px; height: 1px; opacity: 0;
+    }
+    #variant-selects-{{ section.id }} .product-form__input--pill .ry-atelier-choices > input[type='radio'] + label {
+      display: inline-flex !important; align-items: center; justify-content: center;
+      min-width: 47px; min-height: 43px; margin: 0 !important;
+      padding: 9px 13px !important; flex: 0 0 auto;
+      border: 1px solid var(--ry-v-border) !important;
+      border-radius: 7px !important; background: #fff !important;
+      color: #573f43 !important; font-size: 12px !important;
+      font-family: inherit; font-weight: 650 !important; line-height: 1.2;
+      letter-spacing: .15px; cursor: pointer;
+      box-shadow: none !important; text-decoration: none;
+      transition: border-color .22s ease, background-color .22s ease, color .22s ease, transform .22s ease, box-shadow .22s ease;
+    }
+    #variant-selects-{{ section.id }} .product-form__input--pill .ry-atelier-choices > input[type='radio']:not(:disabled) + label:hover {
+      background: var(--ry-v-ivory) !important;
+      border-color: var(--ry-v-gold) !important;
+      transform: translateY(-1px);
+    }
+    #variant-selects-{{ section.id }} .product-form__input--pill .ry-atelier-choices > input[type='radio']:checked + label {
+      border-color: var(--ry-v-wine) !important;
+      background: var(--ry-v-wine) !important;
+      color: #fff !important;
+      box-shadow: 0 4px 11px rgba(89,28,39,.14) !important;
+    }
+    #variant-selects-{{ section.id }} .product-form__input--pill .ry-atelier-choices > input[type='radio']:focus-visible + label {
+      outline: 2px solid var(--ry-v-gold) !important; outline-offset: 3px;
+    }
+    #variant-selects-{{ section.id }} .product-form__input--pill .ry-atelier-choices > input[type='radio']:disabled + label {
+      opacity: .46; cursor: not-allowed; box-shadow: none !important;
+    }
+    /* Dawn may mark unavailable variants using a CSS class rather than disabling the input. */
+    #variant-selects-{{ section.id }} .ry-atelier-choices > label.disabled { opacity: .5; }
+    #variant-selects-{{ section.id }} .ry-atelier-select { max-width: 100%; }
+    #variant-selects-{{ section.id }} .ry-atelier-select .select__select {
+      min-height: 46px; border-radius: 7px; border: 1px solid var(--ry-v-border);
+      background: #fff; color: var(--ry-v-wine); font-size: 13px;
+    }
+    #variant-selects-{{ section.id }} .ry-atelier-select:before,
+    #variant-selects-{{ section.id }} .ry-atelier-select:after { box-shadow: none; }
+    @media(max-width:749px) {
+      #variant-selects-{{ section.id }} .ry-atelier-choices { gap: 6px; }
+      #variant-selects-{{ section.id }} .product-form__input--pill .ry-atelier-choices > input[type='radio'] + label {
+        min-width: 43px; min-height: 40px; padding: 8px 10px !important; font-size: 11px !important;
+      }
+      #variant-selects-{{ section.id }} .ry-atelier-label { font-size: 12px; margin-bottom: 9px; }
+    }
+    @media(prefers-reduced-motion:reduce) {
+      #variant-selects-{{ section.id }} .product-form__input--pill .ry-atelier-choices > input[type='radio'] + label { transition: none; }
+      #variant-selects-{{ section.id }} .product-form__input--pill .ry-atelier-choices > input[type='radio'] + label:hover { transform: none; }
+    }
+  </style>
+
+  <script>
+    (function () {
+      var root = document.getElementById('variant-selects-{{ section.id }}');
+      if (!root || root.dataset.rySelectionBound === 'true') return;
+      root.dataset.rySelectionBound = 'true';
+      function updateSelectedLabels() {
+        root.querySelectorAll('.ry-atelier-option--size').forEach(function(fieldset) {
+          var selected = fieldset.querySelector('input[type="radio"]:checked');
+          var display = fieldset.querySelector('.ry-atelier-current');
+          if (selected && display) display.textContent = selected.value;
+        });
+      }
+      root.addEventListener('change', updateSelectedLabels);
+      updateSelectedLabels();
+    })();
+  </script>
+{%- endunless -%}

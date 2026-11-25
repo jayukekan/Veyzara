@@ -1,0 +1,648 @@
+{% comment %}
+  RIYAN CREATION | COUTURE CIRCLE CATEGORIES
+  Standalone OS 2.0 section. Add as sections/riyan-couture-circle-categories.liquid
+  Works on collection templates and elsewhere; all categories are editable blocks.
+{% endcomment %}
+{%- liquid
+  assign s = section.settings
+-%}
+<style>
+  #shopify-section-{{ section.id }} .rycat,
+  #shopify-section-{{ section.id }} .rycat * { box-sizing: border-box; }
+  #shopify-section-{{ section.id }} .rycat {
+    --ry-bg: {{ s.bg }};
+    --ry-ink: {{ s.ink }};
+    --ry-subtle: {{ s.muted }};
+    --ry-accent: {{ s.accent }};
+    --ry-ring: {{ s.ring }};
+    --ry-circle: {{ s.circle_size }}px;
+    --ry-visible: {{ s.desktop_visible }};
+    --ry-gap: {{ s.gap }}px;
+    background: var(--ry-bg);
+    color: var(--ry-ink);
+    padding: {{ s.padding_top }}px 0 {{ s.padding_bottom }}px;
+    overflow: hidden;
+  }
+  #shopify-section-{{ section.id }} .rycat__wrap {
+    width: 100%; max-width: {% if s.full_width %}none{% else %}{{ s.max_width }}px{% endif %}; margin-inline: auto;
+    padding-inline: clamp(16px, {{ s.side_padding }}vw, 72px);
+  }
+  #shopify-section-{{ section.id }} .rycat__head {
+    display: flex; align-items: end; justify-content: space-between;
+    gap: 20px; margin-bottom: {{ s.heading_gap }}px; {% if s.center_heading %}flex-direction:column;align-items:center;text-align:center;{% endif %}
+  }
+  #shopify-section-{{ section.id }} .rycat__eyebrow {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    font: 600 10px/1.3 var(--font-body-family); letter-spacing: .22em;
+    text-transform: uppercase; color: var(--ry-accent);
+  }
+  #shopify-section-{{ section.id }} .rycat__eyebrow:before {
+    content: ''; display: block; width: 23px; height: 1px; background: currentColor;
+  }
+  #shopify-section-{{ section.id }} .rycat__title {
+    margin: 0; font-family: {% if s.serif %}Georgia, 'Times New Roman', serif{% else %}var(--font-heading-family){% endif %};
+    font-size: {{ s.title_size }}px; font-weight: 400; line-height: 1.14;
+    letter-spacing: -.035em; color: var(--ry-ink);
+  }
+  #shopify-section-{{ section.id }} .rycat__description {
+    margin: 11px 0 0; font: 400 13px/1.7 var(--font-body-family);
+    color: var(--ry-subtle); max-width: 510px;
+  }
+  #shopify-section-{{ section.id }} .rycat__controls { display: flex; gap: 9px; flex-shrink: 0; }
+  #shopify-section-{{ section.id }} .rycat__arrow {
+    display: grid; place-items: center; width: 39px; height: 39px;
+    border: {{ s.ring_width }}px solid var(--ry-ring); border-radius: 50%;
+    background: transparent; color: var(--ry-ink); cursor: pointer;
+    transition: background .2s, color .2s, border-color .2s;
+  }
+  #shopify-section-{{ section.id }} .rycat__arrow:hover:not(:disabled) {
+    color: var(--ry-bg); background: var(--ry-ink); border-color: var(--ry-ink);
+  }
+  #shopify-section-{{ section.id }} .rycat__arrow:disabled { opacity: .28; cursor: default; }
+  #shopify-section-{{ section.id }} .rycat__arrow svg { width: 17px; height: 17px; }
+  #shopify-section-{{ section.id }} .rycat__track {
+    display: flex; gap: var(--ry-gap); overflow-x: auto; overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none;
+    -webkit-overflow-scrolling: touch; padding: 6px 2px 18px;
+  }
+  #shopify-section-{{ section.id }} .rycat__track::-webkit-scrollbar { display: none; }
+  #shopify-section-{{ section.id }} .rycat__item {
+    flex: 0 0 calc((100% - (var(--ry-visible) - 1) * var(--ry-gap)) / var(--ry-visible)); width: calc((100% - (var(--ry-visible) - 1) * var(--ry-gap)) / var(--ry-visible)); min-width: 0;
+    scroll-snap-align: start; text-align: center;
+  }
+  #shopify-section-{{ section.id }} .rycat__link {
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    text-decoration: none; color: inherit; outline-offset: 5px;
+  }
+  #shopify-section-{{ section.id }} .rycat__frame {
+    display: block; width: min(100%, var(--ry-circle)); aspect-ratio: 1; flex-shrink:0; padding: {{ s.ring_gap }}px;
+    border: {{ s.ring_width }}px solid var(--ry-ring); border-radius: 50%;
+    background: {{ s.frame_bg }}; transition: border-color .25s, transform .35s;
+  }
+  #shopify-section-{{ section.id }} .rycat__photo {
+    display: block; overflow: hidden; border-radius: 50%; width: 100%; height: 100%;
+    background: {{ s.image_bg }}; position: relative;
+  }
+  #shopify-section-{{ section.id }} .rycat__img {
+    display: block; width: 100%; height: 100%; object-fit: {{ s.fit }};
+    transition: transform .55s cubic-bezier(.2,.7,.2,1);
+  }
+  #shopify-section-{{ section.id }} .rycat__placeholder {
+    width: 100%; height: 100%; display: grid; place-items: center;
+    color: var(--ry-accent); font-size: 12px; letter-spacing: .05em;
+  }
+  #shopify-section-{{ section.id }} .rycat__placeholder svg { width: 65%; opacity: .35; }
+  #shopify-section-{{ section.id }} .rycat__name {
+    max-width: 100%; font-family: {% if s.label_serif %}Georgia, serif{% else %}var(--font-body-family){% endif %}; font-size: {{ s.label_size }}px;
+    line-height: 1.45; font-weight: 500; letter-spacing: .025em;
+    color: var(--ry-ink); overflow-wrap: anywhere;
+  }
+  #shopify-section-{{ section.id }} .rycat__note {
+    font: 400 10px/1.4 var(--font-body-family); letter-spacing: .07em;
+    text-transform: uppercase; color: var(--ry-subtle); margin-top: -7px;
+  }
+  #shopify-section-{{ section.id }} .rycat__link[aria-current="page"] .rycat__frame { border-color: var(--ry-accent); box-shadow: 0 0 0 3px var(--ry-bg), 0 0 0 5px var(--ry-accent); }
+  @media (hover: hover) {
+    #shopify-section-{{ section.id }} .rycat__link:hover .rycat__img { transform: scale(1.075); }
+    #shopify-section-{{ section.id }} .rycat__link:hover .rycat__frame { border-color: var(--ry-accent); transform: translateY(-3px); }
+  }
+  {% if s.center_when_few %}
+    @media(min-width: 750px) { #shopify-section-{{ section.id }} .rycat__track[data-fits="true"] { justify-content: center; } }
+  {% endif %}
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .rycat {
+      --ry-circle: {{ s.mobile_circle_size }}px;
+      --ry-mobile-visible: {{ s.mobile_visible }};
+      --ry-gap: {{ s.mobile_gap }}px;
+      padding: {{ s.mobile_padding_top }}px 0 {{ s.mobile_padding_bottom }}px;
+    }
+    #shopify-section-{{ section.id }} .rycat__wrap { padding-inline: 16px; }
+    #shopify-section-{{ section.id }} .rycat__head { margin-bottom: 22px; align-items: center; }
+    #shopify-section-{{ section.id }} .rycat__title { font-size: {{ s.mobile_title_size }}px; }
+    #shopify-section-{{ section.id }} .rycat__description { font-size: 12px; }
+    #shopify-section-{{ section.id }} .rycat__eyebrow { font-size: 9px; margin-bottom: 9px; }
+    #shopify-section-{{ section.id }} .rycat__controls { {% if s.mobile_arrows %}display: flex{% else %}display: none{% endif %}; }
+    #shopify-section-{{ section.id }} .rycat__arrow { width: 32px; height: 32px; }
+    #shopify-section-{{ section.id }} .rycat__item { flex-basis: calc((100% - (var(--ry-mobile-visible) - 1) * var(--ry-gap)) / var(--ry-mobile-visible)); width: calc((100% - (var(--ry-mobile-visible) - 1) * var(--ry-gap)) / var(--ry-mobile-visible)); }
+    #shopify-section-{{ section.id }} .rycat__link { gap: 9px; }
+    #shopify-section-{{ section.id }} .rycat__name { font-size: {{ s.mobile_label_size }}px; }
+    #shopify-section-{{ section.id }} .rycat__track { justify-content: flex-start; }
+     #shopify-section-{{ section.id }} .rycat__head { {% if s.center_heading %}align-items:center;text-align:center;{% endif %} }
+     #shopify-section-{{ section.id }} .rycat__controls { {% if s.center_heading %}align-self:center;{% endif %} }
+  }
+  #shopify-section-{{ section.id }} .rycat__progress {height:2px;background:var(--ry-ring);margin-top:5px;overflow:hidden;{% unless s.show_progress %}display:none{% endunless %}}
+  #shopify-section-{{ section.id }} .rycat__progress-line {height:100%;width:100%;background:var(--ry-accent);transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
+  #shopify-section-{{ section.id }} .rycat__link:focus-visible {outline:2px solid var(--ry-accent);outline-offset:5px;border-radius:8px}
+  #shopify-section-{{ section.id }} .rycat__item {position:relative}
+  #shopify-section-{{ section.id }} .rycat__link[aria-current="page"] .rycat__name {color:var(--ry-accent);font-weight:700}
+  @media(min-width:750px) and (max-width:1100px){#shopify-section-{{ section.id }} .rycat {--ry-visible:5}}
+  @media(max-width:749px){#shopify-section-{{ section.id }} .rycat__progress {margin-top:0}#shopify-section-{{ section.id }} .rycat__track {scroll-padding-inline:2px}}
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .rycat__track { scroll-behavior: auto; }
+    #shopify-section-{{ section.id }} .rycat__img,
+    #shopify-section-{{ section.id }} .rycat__frame { transition: none; }
+  }
+</style>
+
+<section class="rycat" aria-label="{{ s.title | default: 'Shop by category' | escape }}">
+  <div class="rycat__wrap">
+    {% if s.title != blank or s.eyebrow != blank or s.description != blank %}
+      <div class="rycat__head">
+        <div>
+          {% if s.eyebrow != blank %}<div class="rycat__eyebrow">{{ s.eyebrow | escape }}</div>{% endif %}
+          {% if s.title != blank %}<h2 class="rycat__title">{{ s.title | escape }}</h2>{% endif %}
+          {% if s.description != blank %}<p class="rycat__description">{{ s.description | escape }}</p>{% endif %}
+        </div>
+        {% if s.arrows and section.blocks.size > 1 %}
+          <div class="rycat__controls">
+            <button type="button" class="rycat__arrow" data-ry-prev aria-label="Previous categories" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button type="button" class="rycat__arrow" data-ry-next aria-label="Next categories">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="rycat__track" data-ry-track aria-label="Category links">
+      {% for block in section.blocks %}
+        {% liquid
+          assign category = block.settings.collection
+          assign label = block.settings.label
+          if label == blank and category != blank
+            assign label = category.title
+          endif
+          if label == blank
+            assign label = 'Category'
+          endif
+          assign picture = block.settings.image
+          if picture == blank and category != blank
+            assign picture = category.image
+          endif
+          assign href = block.settings.link
+          if href == blank and category != blank
+            assign href = category.url
+          endif
+          if href == blank
+            assign href = '#'
+          endif
+          assign current_category = false
+          if category != blank and collection != blank and category.handle == collection.handle
+            assign current_category = true
+          endif
+        %}
+        <div class="rycat__item" {{ block.shopify_attributes }}>
+          <a class="rycat__link" href="{{ href }}" {% if current_category %}aria-current="page"{% endif %}>
+            <span class="rycat__frame">
+              <span class="rycat__photo">
+                {% if picture != blank %}
+                  <img class="rycat__img"
+                    src="{{ picture | image_url: width: 360 }}"
+                    srcset="{{ picture | image_url: width: 180 }} 180w, {{ picture | image_url: width: 280 }} 280w, {{ picture | image_url: width: 360 }} 360w, {{ picture | image_url: width: 520 }} 520w"
+                    sizes="(max-width: 749px) {{ s.mobile_circle_size }}px, {{ s.circle_size }}px"
+                    alt="{{ picture.alt | default: label | escape }}" width="{{ picture.width }}" height="{{ picture.height }}" loading="lazy">
+                {% else %}
+                  <span class="rycat__placeholder" aria-hidden="true">{{ 'collection-1' | placeholder_svg_tag }}</span>
+                {% endif %}
+              </span>
+            </span>
+            <span class="rycat__name">{{ label | escape }}</span>
+            {% if s.show_note and block.settings.note != blank %}<span class="rycat__note">{{ block.settings.note | escape }}</span>{% endif %}
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="rycat__progress" aria-hidden="true"><div class="rycat__progress-line" data-ry-progress></div></div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var root = document.getElementById('shopify-section-{{ section.id }}');
+    if (!root) return;
+    function init() {
+      var track = root.querySelector('[data-ry-track]');
+      if (!track || track.dataset.ryReady === '1') return;
+      track.dataset.ryReady = '1';
+      var prev = root.querySelector('[data-ry-prev]');
+      var next = root.querySelector('[data-ry-next]');
+      var progress = root.querySelector('[data-ry-progress]');
+      var update = function () {
+        if (prev) prev.disabled = track.scrollLeft <= 2;
+        track.dataset.fits = track.scrollWidth <= track.clientWidth + 3 ? "true" : "false";
+        if (progress) { var range = Math.max(0, track.scrollWidth - track.clientWidth); progress.style.transform = "scaleX(" + (range ? Math.min(1, Math.max(0, (track.scrollLeft + track.clientWidth) / track.scrollWidth)) : 1) + ")"; }
+        if (next) next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+      };
+      var move = function (direction) {
+        var item = track.querySelector('.rycat__item');
+        var gap = parseFloat(getComputedStyle(track).gap) || 0;
+        var step = item ? item.getBoundingClientRect().width + gap : 180;
+        track.scrollBy({ left: step * direction * (window.matchMedia("(max-width: 749px)").matches ? 2 : {{ s.desktop_visible }}), behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      };
+      if (prev) prev.addEventListener('click', function () { move(-1); });
+      if (next) next.addEventListener('click', function () { move(1); });
+      track.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    }
+    init();
+    document.addEventListener('shopify:section:load', function (event) {
+      if (event.target === root || root.contains(event.target)) { var t = root.querySelector("[data-ry-track]"); if(t) delete t.dataset.ryReady; init(); }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Riyan Centered Circles",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "CURATED FOR YOU"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Explore by Style"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "checkbox",
+      "id": "serif",
+      "label": "Editorial serif heading",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Desktop title size",
+      "min": 24,
+      "max": 56,
+      "step": 1,
+      "unit": "px",
+      "default": 38
+    },
+    {
+      "type": "range",
+      "id": "mobile_title_size",
+      "label": "Mobile title size",
+      "min": 20,
+      "max": 38,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "header",
+      "content": "Category circles"
+    },
+    {
+      "type": "range",
+      "id": "desktop_visible",
+      "label": "Categories visible on desktop",
+      "min": 5,
+      "max": 8,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "circle_size",
+      "label": "Desktop circle size",
+      "min": 110,
+      "max": 230,
+      "step": 5,
+      "unit": "px",
+      "default": 180
+    },
+    {
+      "type": "select",
+      "id": "mobile_visible",
+      "label": "Categories visible on mobile",
+      "options": [
+        {
+          "value": "2",
+          "label": "2 categories"
+        },
+        {
+          "value": "3",
+          "label": "3 categories"
+        },
+        {
+          "value": "4",
+          "label": "4 categories"
+        }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "range",
+      "id": "mobile_circle_size",
+      "label": "Mobile circle size",
+      "min": 85,
+      "max": 165,
+      "step": 5,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Desktop gap",
+      "min": 8,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "label": "Mobile gap",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "ring_width",
+      "label": "Ring border width",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "ring_gap",
+      "label": "Ring inset",
+      "min": 0,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "default": 5
+    },
+    {
+      "type": "select",
+      "id": "fit",
+      "label": "Image display",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Fill circle"
+        },
+        {
+          "value": "contain",
+          "label": "Show full image"
+        }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "checkbox",
+      "id": "label_serif",
+      "label": "Editorial category labels",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "label": "Desktop label size",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "mobile_label_size",
+      "label": "Mobile label size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "show_note",
+      "label": "Show secondary label",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Slider controls"
+    },
+    {
+      "type": "checkbox",
+      "id": "arrows",
+      "label": "Show navigation arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_progress",
+      "label": "Show slim scroll progress",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_arrows",
+      "label": "Show arrows on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "center_when_few",
+      "label": "Center categories when space permits",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg",
+      "label": "Section background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "ink",
+      "label": "Text",
+      "default": "#321F25"
+    },
+    {
+      "type": "color",
+      "id": "muted",
+      "label": "Muted text",
+      "default": "#81777A"
+    },
+    {
+      "type": "color",
+      "id": "accent",
+      "label": "Accent",
+      "default": "#895B60"
+    },
+    {
+      "type": "color",
+      "id": "ring",
+      "label": "Circle border",
+      "default": "#E9DEDD"
+    },
+    {
+      "type": "color",
+      "id": "frame_bg",
+      "label": "Ring background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "image_bg",
+      "label": "Image background",
+      "default": "#F5F0EE"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Content max width",
+      "min": 1000,
+      "max": 1800,
+      "step": 20,
+      "unit": "px",
+      "default": 1440
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "default": 28
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Circle image override"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Custom category name"
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Secondary label",
+          "default": "Discover"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Custom link override"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Riyan Centered Circles",
+      "blocks": [
+        {
+          "type": "category"
+        },
+        {
+          "type": "category"
+        },
+        {
+          "type": "category"
+        },
+        {
+          "type": "category"
+        },
+        {
+          "type": "category"
+        },
+        {
+          "type": "category"
+        }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "templates": [
+      "collection",
+      "index",
+      "page"
+    ]
+  }
+}
+{% endschema %}
