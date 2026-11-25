@@ -96,13 +96,6 @@
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
           {%- endif -%}
-          {%- liquid
-            assign gokwik_buy_now_id = 'gokwik-buy-now'
-            unless template.name == 'product'
-              assign gokwik_buy_now_id = 'gokwik-buy-now-' | append: section_id
-            endunless
-          -%}
-          {%- render 'gokwik-buy-now', button_id: gokwik_buy_now_id -%}
         </div>
       {%- endform -%}
     </product-form>

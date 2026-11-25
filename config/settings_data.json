@@ -135,8 +135,8 @@
     "mid": "19034rau76vi",
     "envType": "production",
     "fbpixel": "8244012538953002",
-    "goEnable": true,
-    "goBuynowEnable": true,
+    "goEnable": false,
+    "goBuynowEnable": false,
     "enableIntlFlow": true,
     "sections": {
       "main-password-header": {
